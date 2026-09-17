@@ -10,7 +10,7 @@ _Last updated 16 Sep 2026._
 
 ## Pipeline (current stage in bold)
 1. Rough map: done. The island is a generated elevation field with all 23 sites placed and every check passing.
-2. Painted map: tried once (16 Sep 2026) and **kept only as a record** of how it didn't turn out as expected: symbol-sized buildings, invented features, no usable surface detail. It is not used downstream. It lives in §3 of the page (`maps/island-painted.jpg`, with scores measured before the terrain smoothing below).
+2. Orthographic top view: rendered in Blender (`Cam · top`, 2200 × 1600 px, 11,000 m ortho scale) showing the full built 3D scene at 1:1 pixel registration with the SVG map. Replaced the earlier decorative painted map in §3 (`renders/island-ortho.png`).
 3. Island blockout in Blender: terrain built (16 Sep 2026). `tools/blender_terrain.py` builds `blender/paxos.blend` (gitignored) straight from the heightmap. Checks are in `blender/terrain-checks.json` and §4 of the page.
 4. **Hero architecture: key buildings detailed to human scale (16 Sep 2026).**
    - Detailed: the Great Round (`blender_round.py`, with the user's verandah); the lighthouse and quays, banquet house, agora and stoa, coastal watchtowers, headland city and citadel (`blender_arch.py` components); and doors and windows on every house.

@@ -623,6 +623,9 @@ def main():
         close = cam_at("Cam · olive groves above hamlet A", (hAX_, hAY_, ground.z(hAX_, hAY_)), (-230, -150), 55, lens=30)
         for key, cam in (("overview", ctx["cams"]["overview"]), ("parliament", cams["parliament"]), ("plain", cams["granaries"]), ("groves", close)):
             bt.render(scene, cam, bt.RENDERS / f"nature-{key}.png", (1600, 900))
+        top_cam = ctx["cams"]["top"]
+        top_cam.data.ortho_scale = 11000
+        bt.render(scene, top_cam, bt.RENDERS / "island-ortho.png", (2200, 1600))
         scene.camera = ctx["cams"]["overview"]
         bpy.ops.wm.save_as_mainfile(filepath=str(bt.OUT / "paxos.blend"), compress=True)
 

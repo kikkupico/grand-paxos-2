@@ -210,7 +210,7 @@ def build():
     sun.rotation_euler = (0.95, 0.0, -1.17)                                     # ~35° high, from the west-south-west
     look_c.objects.link(sun)
     cams = {"overview": camera("Cam · overview from the south-west", (-7500, -9500, 5200), (400, 300, 0), look_c, lens=30),
-            "top": camera("Cam · top", (0, 0, 15000), (0, 0.01, 0), look_c, ortho=11200),
+            "top": camera("Cam · top", (0, 0, 15000), (0, 0.01, 0), look_c, ortho=11000),
             "col": camera("Cam · the Round's col from over the harbour", (1900, 1700, 520), (-130, -140, 150), look_c, lens=32)}
     scene.camera = cams["overview"]
     for scr in bpy.data.screens:

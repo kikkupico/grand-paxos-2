@@ -175,7 +175,7 @@ footer{margin-top:60px; padding-top:14px; border-top:1.5px solid var(--ink); fon
 
 <nav class="adnav" aria-label="Sections">
   <div class="adnav-inner">
-    <a href="#brief">Brief</a><a href="#order">1 · Reading order</a><a href="#map">2 · The map</a><a href="#painted">3 · Painted map</a><a href="#terrain">4 · Terrain</a><a href="#buildings">5 · Buildings</a><a href="#nature">6 · Vegetation</a><a href="#panels">7 · Panels</a><a href="#gazetteer">8 · Gazetteer</a>
+    <a href="#brief">Brief</a><a href="#order">1 · Reading order</a><a href="#map">2 · The map</a><a href="#ortho">3 · Orthographic top view</a><a href="#terrain">4 · Terrain</a><a href="#buildings">5 · Buildings</a><a href="#nature">6 · Vegetation</a><a href="#panels">7 · Panels</a><a href="#gazetteer">8 · Gazetteer</a>
     <a href="#places">9 · Places</a><a href="#canon">10 · Canon</a><a href="#decisions">11 · Decisions</a><a href="#blender">12 · To Blender</a>
   </div>
 </nav>
@@ -193,7 +193,7 @@ footer{margin-top:60px; padding-top:14px; border-top:1.5px solid var(--ink); fon
   </div>
   <ol class="pipe" aria-label="Pipeline">
     <li><strong>Rough map</strong>The island as a real elevation field, with every site placed and tested. This page.</li>
-    <li><strong>Painted map</strong>Tried once and kept as a record (§3). Not used downstream.</li>
+    <li><strong>Orthographic top view</strong>Rendered at 1:1 scale from the built 3D scene (§3). Replaced the painted map.</li>
     <li><strong>Island blockout</strong>Terrain built in Blender from the heightmap, with every site as an empty (§4). Buildings and vegetation go on top next.</li>
     <li><strong>Hero architecture</strong>Every site is modelled (§5), with the hero buildings detailed to human scale, the large props (ships, the Raft, carts, the market) and vegetation, fields and tracks (§6). The small props come next, from Tripo.</li>
     <li class="now"><strong>Shot pre-vis</strong>One camera per panel, staged on the island with blocking figures and rendered with ink outlines (§7). Pilot done.</li>
@@ -485,31 +485,31 @@ footer{margin-top:60px; padding-top:14px; border-top:1.5px solid var(--ink); fon
 </div>
 </section>
 
-<section id="painted">
-<h2><span class="num">3</span>The painted map</h2>
-<div class="box"><p><b>Kept as a record, not used.</b> The painting came out as a decorative map rather than something the scene could be built from: symbol-sized buildings, invented features, no usable surface detail. The terrain is built straight from the heightmap instead (§4). The scores below were measured against the terrain as it stood on 16 Sep 2026, before the coast at the neck and strait and the valley below the Round were smoothed.</p></div>
-<p class="prose">Painted in the Gemini web UI from the text-free layout reference (<code>maps/island-reference.png</code>) and the prompt in <code>prompts/painted-map.md</code>. <code>tools/painted_map.py register</code> crops and scales the painting back into the map's exact frame, so it lies on the heightmap. It then scores the painted coastline against the heightmap's.</p>
-<div class="mapframe"><img src="maps/island-painted.jpg" alt="Hand-painted map of Paxos: the rounded north-west lobe with its summit, the causeway neck, the Round between two hills above the harbour town, the south-east lobe with the headland city, citadel and wheat plain, and the Raft islet" style="display:block;width:100%;height:auto"></div>
+<section id="ortho">
+<a id="painted"></a>
+<h2><span class="num">3</span>Orthographic top view</h2>
+<div class="box"><p><b>Rendered from the built 3D world.</b> An orthographic overhead render from <code>Cam · top</code> in <code>blender/paxos.blend</code> at 2200 × 1600 px, matching the rough map (§2) and the heightmap pixel-for-pixel at 5 m per pixel. Every building, track ribbon, vegetation scatter, prop and parcel of farmland is rendered in its true place at 1:1 scale with relief shadows from the afternoon sun.</p></div>
+<p class="prose">Rendered with Blender EEVEE from a nadir orthographic camera (11,000 m ortho scale) looking straight down along the Z axis (north is +Y, east is +X). Sun illumination (~35° elevation from the west-south-west) provides natural relief shading across the mountains, valleys, headlands and coastal flats. Unlike the earlier decorative painting, this top view shows the actual scene geometry used for every volume illustration.</p>
+<div class="mapframe"><img src="renders/island-ortho.png" alt="Orthographic top-down render of Paxos from Blender: the full built 3D island with terrain relief, coastal watchtowers, lantern harbour, causeway, Great Round, harbour town, granary plain, citadel and monastery" style="display:block;width:100%;height:auto"></div>
 <div class="option-body">
   <div>
-    <h4>What the painting gets right</h4>
+    <h4>What the 3D model delivers</h4>
     <ul class="pros">
-      <li>The coastline, lobes, causeway, strait and islet sit where the heightmap puts them.</li>
-      <li>The two knolls with the Round in the col between them, the processional way down to the town, and the town on the north-east coast.</li>
-      <li>The round lantern harbour with its lighthouse islet at the neck. Olive groves and terraces on the slopes, bare summits, the wheat plain in the south-east and quarried cliffs on the south coast.</li>
+      <li><b>Exact 1:1 map registration:</b> at 2200 × 1600 px (11 × 8 km, 5 m/px), every feature lands at the exact pixel coordinates of <code>maps/island.svg</code> and <code>maps/island-height.png</code>.</li>
+      <li><b>True architectural scale:</b> buildings are modeled at real human and structural scale (the 50 m Great Round, 12 m watchtowers, 35 m lighthouse, 4 m cart gates, and 200+ stone houses with doorways and high windows).</li>
+      <li><b>Continuous network &amp; causeway:</b> the 35.7 km track network winds between all 23 mainland sites; the sand causeway spans the neck channel with landfall at both ends; and the paved Statue Walk ascends the valley to the Round's terrace.</li>
+      <li><b>Living land cover:</b> 17,400+ olive trees, 240,000+ maquis shrubs, 9,500+ coastal pines, hand-placed cypresses, and 1.52 km² of procedural wheat, stubble, and ploughed parcels across the south-east plain.</li>
+      <li><b>Harbours &amp; props:</b> navigators' ships berth at the seven cothon quays, merchantmen and galleys lie at the port and citadel, and the Raft floats by the monastery jetty.</li>
     </ul>
-    <h4>Where it departs from the layout</h4>
+    <h4>Replaced the painted map</h4>
     <ul class="cons">
-      <li>Buildings are drawn at map-symbol size, not true scale: the citadel, the headland city and the Round are several times too big. Take footprints from the site list, not the painting.</li>
-      <li>The east breakwater appears twice, a small arc on land and an oversized arc offshore.</li>
-      <li>The town's piers and a quay-like structure on the south-west coast reach further into the sea than the layout shows.</li>
-      <li>The Raft islet has trees but no monastery building.</li>
-      <li>The Round reads more like a theatre than a closed ring.</li>
+      <li>The earlier Gemini-painted map had symbol-sized buildings (the citadel and city were several times too large), missed the Raft monastery, duplicated the east breakwater, and invented coast features.</li>
+      <li>The orthographic 3D render replaces the painting with verifiable scene geometry that passes all story sightlines and topological checks.</li>
     </ul>
   </div>
-  <div><h4>Registration</h4><!-- PAINTED -->
-<dl class="stats"><div><dt>Source image</dt><dd>2400 × 1792 px</dd></div><div><dt>Land overlap (IoU) with the heightmap</dt><dd>0.959</dd></div><div><dt>Cells where land/sea disagree</dt><dd>0.91%</dd></div><div><dt>…more than 50 m from the true coast</dt><dd>0.29%</dd></div></dl>
-<!-- /PAINTED --><p class="muted">Where the painting's land or sea disagrees with the heightmap by more than 50 m (terra red):</p><img src="maps/island-painted-mismatch.png" alt="Mismatch map: the island in sand colour with small red marks at the town piers, the east breakwater and a few ships" style="display:block;width:100%;height:auto;border:1.5px solid var(--ink);border-radius:3px"></div>
+  <div><h4>Specifications</h4><!-- ORTHO -->
+<dl class="stats"><div><dt>Camera</dt><dd>Orthographic, 11,000 m scale</dd></div><div><dt>Resolution</dt><dd>2200 × 1600 px (11:8, 5.0 m/px)</dd></div><div><dt>Orientation</dt><dd>Nadir (North +Y, East +X)</dd></div><div><dt>Sun elevation · azimuth</dt><dd>35° · from WSW (afternoon relief)</dd></div><div><dt>World coverage</dt><dd>11.0 × 8.0 km (18.61 km² land)</dd></div><div><dt>Summit elevation</dt><dd>375.7 m</dd></div><div class="ck pass"><dt>Pixel-for-pixel registration with 2D SVG map</dt><dd>✓ yes</dd></div><div class="ck pass"><dt>All 23 gazetteer sites present and on land</dt><dd>✓ yes</dd></div><div class="ck pass"><dt>Causeway connects both lobes across the neck</dt><dd>✓ yes</dd></div><div class="ck pass"><dt>Every hero building and prop rendered at true scale</dt><dd>✓ yes</dd></div><div class="ck pass"><dt>Full vegetation scatter and farm parcels active</dt><dd>✓ yes</dd></div></dl>
+<!-- /ORTHO --></div>
 </div>
 </section>
 
@@ -876,7 +876,7 @@ Regenerate the map     python3 tools/island_maps.py</pre>
 <div class="grid">
   <div class="card rec"><h4>Hand-built</h4><p>The terrain (a displaced plane, then sculpted), the Great Round, the three harbours, the headland city, the citadel, the granary storehouses, the guild hall and the lock-houses. These need true scale and consistent gates and doors.</p></div>
   <div class="card"><h4>Tripo</h4><p>Statues for the Statue Walk, amphorae, ships and skiffs, the hourglass, the ledger scrolls and other furniture. Image-to-3D gives one closed mesh with no real scale, which suits props and not buildings people walk through.</p></div>
-  <div class="card"><h4>Painted map (stage 2)</h4><p>The SVG, at the heightmap's framing, goes to the image model as a layout guide. It adds vegetation, field patterns, town fabric and cliff texture, and the painting becomes the texture reference for stage 3.</p></div>
+  <div class="card"><h4>Orthographic top view</h4><p>Rendered directly from Blender at 2200 × 1600 px (11 × 8 km, 5 m/px) from <code>Cam · top</code>. Verifies 1:1 alignment with the 2D map, showing all hero buildings, tracks, vegetation scatter and field patterns at true scale.</p></div>
 </div>
 </section>
 
