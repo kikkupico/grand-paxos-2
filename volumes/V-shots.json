@@ -565,7 +565,8 @@
     }
    ],
    "lens_clear": false,
-   "centre_clear_m": 2.6
+   "centre_clear_m": 2.6,
+   "device": "GPU"
   }
  }
 }
