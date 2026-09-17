@@ -24,14 +24,6 @@
  "house_door_h_m": 2.1,
  "house_window_sill_m": 2.0,
  "temples": {
-  "oracle": {
-   "column_h_over_d": 5.5,
-   "axial_over_d": 2.4,
-   "step_riser_m": 0.29,
-   "door_h_m": 3.3,
-   "length_m": 13.0,
-   "width_m": 7.2
-  },
   "headland city": {
    "column_h_over_d": 5.5,
    "axial_over_d": 2.4,
@@ -56,7 +48,15 @@
   "gate_w_m": 4.0,
   "gate_h_m": 5.5
  },
- "oracle_cave_mouth_h_m": 5.0,
+ "watchtowers": {
+  "towers": 4,
+  "merlon_h_m": 2.0,
+  "crenel_w_m": 0.8,
+  "wall_walk_w_m": 1.2,
+  "door_h_m": 2.2,
+  "arrow_slit_h_m": 1.2,
+  "tower_h_m": 12.0
+ },
  "checks": {
   "seven_quays_each_see_the_lantern": true,
   "each_captains_post_sees_its_neighbour": true,
@@ -66,7 +66,7 @@
   "temple_steps_and_doors_at_human_scale": true,
   "citadel_merlons_cover_a_standing_soldier": true,
   "citadel_gate_takes_a_cart": true,
-  "oracle_cave_mouth_walk_in": true
+  "watchtower_parapets_cover_standing_guard": true
  },
  "ok": true
 }

@@ -52,7 +52,7 @@ def segment_distance(X, Y, pts):
 
 EXCLUDE_M = {"round": 45, "banquet": 26, "cothon": 285, "port": 120, "city": 135, "camps": 42, "citadel": 100, "seawall": 130,
              "granary": 48, "granary2": 40, "hall": 32, "locks": 16, "cliffs": 115, "monastery": 42, "hamA": 34, "hamK": 34, "hamM": 34,
-             "press": 22, "beacons": 10, "oracle": 36, "drummers": 12}
+             "press": 22, "beacons": 10, "watchtowers": 18, "drummers": 12}
 
 def tracks(smooth):
     """The track network and the Statue Walk as Blender-space polylines."""
@@ -194,7 +194,7 @@ def scatter(name, terrain, proto, attribute, per_m2, seed, scale, coll):
     return ob
 
 def cypress_rings(proto, coll):
-    """Hand-placed cypresses: around the oracle's enclosure, the banquet house garden and the monastery."""
+    """Hand-placed cypresses: around the watchtower headlands, the banquet house garden and the monastery."""
     placed = []
     def put(x, y, z, s=1.0):
         ob = bpy.data.objects.new("Cypress", proto.data); ob.location = (x, y, z); ob.scale = (s, s, s); coll.objects.link(ob); placed.append(ob)
@@ -228,10 +228,10 @@ def build(ctx, ground, smooth, sightlines, exclusions, prop_spots=()):
             "maquis": scatter("maquis", terrain, protos["maquis"], "veg_maquis", 1 / 38, 8, (.6, 1.6), top),
             "umbrella pines": scatter("umbrella pines", terrain, protos["pine"], "veg_pine", 1 / 320, 9, (.7, 1.2), top)}
     put, cypresses = cypress_rings(protos["cypress"], top)
-    OX, OY = site("oracle")
-    for a in np.linspace(0, math.tau, 10, endpoint=False):
-        if abs((a + math.pi) % math.tau - math.pi) < .35: continue                                    # the east gap stays open
-        x, y = OX + 38 * math.cos(a), OY + 38 * math.sin(a); put(x, y, ground.z(x, y))
+    for i in range(4):
+        wx, wy = site("watchtowers", i)
+        for dx, dy in ((-12, -8), (12, 8)):
+            put(wx + dx, wy + dy, ground.z(wx + dx, wy + dy), .85)
     BX, BY = site("banquet")
     for dx, dy in ((-18, -14), (-18, 14), (18, -14), (18, 14)): put(BX + dx, BY + dy, ground.z(BX + dx, BY + dy), .8)
     MX, MY = site("monastery")

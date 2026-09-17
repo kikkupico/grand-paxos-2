@@ -170,7 +170,7 @@ SITES = [  # num, key, name, volume, kind
     (3,  "hamM",      "Hamlet M",                      "1", "dot"),
     (4,  "press",     "Olive press",                   "1", "dot"),
     (5,  "beacons",   "Beacon headlands",              "1", "multi"),
-    (6,  "oracle",    "Oracle & cave",                 "2", "dot"),
+    (6,  "watchtowers", "Coastal watchtowers",          "2", "tower"),
     (7,  "city",      "Besieged headland city",        "3", "citadel"),
     (8,  "camps",     "Siege camps",                   "3", "multi"),
     (9,  "cothon",    "Lantern harbour (cothon)",      "4", "cothon"),
@@ -196,7 +196,7 @@ BANDS = [[1, 2, 3], [4], [5], [6], [7, 8, 9]]
 VOL_ROMAN = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "VIII", 9: "IX"}
 # what each site demands of the ground: (min m, max m, within-metres-of-sea or None)
 RULES = {"hamA": (40, 230, None), "hamK": (40, 230, None), "hamM": (40, 230, None), "press": (90, 300, None),
-         "citadel": (60, 240, 420), "oracle": (220, 999, None),
+         "citadel": (60, 240, 420), "watchtowers": (25, 220, 260),
          "town": (4, 50, 320), "round": (140, 270, None), "banquet": (90, 250, None),
          "granary": (5, 90, None), "granary2": (90, 240, None), "cliffs": (15, 220, 140), "locks": (60, 300, None),
          "monastery": (15, 180, None), "beacons": (15, 260, 260), "drummers": (15, 260, 260), "port": (1, 30, 200),
@@ -254,7 +254,7 @@ def island():
     sites = {                                                                    # one volume per site, walked NW -> SE
         "hamA": at(.0, 650), "hamK": at(.08, -1000), "hamM": at(.17, 700), "press": at(.05, 450),
         "beacons": [at(.15, 1150), at(.225, 1000)],                              # I: across the north-east bay
-        "oracle": at(.11, -560),                                                 # II
+        "watchtowers": [at(.04, 1000), at(.11, 750), at(.12, -1150), at(.05, -1350)], # II (North Bluff, East Cape, South Crag, West Point)
         "city": at(.155, -1450), "camps": [at(.13, -1050), at(.16, -1000), at(.18, -1100)], # III
         "drummers": [at(.285, 700), at(.335, 700)], "strait": bezier(cw, 3)[1],  # IV (the cothon is the hint below)
         "town": at(.535, 900), "port": PORT, "round": ROUND_COL, "banquet": at(.48, 300),       # V
@@ -383,10 +383,13 @@ def land_component(h, p):
     return seen
 
 # The track network: spurs to every mainland site, joined hub to hub in walking order. Hamlets hang off different
-# hubs (press, oracle, beacon) so no track runs straight from one hamlet to another. min_z 0.5 lets tracks use the causeway.
-TRACKS = [("hamA", "press"), ("press", "beacons:0"), ("press", "oracle"), ("oracle", "hamK"), ("hamM", "beacons:1"),
-          ("oracle", "city"), ("city", "camps:0"),
-          ("oracle", "cothon"), ("beacons:1", "cothon"), ("cothon", "strait"), ("strait", "drummers:0"), ("strait", "drummers:1"),
+# hubs (press, watchtowers, beacon) so no track runs straight from one hamlet to another. min_z 0.5 lets tracks use the causeway.
+TRACKS = [("hamA", "press"), ("press", "beacons:0"), ("press", "watchtowers:0"),
+          ("watchtowers:0", "watchtowers:1"), ("watchtowers:1", "watchtowers:2"),
+          ("watchtowers:2", "watchtowers:3"), ("watchtowers:3", "watchtowers:0"),
+          ("watchtowers:3", "hamK"), ("hamM", "beacons:1"),
+          ("watchtowers:2", "city"), ("city", "camps:0"),
+          ("watchtowers:1", "cothon"), ("beacons:1", "cothon"), ("cothon", "strait"), ("strait", "drummers:0"), ("strait", "drummers:1"),
           ("strait", "port"), ("port", "town"), ("round", "banquet"),
           ("town", "granary:0"), ("granary:0", "granary:1"), ("granary:1", "granary:2"), ("granary:0", "granary2"),
           ("granary2", "citadel"), ("citadel", "seawall"), ("granary2", "hall"), ("hall", "locks:0"), ("locks:0", "locks:4"), ("hall", "cliffs")]
@@ -549,7 +552,7 @@ def checks(h, loc, rules):
             "tracks_connect_every_mainland_site": tracks_connected(loc, [(a, b) for a, b, p in loc["_tracks"][0] if len(p) >= 2])[0],
             "tracks_unreachable": [f"{a}–{b}" for a, b, p in loc["_tracks"][0] if len(p) < 2],
             "tracks_hamlet_to_hamlet": [f"{a}–{b}" for a, b in TRACKS if a.startswith("ham") and b.startswith("ham")],
-            "causeway_joins_the_neck": bool(land_component(h, loc["oracle"])[int(loc["round"][1] / CELL), int(loc["round"][0] / CELL)]),
+            "causeway_joins_the_neck": bool(land_component(h, loc["watchtowers"][0])[int(loc["round"][1] / CELL), int(loc["round"][0] / CELL)]),
             "agora_on_dry_land": bool(agora_footprint(h, *town_layout(h, loc)[0][:2], math.radians(town_layout(h, loc)[0][2])).min() > 2),
             "cothon_open_to_sea": bool(open_water_reaches_edge(h, (loc["cothon"][0] + 100, loc["cothon"][1]))),   # start in the basin, not on the islet
             **({"monastery_detached": not land_component(h, loc["round"])[int(loc["monastery"][1] / CELL), int(loc["monastery"][0] / CELL)]}
@@ -705,7 +708,8 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
     for x, y, bdeg in blocks:
         S.append(f'<rect class="house" x="-4.4" y="-3" width="8.8" height="6" transform="translate({x / U:.1f} {y / U:.1f}) rotate({bdeg:.1f})"/>')
     # site symbols; number badges dodge symbols and each other
-    RAD = {"round": 20, "cothon": 34, "strait": 24, "citadel": 22, "cliff": 30, "port": 16, "harbour": 20, "hall": 12}
+    # site symbols; number badges dodge symbols and each other
+    RAD = {"round": 20, "cothon": 34, "strait": 24, "citadel": 22, "cliff": 30, "port": 16, "harbour": 20, "hall": 12, "tower": 12}
     marks = []
     for num, skey, name, vols, kind in site_list:
         if skey not in loc: continue
@@ -742,7 +746,29 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
             S.append(f'<circle class="sym-cothon" cx="{x:.1f}" cy="{y:.1f}" r="30"/><circle class="sym-cothon-isle" cx="{x:.1f}" cy="{y:.1f}" r="9"/>')
             for a in range(7):
                 ang = a * math.tau / 7 - math.pi / 2
-                S.append(f'<line class="sym-quay" x1="{x + 30 * math.cos(ang):.1f}" y1="{y + 30 * math.sin(ang):.1f}" x2="{x + 22 * math.cos(ang):.1f}" y2="{y + 22 * math.sin(ang):.1f}"/>')
+                q1x, q1y = x + 30 * math.cos(ang), y + 30 * math.sin(ang)
+                q2x, q2y = x + 22 * math.cos(ang), y + 22 * math.sin(ang)
+                S.append(f'<line class="sym-quay" x1="{q1x:.1f}" y1="{q1y:.1f}" x2="{q2x:.1f}" y2="{q2y:.1f}"/>')
+                # Navigators' ship moored alongside each quay, bow pointed inward toward the lantern
+                dx, dy = -math.cos(ang), -math.sin(ang)
+                nx, ny = -math.sin(ang), math.cos(ang)
+                sx, sy = x + 25.8 * math.cos(ang) + 2.0 * nx, y + 25.8 * math.sin(ang) + 2.0 * ny
+                bx, by = sx + 2.8 * dx, sy + 2.8 * dy
+                stx, sty = sx - 2.8 * dx, sy - 2.8 * dy
+                p1x, p1y = sx + 0.4 * dx + 1.0 * nx, sy + 0.4 * dy + 1.0 * ny
+                p2x, p2y = sx - 1.6 * dx + 0.7 * nx, sy - 1.6 * dy + 0.7 * ny
+                s1x, s1y = sx + 0.4 * dx - 1.0 * nx, sy + 0.4 * dy - 1.0 * ny
+                s2x, s2y = sx - 1.6 * dx - 0.7 * nx, sy - 1.6 * dy - 0.7 * ny
+                d_ship = f"M{bx:.1f} {by:.1f} Q{p1x:.1f} {p1y:.1f} {p2x:.1f} {p2y:.1f} L{stx:.1f} {sty:.1f} L{s2x:.1f} {s2y:.1f} Q{s1x:.1f} {s1y:.1f} Z"
+                S.append(f'<path class="sym-ship" d="{d_ship}"/>')
+        elif kind == "tower":
+            for tx, ty in pts:
+                px, py = tx / U, ty / U
+                if clean:
+                    S.append(f'<rect class="sym-bldg" x="{px - 4:.1f}" y="{py - 4:.1f}" width="8" height="8"/>')
+                else:
+                    S.append(f'<path class="sym-tower" d="M{px - 4.5:.1f} {py + 4.5:.1f}V{py - 2.5:.1f}H{px - 2.5:.1f}V{py - 4.5:.1f}H{px - 1:.1f}V{py - 2.5:.1f}H{px + 1:.1f}V{py - 4.5:.1f}H{px + 2.5:.1f}V{py - 2.5:.1f}H{px + 4.5:.1f}V{py + 4.5:.1f}Z"/>'
+                             f'<circle class="sym-tower-fire" cx="{px:.1f}" cy="{py:.1f}" r="1.5"/>')
         elif kind == "citadel":
             S.append(f'<path class="sym-citadel" d="M{x - 18:.1f} {y + 11:.1f}L{x - 18:.1f} {y - 7:.1f}L{x - 10:.1f} {y - 13:.1f}L{x + 10:.1f} {y - 13:.1f}L{x + 18:.1f} {y - 7:.1f}L{x + 18:.1f} {y + 11:.1f}Z"/>')
         elif kind == "port":
@@ -756,9 +782,10 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
         elif kind == "cliff":
             for k in range(-3, 4):
                 S.append(f'<line class="sym-cliff" x1="{x + k * 9:.1f}" y1="{y - 9:.1f}" x2="{x + k * 9 + 4:.1f}" y2="{y + 9:.1f}"/>')
-        for px, py in pts[(1 if kind in ("round", "cothon", "citadel", "strait", "cliff", "port", "harbour", "hall") else 0):]:
-            if clean: S.append(f'<rect class="sym-bldg" x="{px / U - 4:.1f}" y="{py / U - 3:.1f}" width="8" height="6"/>')
-            else: S.append(f'<circle class="sym-dot" cx="{px / U:.1f}" cy="{py / U:.1f}" r="7"/>')
+        if kind != "tower":
+            for px, py in pts[(1 if kind in ("round", "cothon", "citadel", "strait", "cliff", "port", "harbour", "hall") else 0):]:
+                if clean: S.append(f'<rect class="sym-bldg" x="{px / U - 4:.1f}" y="{py / U - 3:.1f}" width="8" height="6"/>')
+                else: S.append(f'<circle class="sym-dot" cx="{px / U:.1f}" cy="{py / U:.1f}" r="7"/>')
         if not clean:
             bx, by = badge_at(pts[0][0] / U, pts[0][1] / U, RAD.get(kind, 8), num); badges.append((bx, by))
             S.append(f'<g class="tag"><circle class="num-bg" cx="{bx:.1f}" cy="{by:.1f}" r="15"/>'
@@ -786,6 +813,7 @@ SVG_STYLE = """<style>
 .sym-cothon{fill:#7fb2c8;stroke:#1c1512;stroke-width:2.2}.sym-cothon-isle{fill:#f8f5ee;stroke:#1c1512;stroke-width:1.4}.sym-quay{stroke:#1c1512;stroke-width:2}
 .sym-citadel{fill:#8e2323;stroke:#1c1512;stroke-width:1.6}.sym-strait{fill:none;stroke:#8e2323;stroke-width:2.2;stroke-dasharray:4 3}
 .sym-cliff{stroke:#1c1512;stroke-width:2}.sym-port{fill:none;stroke:#1c1512;stroke-width:3.2;stroke-linecap:round}.sym-mole{fill:none;stroke:#1c1512;stroke-width:5;stroke-linecap:round}.sym-hall{fill:#f8f5ee;stroke:#1c1512;stroke-width:2.2}.sym-bldg{fill:#bf4a26;stroke:#1c1512;stroke-width:.8}.sym-dot{fill:#1c1512;stroke:#faf3e0;stroke-width:1.5}
+.sym-tower{fill:#1c1512;stroke:#faf3e0;stroke-width:1}.sym-tower-fire{fill:#e2822a}.sym-ship{fill:#1c1512;stroke:#faf3e0;stroke-width:.8}
 .zone{fill:#1c1512;fill-opacity:.2;font:700 italic 74px Optima,'Gill Sans',sans-serif;text-anchor:middle;dominant-baseline:middle}.num-bg{fill:#1c1512}.num{fill:#ffe36e;font:700 19px Optima,'Gill Sans',sans-serif;text-anchor:middle}
 .compass{fill:#1c1512}.compass-n,.scale-t{fill:#1c1512;font:700 22px Optima,'Gill Sans',sans-serif;text-anchor:middle}.scale-t.sm{font-size:17px;text-anchor:start;font-weight:400}
 .scale-bg{fill:#faf3e0;fill-opacity:.85;stroke:#1c1512;stroke-width:1}.scale{fill:none;stroke:#1c1512;stroke-width:2}.scale.st{stroke-width:4;stroke:#bf4a26}

@@ -318,7 +318,7 @@ def main():
     hamlets = [bs.hamlet(ground, M, key, f"Hamlet {key[-1]}", n) for n, key in enumerate(("hamA", "hamK", "hamM"))]
     press = bs.olive_press(ground, M)
     beacons, fires = bs.beacon_towers(ground, M)
-    oracle_k = bs.oracle(ground, M)
+    watchtowers_k = bs.watchtowers(ground, M)
     drums, decks = bs.drummers(ground, M)
     markers, n_markers = bs.causeway_markers(ground, M)
     agora = B(*SITES["built"]["town"]["agora_m_deg"][:2])
@@ -328,7 +328,7 @@ def main():
     monk, jetty_tip, jetty_geom = bs.monastery(ground, M, (RX, RY))
     guild_quay = guild_info.pop("quay")
     ground.commit()
-    site_objs = [hk.finish(colls["I"]) for hk, _ in hamlets] + [press.finish(colls["I"]), beacons.finish(colls["I"]), oracle_k.finish(colls["II"]),
+    site_objs = [hk.finish(colls["I"]) for hk, _ in hamlets] + [press.finish(colls["I"]), beacons.finish(colls["I"]), watchtowers_k.finish(colls["II"]),
                  drums.finish(colls["IV"]), markers.finish(colls["IV"]), walk.finish(colls["V"]), grans.finish(colls["VI"]),
                  guild.finish(colls["VIII"]), monk.finish(colls["IX"])]
     terrain = ctx["terrain"]
@@ -346,21 +346,21 @@ def main():
     prop_obs = [o for o in props if len(o.data.polygons)]
     tops = [t for _, t in hamlets]
     ham_seen = [f"{'AKM'[i]}–{'AKM'[j]}" for i in range(3) for j in range(i + 1, 3) if bs.clear_sight(terrain, tops[i], tops[j])]
-    OX, OY = site("oracle")
-    summit_near = max(ground.z(OX + r * math.cos(a), OY + r * math.sin(a), before=True) for r in range(0, 401, 25) for a in np.linspace(0, TAU, 24, endpoint=False))
+    summit_xy = B(2570, 1690); sz = ground.z(*summit_xy)
     lift = lambda p: (p[0], p[1], p[2] + 500)
-    OX_, OY_ = site("oracle"); oz = ground.z(OX_, OY_)
     rays_work = all(bs.clear_sight(terrain, lift(tops[i]), lift(tops[j])) for i in range(3) for j in range(i + 1, 3)) \
-        and not bs.clear_sight(terrain, (OX_ - 900, OY_, oz - 60), (OX_ + 900, OY_, oz - 60))       # self-test: clear 500 m up, blocked through the summit
+        and not bs.clear_sight(terrain, (summit_xy[0] - 900, summit_xy[1], sz - 60), (summit_xy[0] + 900, summit_xy[1], sz - 60))       # self-test: clear 500 m up, blocked through the summit
+    wt_pts = [site("watchtowers", i) for i in range(4)]
+    wt_on_headlands = all(ground.z(*p) >= 20 for p in wt_pts)
     sres = {"sightline_self_test": rays_work, "hamlet_rooftops_in_sight": ham_seen, "beacon_fires_in_sight": bs.clear_sight(terrain, *fires, extra=prop_obs),
             "drum_decks_in_sight": bs.clear_sight(terrain, *decks, extra=prop_obs), "granary_min_gap_m": gran_gap,
-            "oracle_below_local_summit_m": round(summit_near - ground.z(OX, OY, before=True), 1),
+            "watchtowers_on_coastal_headlands": wt_on_headlands, "watchtowers_count": len(wt_pts),
             "lock_houses": guild_info, "statue_walk": walk_info, "causeway_markers": n_markers, "monastery_jetty_tip_m": jetty_tip,
             "objects": len(site_objs), "faces": sum(len(o.data.polygons) for o in site_objs)}
     walk_outside = walk_info["closest_to_round_m"] - .75 >= br.TERRACE_R + .5 and walk_info["ends_before_gate_deg"] in (0, 90, 180, 270)   # slabs overrun each point by 0.75 m
     sres["statue_walk_stops_outside_the_round"] = walk_outside
     sres["ok"] = (walk_outside and rays_work and not ham_seen and sres["beacon_fires_in_sight"] and sres["drum_decks_in_sight"] and gran_gap >= 300
-                  and sres["oracle_below_local_summit_m"] <= 15 and guild_info["lock_ground_min_m"] > 1 and jetty_tip < -1)
+                  and wt_on_headlands and len(wt_pts) == 4 and guild_info["lock_ground_min_m"] > 1 and jetty_tip < -1)
     (bt.OUT / "sites-checks.json").write_text(json.dumps(sres, indent=1))
     print("SITES CHECKS", json.dumps(sres))
     bt.page_block("SITES",
@@ -376,7 +376,7 @@ def main():
                    ("Beacon fires in sight of each other", sres["beacon_fires_in_sight"]),
                    ("Drum platforms in sight across the strait", sres["drum_decks_in_sight"]),
                    ("Granary storehouses at least 300 m apart", gran_gap >= 300),
-                   (f"Oracle within 15 m of the local summit ({sres['oracle_below_local_summit_m']} m below)", sres["oracle_below_local_summit_m"] <= 15),
+                   ("Four coastal watchtowers on high headlands overlooking the sea", wt_on_headlands),
                    ("Lock-houses all on land", guild_info["lock_ground_min_m"] > 1),
                    ("Monastery jetty reaches water", jetty_tip < -1)])
 
@@ -455,12 +455,13 @@ def main():
     lx, ly, _ = lantern_info["lantern"]
     seen = [n for eye, n in lantern_info["posts"] if not blocked(eye, (lx, ly, 29.3), 4.2)]
     neighbours = all(not blocked(lantern_info["posts"][i][0], lantern_info["posts"][i + 1][0], .5) for i in range(6))
-    temples = {"oracle": bs.ORACLE_DETAIL["temple"], "headland city": city_temple, "citadel quorum hall": citadel_detail["hall"]}
+    temples = {"headland city": city_temple, "citadel quorum hall": citadel_detail["hall"]}
+    wt_detail = bs.WATCHTOWER_DETAIL
     hs = HOUSE_STATS
     dres = {"lantern_quays": lantern_info["quays"], "lantern_seen_from_posts": seen, "captains_see_neighbours": neighbours,
             "banquet": banquet_info, "houses": dict(hs), "house_door_h_m": DOOR_H, "house_window_sill_m": WINDOW_SILL,
             "temples": {k_: {kk: v for kk, v in t_.items() if kk not in ("front", "floor_z")} for k_, t_ in temples.items()},
-            "citadel": {k_: v for k_, v in citadel_detail.items() if k_ != "hall"}, "oracle_cave_mouth_h_m": bs.ORACLE_DETAIL["cave_mouth_h_m"]}
+            "citadel": {k_: v for k_, v in citadel_detail.items() if k_ != "hall"}, "watchtowers": wt_detail}
     dres["checks"] = {
         "seven_quays_each_see_the_lantern": lantern_info["quays"] == 7 and len(seen) == 7,
         "each_captains_post_sees_its_neighbour": neighbours,
@@ -470,7 +471,7 @@ def main():
         "temple_steps_and_doors_at_human_scale": all(t_["step_riser_m"] <= .4 and t_["door_h_m"] >= 2.2 for t_ in temples.values()),
         "citadel_merlons_cover_a_standing_soldier": citadel_detail["merlon_h_m"] >= 1.8 and .6 <= citadel_detail["crenel_w_m"] <= 1.0 and citadel_detail["wall_walk_w_m"] >= 2,
         "citadel_gate_takes_a_cart": citadel_detail["gate_w_m"] >= 3 and citadel_detail["gate_h_m"] >= 4,
-        "oracle_cave_mouth_walk_in": bs.ORACLE_DETAIL["cave_mouth_h_m"] >= 2.2}
+        "watchtower_parapets_cover_standing_guard": wt_detail["towers"] == 4 and wt_detail["merlon_h_m"] >= 1.8 and wt_detail["door_h_m"] >= 2.0}
     dres["ok"] = all(dres["checks"].values())
     (bt.OUT / "detail-checks.json").write_text(json.dumps(dres, indent=1, default=list))
     print("DETAIL CHECKS", json.dumps(dres["checks"]), "ok", dres["ok"])
@@ -490,7 +491,7 @@ def main():
                    ("Temple steps and doors at human scale", ck_["temple_steps_and_doors_at_human_scale"]),
                    ("Citadel merlons cover a standing soldier; wall-walk ≥ 2 m", ck_["citadel_merlons_cover_a_standing_soldier"]),
                    ("Citadel gate takes a cart (≥ 3 × 4 m)", ck_["citadel_gate_takes_a_cart"]),
-                   ("Oracle's cave mouth tall enough to walk in", ck_["oracle_cave_mouth_walk_in"])])
+                   ("Watchtower parapets cover standing guard (merlons ≥ 1.8 m, door ≥ 2.0 m)", ck_["watchtower_parapets_cover_standing_guard"])])
 
     # the large props (tools/blender_props.py): their own checks, plus the outbound merchantman seen from the Round
     out_ob = next(o for o in prop_obs if o.name == "V · The outbound merchantman")
@@ -561,7 +562,7 @@ def main():
             "city": cam_at("Cam · the headland city", (cityX, cityY, ground.z(cityX, cityY)), (-420, -420), 330),
             "citadel": cam_at("Cam · citadel and walled harbour", ((CitX + HSX) / 2, (CitY + HSY) / 2, 40), (650, -250), 380),
             "parliament": cam_at("Cam · the Parliament's lobe", (RX + 300, RY + 100, 120), (-1400, -1500), 900, lens=40)}
-    hAX, hAY = site("hamA"); OX2, OY2 = site("oracle"); stX, stY = site("strait"); HLX, HLY = site("hall"); MOX, MOY = site("monastery")
+    hAX, hAY = site("hamA"); WT2X, WT2Y = site("watchtowers", 2); stX, stY = site("strait"); HLX, HLY = site("hall"); MOX, MOY = site("monastery")
     gpts = [site("granary", i) for i in range(3)] + [site("granary2")]
     gcx, gcy = sum(p[0] for p in gpts) / 4, sum(p[1] for p in gpts) / 4
     cliffX, cliffY = site("cliffs"); s_cl = ground.seaward(cliffX, cliffY)
@@ -570,7 +571,7 @@ def main():
     zo = round_info["z_orch"]
     (p0x, p0y, p0z), _ = lantern_info["posts"][0]
     bdir = ((RX - BX) / math.hypot(RX - BX, RY - BY), (RY - BY) / math.hypot(RX - BX, RY - BY)); bz = ground.z(BX, BY)
-    OXd, OYd = site("oracle"); oz = ground.z(OXd, OYd)
+    WTd2X, WTd2Y = site("watchtowers", 2); wtz2 = ground.z(WTd2X, WTd2Y)
     CiX, CiY = site("citadel"); SwX, SwY = site("seawall"); cang = math.atan2(SwY - CiY, SwX - CiX)
     cP = lambda u, v: (CiX + u * math.cos(cang) - v * math.sin(cang), CiY + u * math.sin(cang) + v * math.cos(cang)); gzc = ground.z(*cP(65, 0))
     aX, aY = agora; adeg = math.radians(-SITES["built"]["town"]["agora_m_deg"][2])
@@ -579,7 +580,7 @@ def main():
     cams.update({
         "detail_lighthouse": bt.camera("Cam · the lighthouse from a captain's post", (p0x, p0y, p0z + 1), (lx, ly, 20), look, lens=35),
         "detail_banquet": bt.camera("Cam · the banquet house from the Round's side", (BX + bdir[0] * 34 - bdir[1] * 14, BY + bdir[1] * 34 + bdir[0] * 14, bz + 7), (BX, BY, bz + 3), look, lens=32),
-        "detail_oracle": bt.camera("Cam · the oracle's temple", (OXd + 30, OYd - 20, oz + 6), (OXd, OYd, oz + 4), look, lens=32),
+        "detail_watchtower": bt.camera("Cam · South Crag watchtower", (WTd2X + 26, WTd2Y - 18, wtz2 + 16), (WTd2X, WTd2Y, wtz2 + 9), look, lens=35),
         "detail_citadel": bt.camera("Cam · the citadel gate", (*cP(112, 22), gzc + 6), (*cP(65, 0), gzc + 8), look, lens=35),
         "detail_town": bt.camera("Cam · the agora and its stoa", (*tP(-55, -45), ground.z(aX, aY) + 16), (*tP(0, 12), ground.z(aX, aY) + 3), look, lens=30),
         "detail_city": bt.camera("Cam · the headland city's temple", (ctf[0] + 45, ctf[1] - 38, ground.z(*ctf) + 26), (ctf[0] - 8, ctf[1], ground.z(*ctf) + 6), look, lens=35),
@@ -590,7 +591,7 @@ def main():
         "round_statue": bt.camera("Cam · a legislator's statue", (RX + 36 * math.cos(.12), RY + 36 * math.sin(.12), rim + 2.6),
                                   (RX + 29.5 * math.cos(TAU / 24), RY + 29.5 * math.sin(TAU / 24), rim + 3.0), look, lens=50),
         "hamlet": cam_at("Cam · hamlet A", (hAX, hAY, ground.z(hAX, hAY)), (-150, -150), 95),
-        "oracle": cam_at("Cam · the oracle on the summit", (OX2, OY2, ground.z(OX2, OY2) - 20), (-240, -260), 170),
+        "watchtowers": cam_at("Cam · coastal watchtowers along the bluffs", (WT2X, WT2Y, ground.z(WT2X, WT2Y) - 10), (-260, -260), 190),
         "neck": cam_at("Cam · the neck: causeway and drummers", ((site("drummers", 0)[0] + site("drummers", 1)[0]) / 2, (site("drummers", 0)[1] + site("drummers", 1)[1]) / 2, 5), (-760, -700), 460, lens=28),
         "granaries": cam_at("Cam · the granary plain", (gcx, gcy, 40), (-900, -420), 620, lens=32),
         "guild": cam_at("Cam · the guild quarter and quarry", ((HLX + cliffX) / 2, (HLY + cliffY) / 2, 60), (s_cl[0] * 650 - 250, s_cl[1] * 650 - 150), 420, lens=28),

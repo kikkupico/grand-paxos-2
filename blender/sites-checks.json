@@ -4,7 +4,8 @@
  "beacon_fires_in_sight": true,
  "drum_decks_in_sight": true,
  "granary_min_gap_m": 513,
- "oracle_below_local_summit_m": 7.3,
+ "watchtowers_on_coastal_headlands": true,
+ "watchtowers_count": 4,
  "lock_houses": {
   "lock_spacing_m": [
    198,
@@ -36,7 +37,7 @@
  "causeway_markers": 16,
  "monastery_jetty_tip_m": -8.4,
  "objects": 12,
- "faces": 5877,
+ "faces": 5754,
  "statue_walk_stops_outside_the_round": true,
  "ok": true
 }

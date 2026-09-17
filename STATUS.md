@@ -13,7 +13,7 @@ _Last updated 16 Sep 2026._
 2. Painted map: tried once (16 Sep 2026) and **kept only as a record** of how it didn't turn out as expected: symbol-sized buildings, invented features, no usable surface detail. It is not used downstream. It lives in §3 of the page (`maps/island-painted.jpg`, with scores measured before the terrain smoothing below).
 3. Island blockout in Blender: terrain built (16 Sep 2026). `tools/blender_terrain.py` builds `blender/paxos.blend` (gitignored) straight from the heightmap. Checks are in `blender/terrain-checks.json` and §4 of the page.
 4. **Hero architecture: key buildings detailed to human scale (16 Sep 2026).**
-   - Detailed: the Great Round (`blender_round.py`, with the user's verandah); the lighthouse and quays, banquet house, agora and stoa, oracle temple, headland city and citadel (`blender_arch.py` components); and doors and windows on every house.
+   - Detailed: the Great Round (`blender_round.py`, with the user's verandah); the lighthouse and quays, banquet house, agora and stoa, coastal watchtowers, headland city and citadel (`blender_arch.py` components); and doors and windows on every house.
    - Large props, first pass (`blender_props.py`): ships in all three harbours and at the quarry quay, the Raft, amphorae, a crane, the agora's cheese stalls and goat pen, and ox carts.
    - All checks pass: `blender/{terrain,buildings,round,detail,sites,props,vegetation}-checks.json`, §4–6 of the page; panels in §7.
    - **Small props skipped for now (user, 16 Sep 2026):** the ledger scroll, hourglass, ink and so on are not modelled. The image references in `references/` (13 sheets for I, III and IV; see its README for where they disagree with the canon) serve as references when scene images are generated. Tripo stays available for props later; ask before any paid API call.
@@ -157,7 +157,7 @@ The sections are:
 - **Builders:**
   - `hamlet` ×3 and `olive_press`: pads, stone houses, a sundial each.
   - `beacon_towers`.
-  - `oracle`: a temple in a temenos on a pad; a rock crag with the cave mouth on the steepest side 70 m out; the shepherd's hut.
+  - `watchtowers`: four coastal watchtowers on headland bluffs with arrow-slits, parapet wall-walks, signal braziers, and the sleeping guard's table and bench at South Crag.
   - `drummers` and `causeway_markers`: posts along the crest of cells 0–3.5 m high near the strait, ordered by PCA.
   - `statue_walk`: see below.
   - `granaries`: buttressed storehouses turned along the contours.
@@ -170,7 +170,7 @@ The sections are:
   - Hamlet rooftops hidden from each other (rays through the terrain mesh).
   - Beacon fires and drum platforms in sight of their partners.
   - Granaries at least 300 m apart (513).
-  - The oracle within 15 m of the local summit (6.4).
+  - Four coastal watchtowers on headland bluffs above 20 m.
   - Lock-houses on land.
   - The monastery jetty reaches water (−8.4 m).
 - **Found on the way:** the first self-test's "blocked" ray ran underground, where no surface can block it, so it failed for the wrong reason. Smoothing the switchback path cut corners and raised the steepest grade until the bed was graded.
@@ -205,7 +205,7 @@ The sections are:
   - Lighthouse: podium with steps and door, tapering shaft with string courses and slits, gallery and parapet, 8-column lantern room, fire bowl with its flame at 28–29.6 m, bronze cone; top 35.4 m. The 7 quays have bollards, and each captain's post has a lamp post beside it.
   - Banquet house: steps, 4-column porch toward the Round, vestibule, peristyle garden with fountain, andron with 11 couches.
   - Agora and stoa: the generator now places the agora wholly on dry land (map check `agora_on_dry_land`). It had been 22% over the sea as a podium. Blender pads it level; the stoa has Doric columns and 6 shop doors.
-  - Oracle: temple 4 × 7 (d 0.8) facing east, with a gateway in the enclosure; the hut has a door.
+  - Watchtowers: four cylindrical stone towers (4.4 m radius, 12 m height) on headland bluffs with arrow-slits, 2 m parapet wall-walk with merlons, signal braziers, and the sleeping guard's table and bench at South Crag.
   - Headland city: crenellated walls and towers, temple 6 × 11 (d 0.9).
   - Citadel: crenellated walls and towers; gatehouse narrowed to 4 m with masonry to 13 m and a raised portcullis; keep with slits, door and merlons; quorum hall as temple 6 × 9 (d 0.9).
 - **Checks (`detail-checks.json`):**
@@ -214,8 +214,8 @@ The sections are:
   - House doors and windows at human scale.
   - Temple columns in Doric proportion; steps and doors at human scale.
   - Citadel merlons cover a standing soldier, crenels 0.6–1.0 m, wall-walk at least 2 m, gate at least 3 × 4 m.
-  - The oracle's cave mouth is walk-in height.
-- **Renders:** `renders/buildings-detail_{lighthouse,banquet,oracle,citadel,town,city}.png`. The full build and render takes about 2 minutes.
+  - Watchtower parapets cover standing guard (merlons ≥ 1.8 m, door ≥ 2.0 m).
+- **Renders:** `renders/buildings-detail_{lighthouse,banquet,watchtower,citadel,town,city}.png`. The full build and render takes about 2 minutes.
 
 ## Large props, first pass (`tools/blender_props.py`)
 - **Scope (16 Sep 2026):** the user asked for the larger props first, done crudely in Blender. The small ones (the hourglass, the ledger scroll and so on) go to Tripo in the next step. Only props the canon or gazetteer supports are built. Siege engines are not built, because the canon names only "palisaded siege camps with tents".
@@ -254,17 +254,17 @@ The sections are:
 - **Rough edges:** oxen and goats are boxes, sails are flat, and no ship is under oars. The cothon quays are 2.6 m high, so their gangplanks are at 25.8°.
 
 ## Vegetation, fields and tracks (`tools/blender_nature.py`)
-- **Track network (map generator):** `TRACKS` lists hub-to-hub links in walking order. Hamlets hang off different hubs (press, oracle, beacon), so no track runs hamlet to hamlet.
+- **Track network (map generator):** `TRACKS` lists hub-to-hub links in walking order. Hamlets hang off different hubs (press, watchtowers, beacon), so no track runs hamlet to hamlet.
   - Paths use `least_cost_path(slope_k=150, min_z=.5, passable=causeway corridor)`, which returns `[]` when a target is unreachable.
   - The cothon's site point is its islet, so tracks end on its quay ring. The strait point snaps to the causeway crest.
   - Exported as `built["tracks_m"]` and drawn on the 2D map in place of the old star from the town.
   - Map checks: `tracks_connect_every_mainland_site` counts only reachable tracks and fails when a link is removed; `tracks_unreachable`; `tracks_hamlet_to_hamlet`.
-- **Causeway regression found and fixed:** widening the neck channel's banks (for natural coasts) had made the gap longer than the causeway, so the neck wasn't joined. `island()` now walks out from the neck to find landfall at both ends. The new map check `causeway_joins_the_neck` (land flood fill from the oracle reaches the Round) is False on the previous heightmap and True now.
+- **Causeway regression found and fixed:** widening the neck channel's banks (for natural coasts) had made the gap longer than the causeway, so the neck wasn't joined. `island()` now walks out from the neck to find landfall at both ends. The new map check `causeway_joins_the_neck` (land flood fill from the watchtowers reaches the Round) is False on the previous heightmap and True now.
 - **Masks per terrain vertex**, stored as mesh attributes `veg_olive`, `veg_maquis`, `veg_pine`, `field`, `track`:
   - Inputs: elevation, slope, chamfer distance to the sea, distance to settlements, value noise.
   - Exclusions: `EXCLUDE_M` circles per site, town insulae, agora, within 7 m of tracks, one cell in from the coast.
   - Tall trees (olives, pines) are zeroed within 30 m of the story sightlines: Round to quays, Round to banquet house, the beacon pair, the drum pair. At 18 m, one tree slipped in through face interpolation.
-- **Scatter:** one Geometry Nodes object per species reads the terrain through Object Info, runs Distribute Points on Faces (density = attribute × per-m²) and Instance on Points with random rotation and scale. Low-poly prototypes sit at z = −3000. Cypresses are placed by hand at the oracle, the banquet house and the monastery. About 19k olives, 237k maquis, 9k pines, 25 cypresses.
+- **Scatter:** one Geometry Nodes object per species reads the terrain through Object Info, runs Distribute Points on Faces (density = attribute × per-m²) and Instance on Points with random rotation and scale. Low-poly prototypes sit at z = −3000. Cypresses are placed by hand at the banquet house, the monastery and the watchtower headlands. About 19k olives, 237k maquis, 9k pines, 24 cypresses.
 - **Terrain shader:** farmland parcels (95 × 62 m, rotated 0.6 rad) come from Position → Floor → White Noise → constant ramp, with hedge lines from Fraction, masked by `field`. The `track` attribute adds a dirt tint. Per-vertex parcels had rendered as blobs. Tracks are also draped ribbons (3.6 m, +0.22 m), about 28.7 km.
 - **Checks:** from the evaluated instances, no trees in water, no tall trees on building footprints (75% radius), and no tall trees within 8 m of the story sightlines.
 - **Renders:** `renders/nature-{overview,parliament,plain,groves}.png`. The full build and render takes about 1 minute.

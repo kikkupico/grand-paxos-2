@@ -1,5 +1,5 @@
 """The remaining sites, built on the terrain after the key buildings (called from blender_buildings.main):
-hamlets, olive press and beacon towers (I); the oracle sanctuary, cave and shepherd's hut (II); the drummers'
+hamlets, olive press and beacon towers (I); the four coastal watchtowers (II); the drummers'
 posts and causeway markers (III); the Statue Walk (IV); the granary storehouses (VI); the guild hall,
 lock-houses and ledger-cliff quarry (VIII); and the Raft monastery with its jetty (IX).
 
@@ -73,32 +73,65 @@ def beacon_towers(ground, M):
         fires.append((X, Y, g + 13))
     return k, fires
 
-# ---------------------------------------------------------------- II · Sleeping Shepherd
-ORACLE_DETAIL = {}
-def oracle(ground, M):
-    X, Y = site("oracle"); g = ground.z(X, Y)
-    ground.pad(X, Y, 20, g, 25)
-    k = Kit("II · Oracle sanctuary, cave and shepherd's hut")
-    k.ring(X, Y, 30, 30.8, g - 2, g + 2, M["fieldstone"], 64, math.radians(8), TAU - math.radians(8))   # temenos, open to the east
-    temple_info = ba.temple(k, M, ground, X, Y, 0.0, 4, .8, n_side=7)                              # facing east, toward the altar and the gap
-    for sd in (-1, 1): k.box(X + 30.4, Y + sd * 3.4, g - 1, g + 4.2, 1.2, 1.2, 0, M["fieldstone"])  # a simple gateway in the enclosure's gap
-    k.box(X + 30.4, Y, g + 4.2, g + 4.8, 1.4, 8.0, 0, M["fieldstone"])
-    k.box(X + 14, Y, g - .5, g + 1.2, 3, 1.6, 0, M["marble"])                                      # altar before the east front
-    down = min(np.linspace(0, TAU, 24, endpoint=False), key=lambda a: ground.z(X + 70 * math.cos(a), Y + 70 * math.sin(a)))
-    cx, cy = X + 70 * math.cos(down), Y + 70 * math.sin(down); cz = ground.z(cx, cy)               # the cave, in a crag on the steepest side
-    face = down + math.pi
-    rnd = random.Random(3)
-    for i in range(7):
-        ox, oy = rnd.uniform(-9, 9), rnd.uniform(-6, 6)
-        k.box(cx + ox, cy + oy, cz - 4, cz + rnd.uniform(6, 13), rnd.uniform(6, 11), rnd.uniform(5, 9), face + rnd.uniform(-.4, .4), M["rock"])
-    mx, my = cx - 6.2 * math.cos(face), cy - 6.2 * math.sin(face)
-    k.box(mx, my, cz - .5, cz + 4.5, .6, 4, face, M["cave"])
-    ORACLE_DETAIL.update({"temple": temple_info, "cave_mouth_h_m": 5.0})
-    hx, hy = X + 140 * math.cos(down + .7), Y + 140 * math.sin(down + .7)                          # the shepherd's hut and fold downslope
-    k.cyl(hx, hy, 3, ground.z(hx, hy) - 1, ground.z(hx, hy) + 2.4, M["fieldstone"], 16)
-    k.box(hx + 3.02 * math.cos(down + .7 + math.pi), hy + 3.02 * math.sin(down + .7 + math.pi), ground.z(hx, hy), ground.z(hx, hy) + 1.9, .1, .9, down + .7, ba.dark())
-    k.cone(hx, hy, 3.6, ground.z(hx, hy) + 2.4, ground.z(hx, hy) + 4.6, M["thatch"], 16)
-    k.ring(hx + 14, hy, 7, 7.5, ground.z(hx + 14, hy) - 1, ground.z(hx + 14, hy) + 1.2, M["fieldstone"], 28, .6, TAU - .2)
+# ---------------------------------------------------------------- II · The Curse of the Sleeping Guard
+WATCHTOWER_DETAIL = {}
+def watchtowers(ground, M):
+    k = Kit("II · Coastal watchtowers")
+    # Four coastal watchtowers:
+    # 0: North Bluff, 1: East Cape, 2: South Crag (sleeping guard), 3: West Point
+    for i in range(4):
+        X, Y = site("watchtowers", i); g = ground.z(X, Y)
+        ground.pad(X, Y, 10, g, 14)
+        # cylindrical stone tower base & walls
+        k.cyl(X, Y, 4.4, g - 1.5, g + 10.5, M["ashlar"], 24)
+        k.cyl(X, Y, 3.4, g + 0.1, g + 10.5, ba.dark(), 20)           # hollow interior chamber
+        # parapet wall & wall-walk
+        k.ring(X, Y, 3.2, 4.6, g + 10.0, g + 11.2, M["limestone"], 24) # parapet lower wall
+        # crenellations (8 merlons around parapet top, rising to g + 12.0)
+        n_merlons = 8
+        for m in range(n_merlons):
+            a0 = m * TAU / n_merlons
+            a1 = a0 + TAU / (n_merlons * 2)
+            k.ring(X, Y, 3.4, 4.6, g + 11.2, g + 12.0, M["limestone"], 4, a0, a1)
+        # doorway at ground level (facing inland)
+        inland = ground.seaward(X, Y)
+        inland_ang = math.atan2(-inland[1], -inland[0])                # opposite to seaward
+        dx, dy = math.cos(inland_ang), math.sin(inland_ang)
+        k.box(X + 4.3 * dx, Y + 4.3 * dy, g, g + 2.2, 0.4, 1.2, inland_ang, ba.dark())
+        # arrow-slits (facing seaward)
+        for sa in (inland_ang + math.pi - 0.7, inland_ang + math.pi, inland_ang + math.pi + 0.7):
+            sx, sy = math.cos(sa), math.sin(sa)
+            k.box(X + 4.35 * sx, Y + 4.35 * sy, g + 4.0, g + 5.2, 0.3, 0.3, sa, ba.dark())
+            k.box(X + 4.35 * sx, Y + 4.35 * sy, g + 7.5, g + 8.7, 0.3, 0.3, sa, ba.dark())
+        # parapet deck
+        k.cyl(X, Y, 3.3, g + 9.8, g + 10.0, M["limestone"], 20)
+        # brazier in the center of the tower deck
+        k.cyl(X, Y, 0.8, g + 10.0, g + 10.7, M["bronze"], 12)
+        k.cyl(X, Y, 1.3, g + 10.7, g + 11.3, M["bronze"], 16)
+        if i in (0, 1):
+            # Tower 0 & 1: white flame (ATTACK)
+            k.cyl(X, Y, 0.9, g + 11.3, g + 12.4, M["fire"], 12)
+        elif i == 2:
+            # Tower 2 (South Crag): the sleeping guard's tower - cold, unlit brazier, guard's table and bench inside
+            k.cyl(X, Y, 0.9, g + 11.0, g + 11.3, M["rock"], 12)       # dark ash/charcoal
+            k.box(X + 1.2 * dx, Y + 1.2 * dy, g, g + 0.85, 1.2, 0.7, inland_ang, M["timber"])
+            k.box(X + 0.4 * dx, Y + 0.4 * dy, g, g + 0.5, 0.5, 0.5, inland_ang, M["timber"])
+        elif i == 3:
+            # Tower 3 (West Point): black pine-smoke brazier (DEFEND)
+            k.cyl(X, Y, 0.9, g + 11.3, g + 12.0, M["roof"], 12)
+        # war-horn / bell post on parapet
+        px, py = X + 3.8 * math.cos(inland_ang + 1.2), Y + 3.8 * math.sin(inland_ang + 1.2)
+        k.box(px, py, g + 10.0, g + 12.6, 0.3, 0.3, 0, M["timber"])
+
+    WATCHTOWER_DETAIL.update({
+        "towers": 4,
+        "merlon_h_m": 2.0,
+        "crenel_w_m": 0.8,
+        "wall_walk_w_m": 1.2,
+        "door_h_m": 2.2,
+        "arrow_slit_h_m": 1.2,
+        "tower_h_m": 12.0,
+    })
     return k
 
 # ---------------------------------------------------------------- IV · Passable Season
