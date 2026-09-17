@@ -1,5 +1,5 @@
 {
- "volume": "IV",
+ "volume": "V",
  "note": "Blender world coordinates (X east, Y north, metres), from the Round's site point and blender/round-checks.json. z 'surface' means standing on whatever surface is below (ray cast); the resolved value is written back as z_resolved. Verandah columns stand every 7.5 degrees from 3.75; keep cameras on the verandah between them.",
  "colors": {
   "terracotta": "#bf4a26",
@@ -10,7 +10,7 @@
   "plum": "#6d3b6b"
  },
  "panels": {
-  "IV-03": {
+  "V-03": {
    "aspect": "16:9",
    "resolution": [
     1920,
@@ -29,11 +29,11 @@
     ],
     "lens": 28,
     "clip_start": 0.5,
-    "z_resolved": 187.825,
+    "z_resolved": 187.52,
     "z_from": 196.46
    },
    "hide": [
-    "IV · Scale figures (1.75 m)"
+    "V · Scale figures (1.75 m)"
    ],
    "figures": [
     {
@@ -48,14 +48,15 @@
      "facing_deg": 15,
      "pose": "stand",
      "carry": "scroll",
-     "z_resolved": 186.277,
+     "z_resolved": 186.311,
      "screen": [
-      0.256,
-      0.69
+      0.258,
+      0.607
      ],
      "in_frame": true,
      "z_from": 188.96,
-     "visible": true
+     "visible": true,
+     "screen_h": 0.5856
     },
     {
      "id": "B",
@@ -71,12 +72,13 @@
      "carry": "scroll",
      "z_resolved": 186.462,
      "screen": [
-      0.923,
-      0.678
+      0.922,
+      0.667
      ],
      "in_frame": true,
      "z_from": 188.96,
-     "visible": true
+     "visible": true,
+     "screen_h": 0.2135
     },
     {
      "id": "C",
@@ -93,11 +95,12 @@
      "z_resolved": 186.462,
      "screen": [
       0.571,
-      0.683
+      0.68
      ],
      "in_frame": true,
      "z_from": 188.96,
-     "visible": true
+     "visible": true,
+     "screen_h": 0.1706
     },
     {
      "id": "D",
@@ -113,18 +116,20 @@
      "z_resolved": 186.462,
      "screen": [
       0.655,
-      0.683
+      0.678
      ],
      "in_frame": true,
      "z_from": 188.96,
-     "visible": true
+     "visible": true,
+     "screen_h": 0.1763
     }
    ],
    "props": [],
    "lens_clear": true,
-   "centre_clear_m": 17.9
+   "centre_clear_m": 17.8,
+   "device": "GPU"
   },
-  "IV-11": {
+  "V-11": {
    "aspect": "16:9",
    "resolution": [
     2560,
@@ -146,7 +151,7 @@
     "chosen_by": "user, 17 Sep 2026: a Blender viewport view (viewport lens 60 mm, which frames like a 30 mm camera), fitted from the screenshot to 1-7 px"
    },
    "hide": [
-    "IV · Scale figures (1.75 m)"
+    "V · Scale figures (1.75 m)"
    ],
    "figures": [
     {
@@ -454,7 +459,7 @@
    "centre_clear_m": 51.8,
    "device": "GPU"
   },
-  "IV-06": {
+  "V-06": {
    "aspect": "4:3",
    "resolution": [
     1600,
@@ -476,7 +481,7 @@
     "clear_m": 0.3
    },
    "hide": [
-    "IV · Scale figures (1.75 m)"
+    "V · Scale figures (1.75 m)"
    ],
    "figures": [],
    "props": [

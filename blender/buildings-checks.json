@@ -1,24 +1,24 @@
 {
  "buildings": {
   "The Great Round": {
-   "volume": "IV",
+   "volume": "V",
    "radius_m": 25,
    "relief_before_m": 10.4
   },
   "Banquet house": {
-   "volume": "IV",
+   "volume": "V",
    "radius_m": 17,
    "relief_before_m": 9.0
   },
   "Lantern harbour": {
-   "volume": "III",
+   "volume": "IV",
    "radius_m": 270,
    "basin_depth_m": -7.0
   },
   "Besieged headland city": {
-   "volume": "V",
+   "volume": "III",
    "radius_m": 115.0,
-   "relief_before_m": 75.4
+   "relief_before_m": 56.4
   },
   "Citadel of Iron Quorums": {
    "volume": "VII",
@@ -31,21 +31,21 @@
    "breakwater_over_water_pct": 100.0
   },
   "Merchant quays": {
-   "volume": "IV",
+   "volume": "V",
    "radius_m": 110,
    "pier_tip_depths_m": [
-    -23.7,
+    -23.8,
     -28.8,
     -36.8
    ]
   },
   "Harbour town": {
-   "volume": "IV",
-   "insulae": 35
+   "volume": "V",
+   "insulae": 26
   }
  },
  "objects": 9,
- "faces": 49331,
+ "faces": 47535,
  "round_east_gate_to_banquet_deg": 0.0,
  "land_buildings_on_land": true,
  "pier_tips_in_water": true,

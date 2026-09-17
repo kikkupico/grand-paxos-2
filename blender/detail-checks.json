@@ -17,9 +17,9 @@
   "porch_columns": 4
  },
  "houses": {
-  "houses": 229,
-  "with_door": 229,
-  "windows": 1109
+  "houses": 201,
+  "with_door": 201,
+  "windows": 921
  },
  "house_door_h_m": 2.1,
  "house_window_sill_m": 2.0,

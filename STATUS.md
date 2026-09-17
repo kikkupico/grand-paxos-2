@@ -26,7 +26,7 @@ _Last updated 16 Sep 2026._
 
 ## Decisions
 - **One island, the Dependency Spine.** It is laid out along the dependency graph between the papers. Walking from the NW tip reads the volumes in order, I to IX, and every volume comes after the ones it builds on. Four other layouts were explored and dropped; they're in git history before the commit that removed `art-direction-grand.html`.
-- **Volumes are numbered in walking order**, which is also dependency and story order: I Disordered Sundials, II Sleeping Guard, III Passable Season, IV Part-time Parliament, V Generals Before the Walls, VI Ledger of Many Decrees, VII Citadel of Iron Quorums, VIII Quarries of the Roman Guilds, IX Raft Monks.
+- **Volumes are numbered in walking order**, which is also dependency and story order: I Disordered Sundials, II Sleeping Guard, III Generals Before the Walls, IV Passable Season, V Part-time Parliament, VI Ledger of Many Decrees, VII Citadel of Iron Quorums, VIII Quarries of the Roman Guilds, IX Raft Monks.
 - **World:** 11 × 8 km, about 18.5 km² of land.
 - **Time:** one terrain and one generation in five phases, one per graph band and island zone, with buildings only added. See `ERAS.md`.
 - **Every site belongs to one volume.** Kinds of place several volumes need are built per volume: III's cothon (the lantern harbour), IV's merchant quays and town, VII's walled harbour, VIII's guild hall, I's beacons and III's drummers.
@@ -43,7 +43,7 @@ Still open:
 
 ## Panels: layouts and images (`tools/blender_panels.py`, `tools/panel_images.py`)
 - **Layout render:** `~/.local/bin/blender -b blender/paxos.blend -P tools/blender_panels.py -- IV IV-03 IV-11 IV-06`, after `blender_buildings.py` has saved the scene.
-  - **Input:** `volumes/IV-shots.json` holds each panel's camera (loc, target, lens, clip_start, clear_m), aspect, resolution, objects to hide, and blocking figures and stand-in props in Blender world coordinates.
+  - **Input:** `volumes/V-shots.json` holds each panel's camera (loc, target, lens, clip_start, clear_m), aspect, resolution, objects to hide, and blocking figures and stand-in props in Blender world coordinates.
   - **Written back:** heights given as "surface" are ray-cast, and the resolved heights, each figure's frame position, visibility, lens clearance and centre clearance go back into the JSON, so a re-render reproduces the frame.
   - **Blocking collections:** one per panel under "Panels", hidden from renders and viewports. Only the panel being rendered is shown. `blender/panels-IV.blend` is saved with all of them hidden, which is checked by reopening the file.
   - **Figures (user, 17 Sep 2026):** posed low-poly mannequins from `tools/blender_mannequin.py`, one colour per character. There is one rig with named bones, and named poses are scripted as bone rotations: stand, stand_look_up, orator, scroll, run, give, take, sit, sit_look_up and doze. A mannequin can carry a scroll. Tripo was tried for rigged characters and dropped (55 credits spent on a messenger, kept in `tripo_output/`). The earlier static Kit mannequins couldn't run or sit.
@@ -76,7 +76,7 @@ Still open:
 
 ## Volume pages (`volumes/`)
 - **All nine volumes have pages (16 Sep 2026).** I–III and V–IX were ported from the sibling `paxos-illustrated` repo — an explicit, one-off exception to the standalone-project rule, approved for this task only — and corrected to the current canon: every in-text volume cross-reference renumbered to walking order (the old repo's numbering differs, e.g. Generals was II there and is V here), and any setting that named a different island, a real city (Delphi, Knossos, Byzantion) or a later era (Roman conquest) relocated onto Paxos's own gazetteer sites instead. The Round predating the Synod, the ledger as a two-rod scroll and so on all carried over unchanged. Each follows the pattern below; none of the eight has been staged for images yet.
-- **`volumes/IV-part-time-parliament.html`:** the Paxos paper (Volume IV), set with the text, footnotes, proofs and four interactive widgets. It uses `volumes/volume.css` and is a full standalone document; the Artifact page contract applies only to the art-direction page.
+- **`volumes/V-part-time-parliament.html`:** the Paxos paper (Volume V), set with the text, footnotes, proofs and four interactive widgets. It uses `volumes/volume.css` and is a full standalone document; the Artifact page contract applies only to the art-direction page.
 - **Images removed:** every earlier image is gone. In their place are panel placeholders — IV has 25 (IV-00 cover to IV-24), chosen for narrative, not one per old slot; the other eight have 7–10 each, scaled to source length. Each names its shape (splash 3:2, strip 12:5, wide 16:9, half 4:3, tall 3:4), its Blender sites and its reference sheets.
 - **Staging:** most of IV's panels use places already built in Blender:
   - the Round's verandah, windows, gates, stairways and statue row;

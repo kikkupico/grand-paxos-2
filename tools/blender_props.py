@@ -242,7 +242,7 @@ def build(ground, M, colls, geo, tracks, buildings):
     """geo: harbour and site geometry from the builders. tracks: smoothed track polylines (Blender XY).
     buildings: finished building and site objects, for the overlap tests. Returns (props objects, checks)."""
     M.update(extra_mats())
-    ships, fittings = [], {v: Kit(f"{v} · Harbour fittings (gangplanks, mooring lines, cargo)") for v in ("III", "IV", "VII", "VIII")}
+    ships, fittings = [], {v: Kit(f"{v} · Harbour fittings (gangplanks, mooring lines, cargo)") for v in ("IV", "V", "VII", "VIII")}
     moored = []                                                                                     # (ship info, quay object, quay face normal, quay top z, volume)
     amph = 0
 
@@ -261,32 +261,32 @@ def build(ground, M, colls, geo, tracks, buildings):
             f.beam((ex, ey, info["T"]["freeboard"] + .2), (qx + t_[0] * e * (info["T"]["L"] * .5 + 2) - n[0] * .6, qy + t_[1] * e * (info["T"]["L"] * .5 + 2) - n[1] * .6, top_z + .3), .06, .06, M["rope"])
         return info, (qx, qy)
 
-    # III · the lantern harbour: a navigators' ship at each of the seven quays, bow toward the lantern
+    # IV · the lantern harbour: a navigators' ship at each of the seven quays, bow toward the lantern
     cx, cy, R = geo["cothon"]["X"], geo["cothon"]["Y"], geo["cothon"]["R"]
     for p, th in enumerate(geo["cothon"]["quay_angles"]):
         t_ = (math.cos(th), math.sin(th)); n = (-t_[1], t_[0])
         Q = (cx + (R - 21) * t_[0] + 4 * n[0], cy + (R - 21) * t_[1] + 4 * n[1])
-        moor("III", f"Navigators' ship at quay {p + 1}", "navigator", Q, n, t_, 42, 2.6, geo["cothon"]["ob"], bow_dir=-1, crew=1)
+        moor("IV", f"Navigators' ship at quay {p + 1}", "navigator", Q, n, t_, 42, 2.6, geo["cothon"]["ob"], bow_dir=-1, crew=1)
 
-    # IV · the merchant quays: three merchantmen and a galley alongside, skiffs at the shore quay, an outbound merchantman
+    # V · the merchant quays: three merchantmen and a galley alongside, skiffs at the shore quay, an outbound merchantman
     SX, SY = geo["port"]["shore"]; s = geo["port"]["s"]; tq = (-s[1], s[0]); port_ob = geo["port"]["ob"]
     pier = lambda off: (SX + s[0] * 44.5 + tq[0] * off, SY + s[1] * 44.5 + tq[1] * off)
     for off, side, kind, name in ((-70, -1, "merchantman", "Merchantman loading wine"), (0, -1, "merchantman", "Merchantman under the crane"),
                                   (0, 1, "galley", "The galley"), (70, 1, "merchantman", "Merchantman unloading grain")):
         px, py = pier(off); n = (tq[0] * side, tq[1] * side)
-        info, (qx, qy) = moor("IV", name, kind, (px + n[0] * 4.5, py + n[1] * 4.5), n, (s[0], s[1]), 75, 1.8, port_ob, crew=3)
+        info, (qx, qy) = moor("V", name, kind, (px + n[0] * 4.5, py + n[1] * 4.5), n, (s[0], s[1]), 75, 1.8, port_ob, crew=3)
         if kind == "merchantman":
-            amph += amphora_grid(fittings["IV"], M, qx - n[0] * 2.2, qy - n[1] * 2.2, 1.8, math.atan2(s[1], s[0]), 8, 2)
+            amph += amphora_grid(fittings["V"], M, qx - n[0] * 2.2, qy - n[1] * 2.2, 1.8, math.atan2(s[1], s[0]), 8, 2)
     px, py = pier(0)
-    treadwheel_crane(fittings["IV"], M, px + s[0] * 12 - tq[0] * 1.2, py + s[1] * 12 - tq[1] * 1.2, 1.8, math.atan2(-tq[1], -tq[0]), 6.5)
+    treadwheel_crane(fittings["V"], M, px + s[0] * 12 - tq[0] * 1.2, py + s[1] * 12 - tq[1] * 1.2, 1.8, math.atan2(-tq[1], -tq[0]), 6.5)
     for toff in (-40, 40, 110):                                                                      # amphorae stacked in front of the warehouses
-        amph += amphora_grid(fittings["IV"], M, SX + tq[0] * toff - s[0] * 1, SY + tq[1] * toff - s[1] * 1, 1.8, math.atan2(tq[1], tq[0]), 10, 4)
+        amph += amphora_grid(fittings["V"], M, SX + tq[0] * toff - s[0] * 1, SY + tq[1] * toff - s[1] * 1, 1.8, math.atan2(tq[1], tq[0]), 10, 4)
     for n_, (toff, flen) in enumerate(((-58, 12), (-45, 12), (-28, 14))):                            # skiffs in the western gap between the piers: east of the centre pier the shore quay stands on dry ground
-        moor("IV", f"Skiff {n_ + 1}", "skiff", (SX + s[0] * 9 + tq[0] * toff, SY + s[1] * 9 + tq[1] * toff), (s[0], s[1]), tq, flen, 1.8, port_ob, crew=0)
+        moor("V", f"Skiff {n_ + 1}", "skiff", (SX + s[0] * 9 + tq[0] * toff, SY + s[1] * 9 + tq[1] * toff), (s[0], s[1]), tq, flen, 1.8, port_ob, crew=0)
     oang = math.atan2(s[1], s[0]) + .25
     OX, OY = SX + s[0] * 300 + tq[0] * -90, SY + s[1] * 300 + tq[1] * -90
-    ok_, oinfo = ship("IV · The outbound merchantman", M, "merchantman", OX, OY, oang, sail="set", crew=4)
-    ships.append(("IV", ok_, oinfo))
+    ok_, oinfo = ship("V · The outbound merchantman", M, "merchantman", OX, OY, oang, sail="set", crew=4)
+    ships.append(("V", ok_, oinfo))
 
     # VII · the citadel harbour: the inquisitors' galley at the quay, a merchantman at anchor inside the breakwater
     HX, HY, hth = geo["seawall"]["shore"][0], geo["seawall"]["shore"][1], geo["seawall"]["th"]
@@ -320,10 +320,10 @@ def build(ground, M, colls, geo, tracks, buildings):
     raft_info = {"deck_z_m": round(LOG_Z + LOG_R + .1, 2), "underside_z_m": LOG_Z - LOG_R,
                  "clearance_m": round(min(LOG_Z - LOG_R - ground.z(*RP(u, v, 0)[:2]) for u in (-4.5, 0, 4.5) for v in (-2.2, 0, 2.2)), 2)}
 
-    # IV · the agora: cheese stalls in front of the stoa, a goat pen by the fountain, stallholders
+    # V · the agora: cheese stalls in front of the stoa, a goat pen by the fountain, stallholders
     ax, ay, aang, az = geo["agora"]["X"], geo["agora"]["Y"], geo["agora"]["ang"], geo["agora"]["z"]
     ac, as_ = math.cos(aang), math.sin(aang); AP = lambda u, v: (ax + u * ac - v * as_, ay + u * as_ + v * ac)
-    market = Kit("IV · Agora market: cheese stalls and goat pen")
+    market = Kit("V · Agora market: cheese stalls and goat pen")
     stalls = [(-14.0, 10.5), (-8.5, 10.5), (-3.0, 10.5), (6.0, 10.5), (11.5, 10.5)]
     for u, v in stalls:
         stall(market, M, *AP(u, v), az, aang + math.pi)                                              # awnings slope toward the square
@@ -339,7 +339,7 @@ def build(ground, M, colls, geo, tracks, buildings):
     agora_info = {"stalls": len(stalls), "goat_pen_to_fountain_m": round(math.hypot(pen[0], pen[1]), 1), "clear_of_fountain_m": round(fountain_gap, 1),
                   "clear_of_sundial_m": round(sundial_gap, 1), "all_on_the_paving": inside, "overlapping": overlap}
 
-    # I, IV, VI, VIII · ox carts on the tracks near the press, the port, the granaries and the quarry
+    # I, V, VI, VIII · ox carts on the tracks near the press, the port, the granaries and the quarry
     bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get()
     bvh = {}
     def tree(ob):
@@ -348,9 +348,9 @@ def build(ground, M, colls, geo, tracks, buildings):
     def cart_hits(X, Y, ang, load):
         tmp = Kit("tmp"); ox_cart(tmp, M, ground, X, Y, ang, load); t_ = BVHTree.FromBMesh(tmp.bm); tmp.bm.free()
         return [b.name for b in buildings if t_.overlap(tree(b))]
-    carts = {v: Kit(f"{v} · Ox carts") for v in ("I", "IV", "VI", "VIII")}
+    carts = {v: Kit(f"{v} · Ox carts") for v in ("I", "V", "VI", "VIII")}
     cart_info = []
-    wanted = [("press", "olives", "I"), ("port", "amphorae", "IV"), ("granary:0", "sacks", "VI"), ("granary:1", "sacks", "VI"), ("granary:2", "sacks", "VI"),
+    wanted = [("press", "olives", "I"), ("port", "amphorae", "V"), ("granary:0", "sacks", "VI"), ("granary:1", "sacks", "VI"), ("granary:2", "sacks", "VI"),
               ("granary2", "sacks", "VI"), ("cliffs", "blocks", "VIII"), ("hall", "blocks", "VIII")]
     placed = []
     for key, load, vol in wanted:
@@ -386,7 +386,7 @@ def build(ground, M, colls, geo, tracks, buildings):
         ob = k.finish(colls[vol]); info["ob"] = ob; objs.append(ob)
     for vol, f in fittings.items(): objs.append(f.finish(colls[vol]))
     raft_ob = raft.finish(colls["IX"]); objs.append(raft_ob)
-    market_ob = market.finish(colls["IV"]); objs.append(market_ob)
+    market_ob = market.finish(colls["V"]); objs.append(market_ob)
     cart_obs = [c_.finish(colls[v]) for v, c_ in carts.items()]; objs += cart_obs
     bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get(); bvh.clear()
 

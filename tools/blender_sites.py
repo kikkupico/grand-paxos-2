@@ -101,9 +101,9 @@ def oracle(ground, M):
     k.ring(hx + 14, hy, 7, 7.5, ground.z(hx + 14, hy) - 1, ground.z(hx + 14, hy) + 1.2, M["fieldstone"], 28, .6, TAU - .2)
     return k
 
-# ---------------------------------------------------------------- III · Passable Season
+# ---------------------------------------------------------------- IV · Passable Season
 def drummers(ground, M):
-    k = Kit("III · Drummers' posts"); decks = []
+    k = Kit("IV · Drummers' posts"); decks = []
     for i in range(2):
         X, Y = site("drummers", i); g = ground.z(X, Y)
         k.cyl(X - 6, Y, 3, g - 1, g + 3, M["fieldstone"], 16); k.cone(X - 6, Y, 3.6, g + 3, g + 6, M["thatch"], 16)
@@ -115,7 +115,7 @@ def drummers(ground, M):
     return k, decks
 
 def causeway_markers(ground, M):
-    X, Y = site("strait"); k = Kit("III · Causeway marker posts")
+    X, Y = site("strait"); k = Kit("IV · Causeway marker posts")
     c, r = ground._cr(X, Y); R = 36
     r0, c0 = max(int(r) - R, 0), max(int(c) - R, 0)
     win = ground.orig[r0:int(r) + R, c0:int(c) + R]
@@ -132,7 +132,7 @@ def causeway_markers(ground, M):
         k.cyl(px, py, .25, z - 1, z + 3, M["timber"], 8); n += 1
     return k, n
 
-# ---------------------------------------------------------------- IV · Statue Walk
+# ---------------------------------------------------------------- V · Statue Walk
 def smooth_path(pts, rounds=3, step=12.0):
     """Chaikin-smooth the 25 m grid path (as the 2D map does), then resample it every `step` metres."""
     p = np.array(pts, float)
@@ -183,7 +183,7 @@ def statue_walk(ground, M, agora, window=9, gate_z=None):
         bed = bed * (1 - w) + gate_z * w
     for (x, y), z in zip(path, bed):                                                               # cut and fill a 6 m bed, feathered 10 m
         ground.edit(x, y, 16, lambda d, dX, dY, g, z=z: np.where(d < 16, g + (z - g) * (1 - smooth((d - 6) / 10)), g))
-    k = Kit("IV · The Statue Walk")
+    k = Kit("V · The Statue Walk")
     length, grades, statues, since, side = 0.0, [], 0, 0.0, 1
     for i in range(len(path) - 1):
         (x0, y0), (x1, y1) = path[i], path[i + 1]

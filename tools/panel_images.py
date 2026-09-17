@@ -1,9 +1,9 @@
 """Turn a panel's Blender layout into a comic panel with the Gemini API (gemini-3-pro-image).
 
-  python3 tools/panel_images.py edit IV-03 [--anchor <accepted panel>]   one attempt -> temp/panels/IV-03-aN.jpg
-  python3 tools/panel_images.py fix IV-03 <attempt> "<what to change>"    refine an attempt
-  python3 tools/panel_images.py score IV-03 <attempt>                    layout-keeping score, and a side-by-side sheet
-  python3 tools/panel_images.py accept IV-03 <attempt>                   -> volumes/images/IV-03.jpg (then run volume_panels.py)
+  python3 tools/panel_images.py edit V-03 [--anchor <accepted panel>]   one attempt -> temp/panels/V-03-aN.jpg
+  python3 tools/panel_images.py fix V-03 <attempt> "<what to change>"    refine an attempt
+  python3 tools/panel_images.py score V-03 <attempt>                    layout-keeping score, and a side-by-side sheet
+  python3 tools/panel_images.py accept V-03 <attempt>                   -> volumes/images/V-03.jpg (then run volume_panels.py)
 
 Inputs: renders/panels/<id>-layout.png (from tools/blender_panels.py) as image 1, then the panel's reference sheets from
 references/, then optionally an accepted panel as the style anchor. The prompt comes from volumes/<vol>-panels.json (scene,

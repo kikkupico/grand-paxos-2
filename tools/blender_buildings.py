@@ -30,12 +30,12 @@ def banquet_house(ground, M, coll, report, round_xy):
     """A garden dining house (hestiatorion) facing the Round's east gate: an entrance porch and vestibule on the side
     toward the Round, a peristyle garden court with a fountain, and the dining room (andron) behind it with eleven couches."""
     X, Y = site("banquet"); g0 = ground.z(X, Y)
-    report["Banquet house"] = {"volume": "IV", "radius_m": 17, "relief_before_m": ground.relief(X, Y, 16)[0]}
+    report["Banquet house"] = {"volume": "V", "radius_m": 17, "relief_before_m": ground.relief(X, Y, 16)[0]}
     ground.pad(X, Y, 18, g0, 25)
     ang = math.atan2(round_xy[1] - Y, round_xy[0] - X)                                             # local +x points at the Round
     c, s = math.cos(ang), math.sin(ang); P = lambda u, v: (X + u * c - v * s, Y + u * s + v * c)
     f = g0 + .8
-    k = Kit("IV · Banquet house")
+    k = Kit("V · Banquet house")
     k.box(X, Y, g0 - 2, f, 32, 22, ang, M["limestone"])
     for i in range(2): k.box(*P(16.4 + i * .45, 0), g0 - .5, f - .4 * i - .4, .45, 6, ang, M["limestone"])   # entrance steps
     for v in (-4.5, -1.5, 1.5, 4.5): ba.column(k, *P(14.3, v), f, f + 3.8, .28, M["marble"])        # porch
@@ -67,7 +67,7 @@ def lantern_harbour(ground, M, coll, report):
     X, Y = B(*info["centre_m"])
     th_c = math.radians(-info["channel_bearing_deg_from_x_toward_y"])                             # map y points south
     R, RI = info["basin_radius_m"], info["islet_radius_m"]
-    report["Lantern harbour"] = {"volume": "III", "radius_m": 270}
+    report["Lantern harbour"] = {"volume": "IV", "radius_m": 270}
     def level(d, dX, dY, g):
         along = dX * math.cos(th_c) + dY * math.sin(th_c); across = np.abs(-dX * math.sin(th_c) + dY * math.cos(th_c))
         channel = (along > 0) & (across < 24)
@@ -76,7 +76,7 @@ def lantern_harbour(ground, M, coll, report):
         g = np.where(quay, 2.8, np.where((d >= 250) & ~channel & (g > 2.8), g * (1 - w) + 2.8 * w, g))
         return np.where(d < RI, 2.6, g)
     ground.edit(X, Y, 320, level)
-    k = Kit("III · Lantern harbour (cothon)")
+    k = Kit("IV · Lantern harbour (cothon)")
     gap = math.radians(9)
     k.ring(X, Y, R, R + 6, -4, 2.8, M["limestone"], 128, th_c + gap, th_c + TAU - gap)
     k.ring(X, Y, RI, RI + 2, -4, 2.6, M["limestone"], 48)
@@ -128,8 +128,8 @@ def merchant_quays(ground, M, coll, report):
     X, Y = site("port"); s = ground.seaward(X, Y)
     SX, SY = ground.shore(X, Y, s)
     ang = math.atan2(s[1], s[0]); tx, ty = -s[1], s[0]
-    report["Merchant quays"] = {"volume": "IV", "radius_m": 110}
-    k = Kit("IV · Merchant quays")
+    report["Merchant quays"] = {"volume": "V", "radius_m": 110}
+    k = Kit("V · Merchant quays")
     k.box(SX + s[0] * 2, SY + s[1] * 2, -4, 1.8, 14, 200, ang, M["limestone"])
     tips = []
     for off in (-70, 0, 70):
@@ -144,8 +144,8 @@ def merchant_quays(ground, M, coll, report):
 def harbour_town(ground, M, coll, report):
     town = SITES["built"]["town"]
     ax, ay = B(*town["agora_m_deg"][:2]); aang = math.radians(-town["agora_m_deg"][2])
-    report["Harbour town"] = {"volume": "IV", "insulae": len(town["insulae_m_deg"])}
-    k = Kit("IV · Harbour town and agora")
+    report["Harbour town"] = {"volume": "V", "insulae": len(town["insulae_m_deg"])}
+    k = Kit("V · Harbour town and agora")
     ca_, sa_ = math.cos(aang), math.sin(aang)
     level = float(np.median([ground.z(ax + u * ca_ - v * sa_, ay + u * sa_ + v * ca_) for u in np.linspace(-20, 20, 5) for v in np.linspace(-15, 15, 4)]))
     ground.pad(ax, ay, 24, level, 30)                                                               # a levelled square, not a podium
@@ -180,8 +180,8 @@ def headland_city(ground, M, coll, report, toward):
         while r > 45 and ground.z(X + r * math.cos(a), Y + r * math.sin(a)) < 3: r -= 5
         walls.append((X + r * math.cos(a), Y + r * math.sin(a), a, r))
     gate = min(range(28), key=lambda i: abs((walls[i][2] - home + math.pi) % TAU - math.pi))
-    report["Besieged headland city"] = {"volume": "V", "radius_m": max(w[3] for w in walls), "relief_before_m": ground.relief(X, Y, 80)[0]}
-    k = Kit("V · Besieged headland city")
+    report["Besieged headland city"] = {"volume": "III", "radius_m": max(w[3] for w in walls), "relief_before_m": ground.relief(X, Y, 80)[0]}
+    k = Kit("III · Besieged headland city")
     for i in range(28):
         (x0, y0, _, _), (x1, y1, _, _) = walls[i], walls[(i + 1) % 28]
         if i == gate: continue
@@ -207,7 +207,7 @@ def headland_city(ground, M, coll, report, toward):
             house(k, ground, x, y, rnd.uniform(10, 13), rnd.uniform(8, 11), rnd.uniform(5, 7), home, M["plaster"], M["roof"])
     _, tx, ty = best                                                                                  # temple on the highest ground inside
     report["_city_temple"] = ba.temple(k, M, ground, tx, ty, home, 6, .9, n_side=11)
-    camps = Kit("V · Siege camps")
+    camps = Kit("III · Siege camps")
     for n, (x, y, z) in enumerate(SITES["sites"]["camps"]["points_m"]):
         CX, CY = B(x, y); face = math.atan2(Y - CY, X - CX); gz = ground.z(CX, CY)
         camps.ring(CX, CY, 32, 32.4, gz - 2, gz + 2.6, M["timber"], 48, face + math.radians(8), face + TAU - math.radians(8))
@@ -300,18 +300,18 @@ def main():
     report = {}
     rk, round_people, round_info = br.build(ground, M, report)
     RX, RY = site("round"); rim = round_info["rim"]
-    bk, banquet_info = banquet_house(ground, M, colls["IV"], report, (RX, RY))
-    ck, lantern_info = lantern_harbour(ground, M, colls["III"], report)
+    bk, banquet_info = banquet_house(ground, M, colls["V"], report, (RX, RY))
+    ck, lantern_info = lantern_harbour(ground, M, colls["IV"], report)
     ground.commit()                                                                                  # later builders sample the levelled ground
-    ck_city, ck_camps = headland_city(ground, M, colls["V"], report, (RX, RY))
+    ck_city, ck_camps = headland_city(ground, M, colls["III"], report, (RX, RY))
     cit, harb, (HSX, HSY, HTH) = citadel(ground, M, colls["VII"], report)
     ground.commit()
-    mq, port_geom = merchant_quays(ground, M, colls["IV"], report)
-    tw = harbour_town(ground, M, colls["IV"], report)
+    mq, port_geom = merchant_quays(ground, M, colls["V"], report)
+    tw = harbour_town(ground, M, colls["V"], report)
     citadel_detail, city_temple = report.pop("_citadel_detail"), report.pop("_city_temple")
-    round_ob = rk.finish(colls["IV"]); round_people.finish(colls["IV"])
-    objs = [round_ob, bk.finish(colls["IV"]), ck.finish(colls["III"]), mq.finish(colls["IV"]), tw.finish(colls["IV"]),
-            ck_city.finish(colls["V"]), ck_camps.finish(colls["V"]), cit.finish(colls["VII"]), harb.finish(colls["VII"])]
+    round_ob = rk.finish(colls["V"]); round_people.finish(colls["V"])
+    objs = [round_ob, bk.finish(colls["V"]), ck.finish(colls["IV"]), mq.finish(colls["V"]), tw.finish(colls["V"]),
+            ck_city.finish(colls["III"]), ck_camps.finish(colls["III"]), cit.finish(colls["VII"]), harb.finish(colls["VII"])]
 
     # the remaining sites (tools/blender_sites.py)
     M.update(bs.extra_mats())
@@ -329,7 +329,7 @@ def main():
     guild_quay = guild_info.pop("quay")
     ground.commit()
     site_objs = [hk.finish(colls["I"]) for hk, _ in hamlets] + [press.finish(colls["I"]), beacons.finish(colls["I"]), oracle_k.finish(colls["II"]),
-                 drums.finish(colls["III"]), markers.finish(colls["III"]), walk.finish(colls["IV"]), grans.finish(colls["VI"]),
+                 drums.finish(colls["IV"]), markers.finish(colls["IV"]), walk.finish(colls["V"]), grans.finish(colls["VI"]),
                  guild.finish(colls["VIII"]), monk.finish(colls["IX"])]
     terrain = ctx["terrain"]
 
@@ -493,7 +493,7 @@ def main():
                    ("Oracle's cave mouth tall enough to walk in", ck_["oracle_cave_mouth_walk_in"])])
 
     # the large props (tools/blender_props.py): their own checks, plus the outbound merchantman seen from the Round
-    out_ob = next(o for o in prop_obs if o.name == "IV · The outbound merchantman")
+    out_ob = next(o for o in prop_obs if o.name == "V · The outbound merchantman")
     oeye, owin = br.window_eye(round_info, pviews["outbound"])
     oblock = br.sight(oeye, pviews["outbound"], [("the Round", round_ob, .5), ("terrain", ctx["terrain"], 3.0), ("town", objs[4], .5),
                                                  *[(o.name, o, .5) for o in prop_obs if o is not out_ob]])

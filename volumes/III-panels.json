@@ -1,6 +1,6 @@
 {
  "volume": "III",
- "page": "volumes/III-passable-season.html",
+ "page": "volumes/III-generals-before-the-walls.html",
  "shapes": {
   "splash": "splash 3:2",
   "strip": "strip 12:5",
@@ -12,103 +12,126 @@
   {
    "id": "III-00",
    "shape": "splash",
-   "title": "The lantern harbour in the calm",
-   "desc": "The round cothon with its seven quays and lantern islet; beyond it, the causeway crest and the twin drummers' headlands across the strait.",
-   "scene": "High view over the lantern harbour: the round cothon with its seven stone quays and the lantern tower on its islet at the centre, channel open to deep water. Navigators' ships lie at each quay. Beyond the harbour, the causeway crest runs out across the strait, and on the twin headlands past it stand the drummers' platforms, unlit in the calm.",
-   "sites": ["cothon", "drummers", "strait"],
-   "cast": "navigators, small",
-   "refs": ["III-characters", "III-props"],
+   "title": "The divisions before the walls",
+   "desc": "The headland city walled and besieged: divisions camped on the heights around it, each general's tent flying its own banner, messengers riding the roads between.",
+   "scene": "High three-quarter view of Paxos's besieged headland city, walled on its peninsula with the sea on two sides. On the heights around it, separate divisions are camped at a distance from one another, each general's tent flying a different banner. Lone horseback messengers ride the winding roads between the camps, and out on the water a hostile squadron holds the seaward approach.",
+   "sites": [
+    "city",
+    "camps"
+   ],
+   "cast": "generals, small; messengers",
+   "refs": [],
    "caption": ""
   },
   {
    "id": "III-01",
    "shape": "wide",
-   "title": "The navigators arrive",
-   "desc": "A grey, rain-lashed hall at the cothon where the captains sit anxious over their charts; the doors open and three weather-beaten navigators stride in with charts, sounding ropes and an astrolabe.",
-   "scene": "A grey, rain-lashed captains' hall at the cothon, where anxious shipmasters sit in gloom over maps of the stormbound straits. The doors are thrown open and a delegation of weather-beaten navigators strides in carrying rolled sea charts, knotted sounding ropes and a brass astrolabe, with the storm visibly breaking into sunlight behind them.",
-   "sites": ["cothon (captains' hall)"],
-   "cast": "the captains, three navigators",
-   "refs": ["III-characters", "III-props"],
-   "caption": "THE CAPTAINS DESPAIRED AS WINTER CLOSED IN. THEN THE NAVIGATORS ARRIVED WITH THEIR CHARTS."
+   "title": "The siege",
+   "desc": "The walled headland city at dusk, encircled at a distance by separate camps, each with its own general's tent and banner; messengers ride the long roads between.",
+   "scene": "The walled headland city on its peninsula at dusk, encircled at a distance by the separate camps of the besieging divisions; each camp has its own general's tent flying a different banner, and lone horseback messengers ride the long roads between the camps.",
+   "sites": [
+    "city",
+    "camps"
+   ],
+   "cast": "generals, messengers, small",
+   "refs": [],
+   "caption": "THE DIVISIONS WERE CAMPED ALL AROUND THE CITY. THE GENERALS COULD SPEAK TO ONE ANOTHER ONLY BY MESSENGER."
   },
   {
    "id": "III-02",
-   "shape": "wide",
-   "title": "Two kinds of in-between sea",
-   "desc": "A split panel: a navigator lowers a sounding rope into fog with no visible bottom, and a sailor traces a stone almanac where storm symbols give way to calm ones at an unmarked point.",
-   "scene": "An illustrative split panel, not a place on the island. Left: a navigator on a cliff lowers a very long knotted sounding rope into a fog-covered sea; the rope clearly ends somewhere below, but its last knots vanish into the fog. Right: a stone almanac carved with a row of storm-cloud symbols that give way, at an unmarked position, to a row of calm-sun symbols; a puzzled sailor runs his finger along it trying to find where the change happens.",
-   "sites": ["none (illustrative)"],
-   "cast": "a navigator, a sailor",
-   "refs": ["III-characters", "III-props"],
-   "caption": "TWO KINDS OF IN-BETWEEN SEA: A BOUND THAT EXISTS BUT NO ONE KNOWS — OR A KNOWN BOUND THAT HOLDS ONLY FROM AN UNKNOWN DAY."
+   "shape": "half",
+   "tilt": "r",
+   "title": "The bribed general",
+   "desc": "Inside a lamp-lit tent at night, a cloaked go-between hands a general a purse of gold; he is already dictating conflicting orders to two scribes at once.",
+   "scene": "Inside a lamp-lit general's tent at night, a cloaked figure from the besieged city hands a purse of gold coins to a general, who is already dictating to two different scribes at once: one scribe draws a crossed-swords symbol (attack) on a tablet, the other draws a retreating-footprints symbol.",
+   "sites": [
+    "camps"
+   ],
+   "cast": "the bribed general, a go-between, two scribes",
+   "refs": [],
+   "caption": "THE BRIBED GENERAL NEED NOT REFUSE TO FIGHT. HE NEED ONLY TELL THE LEFT FLANK ONE THING AND THE RIGHT FLANK ANOTHER."
   },
   {
    "id": "III-03",
    "shape": "wide",
-   "title": "The lantern goes round",
-   "desc": "At the cothon: the captain whose turn it is holds up a bright lantern while the others row toward him with lists; faint lanterns show where the turn passes next.",
-   "scene": "The round cothon, seven stone quays each with a captain standing at it; the captain at one quay holds up a bright lantern (it is his turn), and the others row small boats toward him carrying lists on wax tablets. Faint lanterns at the other quays show where the turn will pass next, clockwise round the basin.",
-   "sites": ["cothon"],
-   "cast": "seven captains",
-   "refs": ["III-characters"],
-   "caption": "EACH PHASE BELONGS TO ONE CAPTAIN IN TURN. THE LANTERN GOES ROUND THE HARBOUR FOR EVER."
+   "title": "Two betrayals, one view",
+   "desc": "A split panel: a loyal commander betrayed by a lying lieutenant, and a treacherous commander relayed honestly \u2014 from Lieutenant 1's seat, identical.",
+   "scene": "A split panel with a vertical divider. Left half: a loyal commander gives a crossed-swords tablet to Lieutenant 1 and the same to Lieutenant 2, but Lieutenant 2, shifty and shadowed, whispers a retreating-footprints tablet to Lieutenant 1. Right half: a shifty commander hands a crossed-swords tablet to Lieutenant 1 and a retreating-footprints tablet to an honest-faced Lieutenant 2, who passes it on to Lieutenant 1. Lieutenant 1's pose and the tablets he holds are identical in both halves.",
+   "sites": [
+    "camps"
+   ],
+   "cast": "a commander, Lieutenant 1, Lieutenant 2",
+   "refs": [],
+   "caption": "TWO DIFFERENT BETRAYALS \u2014 AND FROM WHERE LIEUTENANT 1 STANDS, THEY LOOK EXACTLY ALIKE."
   },
   {
    "id": "III-04",
    "shape": "tall",
    "tilt": "l",
-   "title": "The mooring",
-   "desc": "On a cothon quay, a captain ties a new mooring rope with a numbered tag to a bollard, while casting off an older, lower-numbered rope with his other hand.",
-   "scene": "On one of the cothon's quays, a delegate-captain ties a thick mooring rope to a bollard carved with an olive-branch emblem; a numbered bronze tag hangs on the rope. With his other hand he is casting off an older rope, with a lower-numbered tag, from a neighbouring bollard carved with a fish emblem.",
-   "sites": ["cothon (quay)"],
-   "cast": "one captain",
-   "refs": ["III-props"],
-   "caption": "A MOORING IS A PROMISE WITH A PHASE NUMBER ON IT. YOU CAST IT OFF ONLY FOR ANOTHER VALUE WITH AN EQUAL OR HIGHER NUMBER."
+   "title": "The Illyrian generals",
+   "desc": "A general bends over a campaign map crowded with painted figurines, moving a whole cluster of them at once with both hands, like a puppeteer.",
+   "scene": "Inside a general's tent, bent over a large campaign map covered with many small painted wooden figurines of foreign generals in distinctive tall helmets; he moves a whole cluster of figurines at once with both hands, like a puppeteer.",
+   "sites": [
+    "camps"
+   ],
+   "cast": "one general",
+   "refs": [],
+   "caption": "EACH OF THREE GENERALS PLAYS THE PART OF A THIRD OF THE ILLYRIAN ARMY."
   },
   {
    "id": "III-05",
-   "shape": "tall",
-   "tilt": "r",
-   "title": "The growing hourglass",
-   "desc": "At a captain's post by the cothon, a row of hourglasses stands left to right, each taller than the last; he turns over the newest as boats approach.",
-   "scene": "A captain's writing desk at his post beside the cothon, with a row of sand-timers lined up left to right, each one noticeably taller than the one before; he is turning over the newest and tallest one while boats approach outside.",
-   "sites": ["cothon (captain's post)"],
-   "cast": "one captain",
-   "refs": ["III-props"],
-   "caption": "NO ONE KNOWS HOW LONG A CROSSING CAN TAKE. SO WAIT A LITTLE LONGER EACH ROUND — SOONER OR LATER, IT IS LONG ENOUGH."
+   "shape": "wide",
+   "title": "The oral relay",
+   "desc": "Four hilltop camps around a valley: a commander sends three messengers to three lieutenants, who then relay to each other; one sorts three tablets, two matching and one odd.",
+   "scene": "Four hilltop camps around a campfire-lit valley: a commander on the highest hill sends three messengers down to three lieutenants' camps; the lieutenants then send messengers across to each other. In the foreground, Lieutenant 2 sits at a camp table sorting three wax tablets into a pile of two matching ones and one odd one out.",
+   "sites": [
+    "camps"
+   ],
+   "cast": "a commander, three lieutenants, messengers",
+   "refs": [],
+   "caption": "FOUR GENERALS, ONE TRAITOR: LIEUTENANT 2 HEARS \u201cATTACK\u201d, \u201cATTACK\u201d, AND ONE LIE \u2014 AND TAKES THE MAJORITY."
   },
   {
    "id": "III-06",
-   "shape": "wide",
-   "title": "Each shore thinks the other dead",
-   "desc": "The causeway strait in a violent storm: on one shore an assembly holds up white pebbles, on the other black; between them, messenger boats are tossed about, unable to cross.",
-   "scene": "The causeway strait in a violent storm, the crest awash. On the near shore a small assembly all hold up white pebbles and cheer; across the strait, on the far shore, another small assembly all hold up black pebbles and cheer. Between them in the storm, several messenger boats are tossed about, unable to reach either shore.",
-   "sites": ["strait"],
-   "cast": "two assemblies, small; messengers in boats",
-   "refs": ["III-props"],
-   "caption": "EACH SHORE THINKS THE OTHER IS DEAD — AND DECIDES ACCORDINGLY. THE LETTERS ARRIVE ONLY AFTERWARDS."
+   "shape": "half",
+   "tilt": "r",
+   "title": "The same seal, twice",
+   "desc": "A lieutenant holds two wax tablets side by side in torchlight \u2014 one attack, one retreat \u2014 both bearing the same commander's seal.",
+   "scene": "Close-up of a lieutenant in a bronze helmet holding up two wax tablets side by side in the torchlight: one shows a crossed-swords symbol, the other a retreating-footprints symbol, and both bear the same large red wax seal with the commander's eagle emblem. His eyes are wide with realization.",
+   "sites": [
+    "camps"
+   ],
+   "cast": "one lieutenant",
+   "refs": [],
+   "caption": "THE SAME SEAL ON TWO DIFFERENT ORDERS. ONLY THE COMMANDER COULD HAVE MADE BOTH \u2014 SO THE COMMANDER IS THE TRAITOR."
   },
   {
    "id": "III-07",
    "shape": "wide",
-   "title": "The drummers",
-   "desc": "On the twin headlands across the strait, drummers beat out ticks and claims; on each, a second figure shouts the count across the water.",
-   "scene": "At dusk on the twin drummers' headlands across the causeway strait, drummers stand on their platforms beating large drums; on each headland a second figure cups his hands and shouts across the water toward the other. Numbers are suggested only by the count of drumsticks raised, no written numerals.",
-   "sites": ["drummers"],
-   "cast": "two drummers, two callers",
-   "refs": ["III-characters"],
-   "caption": "A “TICK” SAYS “IT IS NOW HOUR j.” A “CLAIM” SAYS “I HAVE DRUMMED HOUR j TO EVERYONE.”"
+   "title": "The broken roads",
+   "desc": "Bird's-eye over the siege lines: camps joined only by certain passes and bridges; some roads end at collapsed bridges, forcing long detours.",
+   "scene": "A bird's-eye mountain landscape around the besieged headland city: the generals' camps are joined only by certain narrow passes and bridges; several roads end at collapsed bridges over ravines, and messengers must take long detours through other camps.",
+   "sites": [
+    "city",
+    "camps"
+   ],
+   "cast": "messengers, distant",
+   "refs": [],
+   "caption": "NOT EVERY CAMP COULD REACH EVERY OTHER. SOME ORDERS HAD TO PASS THROUGH OTHER GENERALS\u2019 HANDS."
   },
   {
    "id": "III-08",
-   "shape": "wide",
-   "title": "The passable season",
-   "desc": "A bright, calm morning over the cothon: skiffs glide between quays on a glassy basin; the captains stand in agreement on the quay as the sailing pennant is raised.",
-   "scene": "A bright, calm morning over the lantern harbour: a fleet of dispatch skiffs glides in orderly lines between the seven quays on a glassy basin; at the central mole, the captains stand together in agreement as the sailing pennant is raised to the yardarm and the first galleys cast off their moorings.",
-   "sites": ["cothon"],
-   "cast": "captains, navigators",
-   "refs": ["III-characters", "III-props"],
-   "caption": "THE STORM ENDS ON NO ONE’S SCHEDULE — BUT IT ENDS, AND THE FLEET DECIDES."
+   "shape": "tall",
+   "tilt": "r",
+   "title": "The marginal lamp",
+   "desc": "On a warship's deck at night, a failing signal lamp guttering at half strength; two helmsmen disagree on whether it is lit.",
+   "scene": "An illustrative scene, not tied to a place on the island. At night on a trireme's deck, a single signal lamp hangs from a pole, its flame guttering at half strength. Two helmsmen stare up at it: one points and gestures 'lit!', the other shakes his head 'dark'.",
+   "sites": [
+    "none (illustrative: the warship)"
+   ],
+   "cast": "two helmsmen",
+   "refs": [],
+   "caption": "NO ROPE OR BRONZE CAN SAVE YOU: A FAILING LAMP CAN LOOK LIT TO ONE HELMSMAN AND DARK TO THE OTHER."
   }
  ]
 }

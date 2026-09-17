@@ -1,6 +1,6 @@
 """Panel layouts: posed mannequins, stand-in props and a camera per panel, rendered from the built island.
 
-  ~/.local/bin/blender -b blender/paxos.blend -P tools/blender_panels.py -- IV IV-03 IV-11 IV-06
+  ~/.local/bin/blender -b blender/paxos.blend -P tools/blender_panels.py -- V V-03 V-11 V-06
 
 Needs blender/paxos.blend from tools/blender_buildings.py (the full, deterministic scene build). Reads
 volumes/<vol>-shots.json: for each panel, the camera (loc, target, lens, clip_start), aspect and resolution, the objects to

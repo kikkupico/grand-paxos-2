@@ -1,9 +1,9 @@
 {
  "volume": "V",
- "page": "volumes/V-generals-before-the-walls.html",
+ "page": "volumes/V-part-time-parliament.html",
  "shapes": {
   "splash": "splash 3:2",
-  "strip": "strip 12:5",
+  "strip": "strip 21:9",
   "wide": "wide 16:9",
   "half": "half 4:3",
   "tall": "tall 3:4"
@@ -12,105 +12,438 @@
   {
    "id": "V-00",
    "shape": "splash",
-   "title": "The divisions before the walls",
-   "desc": "The headland city walled and besieged: divisions camped on the heights around it, each general's tent flying its own banner, messengers riding the roads between.",
-   "scene": "High three-quarter view of Paxos's besieged headland city, walled on its peninsula with the sea on two sides. On the heights around it, separate divisions are camped at a distance from one another, each general's tent flying a different banner. Lone horseback messengers ride the winding roads between the camps, and out on the water a hostile squadron holds the seaward approach.",
-   "sites": ["city", "camps"],
-   "cast": "generals, small; messengers",
-   "refs": [],
+   "title": "The Great Round at morning",
+   "desc": "The Round in its windswept col. Legislators climb the Statue Walk with ledger scrolls; below lie the marble port and an outbound merchantman.",
+   "scene": "High three-quarter view over the col between the two knolls. The Great Round is a ring wall with its row of verandah windows and the red tiled verandah roof showing inside. The cardinal gates are at ground level, and statues of legislators stand outside the wall. Legislators with ledger scrolls under their arms climb the last bend of the Statue Walk. Downhill, the marble harbour town, the agora and the merchant quays, with the outbound merchantman under a square sail. The banquet house sits among cypresses just east of the Round.",
+   "sites": [
+    "round",
+    "walk",
+    "town",
+    "port",
+    "banquet"
+   ],
+   "cast": "legislators, small",
+   "refs": [
+    "IV-benches",
+    "IV-ledger"
+   ],
    "caption": ""
   },
   {
    "id": "V-01",
-   "shape": "wide",
-   "title": "The siege",
-   "desc": "The walled headland city at dusk, encircled at a distance by separate camps, each with its own general's tent and banner; messengers ride the long roads between.",
-   "scene": "The walled headland city on its peninsula at dusk, encircled at a distance by the separate camps of the besieging divisions; each camp has its own general's tent flying a different banner, and lone horseback messengers ride the long roads between the camps.",
-   "sites": ["city", "camps"],
-   "cast": "generals, messengers, small",
-   "refs": [],
-   "caption": "THE DIVISIONS WERE CAMPED ALL AROUND THE CITY. THE GENERALS COULD SPEAK TO ONE ANOTHER ONLY BY MESSENGER."
+   "shape": "half",
+   "tilt": "l",
+   "title": "Field work on Paxos, today",
+   "desc": "The Round's ring wall cut down to its lowest courses. An archaeologist lifts a charred two-rod ledger fragment from the earth.",
+   "scene": "The only present-day panel. The col in low evening light. The Round survives as its lowest ashlar courses and the stubs of the verandah columns, with seat rows under grass and toppled statues outside the wall. In a trench in the orchestra, an archaeologist in a sun hat brushes earth from a charred fragment of a ledger: parchment still wound on its two rods.",
+   "sites": [
+    "round (ruin pass: walls cut to 1\u20132 m, no roof)"
+   ],
+   "cast": "one archaeologist (present day)",
+   "refs": [
+    "IV-ledger"
+   ],
+   "caption": "THE AUTHOR COULD NOT BE REACHED. HE WAS DOING FIELD WORK IN THE GREEK ISLES.",
+   "notes": "The one exception to 'ancient clothing and objects only'."
   },
   {
    "id": "V-02",
-   "shape": "half",
-   "tilt": "r",
-   "title": "The bribed general",
-   "desc": "Inside a lamp-lit tent at night, a cloaked go-between hands a general a purse of gold; he is already dictating conflicting orders to two scribes at once.",
-   "scene": "Inside a lamp-lit general's tent at night, a cloaked figure from the besieged city hands a purse of gold coins to a general, who is already dictating to two different scribes at once: one scribe draws a crossed-swords symbol (attack) on a tablet, the other draws a retreating-footprints symbol.",
-   "sites": ["camps"],
-   "cast": "the bribed general, a go-between, two scribes",
-   "refs": [],
-   "caption": "THE BRIBED GENERAL NEED NOT REFUSE TO FIGHT. HE NEED ONLY TELL THE LEFT FLANK ONE THING AND THE RIGHT FLANK ANOTHER."
+   "shape": "strip",
+   "title": "A thriving mercantile centre",
+   "desc": "Over the merchant quays: ships unloading amphorae, the crane, the agora's stalls, and the Statue Walk climbing to the Round.",
+   "scene": "Wide panorama from above the water off the merchant quays. Merchantmen are moored alongside the three piers, with amphorae stacked on the quay and the treadwheel crane swinging a net of them aboard. A galley lies at the centre pier. Behind: warehouses, the marble harbour town on its grid of insulae, and the agora with the stoa, cheese stalls and a goat pen. The Statue Walk zigzags up the valley to the Round in the col on the skyline.",
+   "sites": [
+    "port",
+    "town",
+    "walk",
+    "round"
+   ],
+   "cast": "sailors, porters, townsfolk, tiny",
+   "refs": [
+    "IV-townsfolk"
+   ],
+   "caption": "EARLY IN THIS MILLENNIUM, PAXOS WAS A THRIVING MERCANTILE CENTRE \u2014 AND TRADE CAME BEFORE CIVIC DUTY."
   },
   {
    "id": "V-03",
    "shape": "wide",
-   "title": "Two betrayals, one view",
-   "desc": "A split panel: a loyal commander betrayed by a lying lieutenant, and a treacherous commander relayed honestly — from Lieutenant 1's seat, identical.",
-   "scene": "A split panel with a vertical divider. Left half: a loyal commander gives a crossed-swords tablet to Lieutenant 1 and the same to Lieutenant 2, but Lieutenant 2, shifty and shadowed, whispers a retreating-footprints tablet to Lieutenant 1. Right half: a shifty commander hands a crossed-swords tablet to Lieutenant 1 and a retreating-footprints tablet to an honest-faced Lieutenant 2, who passes it on to Lieutenant 1. Lieutenant 1's pose and the tablets he holds are identical in both halves.",
-   "sites": ["camps"],
-   "cast": "a commander, Lieutenant 1, Lieutenant 2",
-   "refs": [],
-   "caption": "TWO DIFFERENT BETRAYALS — AND FROM WHERE LIEUTENANT 1 STANDS, THEY LOOK EXACTLY ALIKE."
+   "tilt": "r",
+   "title": "In and out of the Chamber",
+   "desc": "At the Round's east gate: one legislator leaves for the banquet house, another hurries in, a third stops to gossip.",
+   "scene": "Eye level just outside the open east gate. The bronze doors swing inward, the oak bar leans on the jamb, and verandah windows are high above. A legislator strolls out toward the banquet house on the slope beyond, ledger under his arm. Another hurries in from the Statue Walk, still eating a fig. A third has stopped halfway through the gate to gossip with a townswoman carrying a basket. Statues on their pedestals line the wall.",
+   "sites": [
+    "round (east gate)",
+    "banquet"
+   ],
+   "cast": "three legislators, a townswoman",
+   "refs": [
+    "IV-benches",
+    "IV-townsfolk"
+   ],
+   "caption": "NO ONE WOULD DEVOTE HIS LIFE TO PARLIAMENT. LEGISLATORS WANDERED IN AND OUT ALL DAY."
   },
   {
    "id": "V-04",
    "shape": "tall",
    "tilt": "l",
-   "title": "The Illyrian generals",
-   "desc": "A general bends over a campaign map crowded with painted figurines, moving a whole cluster of them at once with both hands, like a puppeteer.",
-   "scene": "Inside a general's tent, bent over a large campaign map covered with many small painted wooden figurines of foreign generals in distinctive tall helmets; he moves a whole cluster of figurines at once with both hands, like a puppeteer.",
-   "sites": ["camps"],
-   "cast": "one general",
-   "refs": [],
-   "caption": "EACH OF THREE GENERALS PLAYS THE PART OF A THIRD OF THE ILLYRIAN ARMY."
+   "title": "Indelible ink",
+   "desc": "Close on a legislator's hands at a verandah window, adding decree 155 to his ledger in dark iron-gall ink.",
+   "scene": "Tight close-up from over the shoulder. The ledger lies open across his knees, one rod toward him and one away, with neat entries one per line, parallel to the rods, running down the strip. A reed pen makes a fresh line in dark brown-black iron-gall ink, and the ink pot rests on the window sill. Through the window: the col falling away to the sea. No legible writing anywhere.",
+   "sites": [
+    "round (verandah window)"
+   ],
+   "cast": "one legislator (hands)",
+   "refs": [
+    "IV-ledger",
+    "IV-legislators"
+   ],
+   "caption": "LEDGERS WERE WRITTEN IN INDELIBLE INK. AN ENTRY, ONCE MADE, COULD NEVER BE CHANGED."
   },
   {
    "id": "V-05",
-   "shape": "wide",
-   "title": "The oral relay",
-   "desc": "Four hilltop camps around a valley: a commander sends three messengers to three lieutenants, who then relay to each other; one sorts three tablets, two matching and one odd.",
-   "scene": "Four hilltop camps around a campfire-lit valley: a commander on the highest hill sends three messengers down to three lieutenants' camps; the lieutenants then send messengers across to each other. In the foreground, Lieutenant 2 sits at a camp table sorting three wax tablets into a pile of two matching ones and one odd one out.",
-   "sites": ["camps"],
-   "cast": "a commander, three lieutenants, messengers",
-   "refs": [],
-   "caption": "FOUR GENERALS, ONE TRAITOR: LIEUTENANT 2 HEARS “ATTACK”, “ATTACK”, AND ONE LIE — AND TAKES THE MAJORITY."
+   "shape": "strip",
+   "title": "Decree 37, twice",
+   "desc": "Two beats split by a verandah pier: one group bans painting and leaves for a banquet; another guarantees artistic freedom.",
+   "scene": "One wide panel in two halves, divided by a verandah pier. Left: a group of legislators raise hands to pass 'no painting on walls', then file out toward the banquet house. Right: a different group, who know nothing of it, cheerfully pass 'freedom of artistic expression'. Through the window behind them, far below in the agora, a painter is already up a ladder against the stoa wall.",
+   "sites": [
+    "round (verandah)",
+    "banquet",
+    "town (agora, stoa)"
+   ],
+   "cast": "two groups of legislators, a painter",
+   "refs": [
+    "IV-benches",
+    "IV-townsfolk"
+   ],
+   "caption": "TWO GROUPS, ONE DECREE NUMBER, TWO CONTRADICTORY LAWS. THE PROTOCOL MUST MAKE THIS IMPOSSIBLE."
   },
   {
    "id": "V-06",
    "shape": "half",
    "tilt": "r",
-   "title": "The same seal, twice",
-   "desc": "A lieutenant holds two wax tablets side by side in torchlight — one attack, one retreat — both bearing the same commander's seal.",
-   "scene": "Close-up of a lieutenant in a bronze helmet holding up two wax tablets side by side in the torchlight: one shows a crossed-swords symbol, the other a retreating-footprints symbol, and both bear the same large red wax seal with the commander's eagle emblem. His eyes are wide with realization.",
-   "sites": ["camps"],
-   "cast": "one lieutenant",
-   "refs": [],
-   "caption": "THE SAME SEAL ON TWO DIFFERENT ORDERS. ONLY THE COMMANDER COULD HAVE MADE BOTH — SO THE COMMANDER IS THE TRAITOR."
+   "title": "Standard issue",
+   "desc": "On a verandah ledge: the ledger scroll, a reed pen, iron-gall ink, a glass hourglass, and a slip of paper lifting in the breeze.",
+   "scene": "A still life laid out like a museum plate, on the stone ledge of a verandah window. The ledger on its two rods, tied with a cord and a dolphin seal. A reed pen, a small pot of iron-gall ink, and a glass hourglass in a turned-wood frame. A loose slip of paper is already lifting off the ledge in the wind.",
+   "sites": [
+    "round (verandah window ledge)"
+   ],
+   "cast": "none",
+   "refs": [
+    "IV-ledger",
+    "III-props",
+    "IV-legislators"
+   ],
+   "caption": "ONE PER LEGISLATOR: A STURDY PARCHMENT LEDGER, A PEN, INDELIBLE INK, AN HOURGLASS\u2026 AND A VERY LOSABLE SLIP OF PAPER."
   },
   {
    "id": "V-07",
-   "shape": "wide",
-   "title": "The broken roads",
-   "desc": "Bird's-eye over the siege lines: camps joined only by certain passes and bridges; some roads end at collapsed bridges, forcing long detours.",
-   "scene": "A bird's-eye mountain landscape around the besieged headland city: the generals' camps are joined only by certain narrow passes and bridges; several roads end at collapsed bridges over ravines, and messengers must take long detours through other camps.",
-   "sites": ["city", "camps"],
-   "cast": "messengers, distant",
-   "refs": [],
-   "caption": "NOT EVERY CAMP COULD REACH EVERY OTHER. SOME ORDERS HAD TO PASS THROUGH OTHER GENERALS’ HANDS."
+   "shape": "tall",
+   "tilt": "l",
+   "title": "\u03a4\u03c9\u03c5\u03b5\u03b3 and the statue",
+   "desc": "Outside the ring wall, a legislator's statue has toppled. \u03a4\u03c9\u03c5\u03b5\u03b3 sits dazed in the grass, still clutching his ledger.",
+   "scene": "Just outside the ring wall, beside the row of legislators' statues on inscribed pedestals. One pedestal is empty; its marble statue lies broken in the grass. Legislator \u03a4\u03c9\u03c5\u03b5\u03b3 sits beside it with a bump on his head and a blank, cheerful stare, his ledger clutched to his chest. A messenger bends over him, holding up a message he clearly doesn't recognise.",
+   "sites": [
+    "round (statue row outside the wall)"
+   ],
+   "cast": "\u03a4\u03c9\u03c5\u03b5\u03b3, a messenger",
+   "refs": [
+    "IV-benches",
+    "IV-messengers"
+   ],
+   "caption": "STRUCK BY A FALLING STATUE, \u03a4\u03c9\u03c5\u03b5\u03b3 FORGOT EVERYTHING. WHAT MATTERED WAS WRITTEN IN HIS LEDGER."
   },
   {
    "id": "V-08",
+   "shape": "half",
+   "title": "A six-month voyage",
+   "desc": "A hired messenger, messages in his belt, boards the outbound merchantman as it casts off. A legislator on the quay realises too late.",
+   "scene": "On the merchant quays. The outbound merchantman casts off from the pier, its square sail filling. A messenger stands on its deck with rolled messages tucked in his belt, waving cheerfully. On the pier a legislator runs to the edge, one hand out. Amphorae, bollards and mooring lines, and the town rising behind.",
+   "sites": [
+    "port"
+   ],
+   "cast": "a messenger, a legislator, sailors",
+   "refs": [
+    "IV-messengers",
+    "IV-townsfolk"
+   ],
+   "caption": "A MESSENGER NEVER GARBLED A MESSAGE. HE MIGHT, HOWEVER, TAKE A SIX-MONTH VOYAGE BEFORE DELIVERING IT."
+  },
+  {
+   "id": "V-09",
+   "shape": "wide",
+   "title": "The Synod of priests",
+   "desc": "Every 19 years the priests met by torchlight in the orchestra to choose one symbolic decree, while some slipped out through the gates.",
+   "scene": "Night inside the Round. Torches ring the sand orchestra with its marble kerb. Five priests in ceremonial robes and wreaths sit on the lowest seat rows, with more priests up the tiers. Through a gate passage, two priests are quietly slipping out. The verandah colonnade is dark overhead.",
+   "sites": [
+    "round (orchestra, night)"
+   ],
+   "cast": "priests A, B, \u0393, \u0394, E and others",
+   "refs": [
+    "IV-legislators"
+   ],
+   "caption": "EVERY 19 YEARS THE SYNOD CHOSE ONE SYMBOLIC DECREE. THEN THE PRIESTS TOOK UP WANDERING, AND ONE YEAR NO DECREE WAS CHOSEN AT ALL.",
+   "notes": "There is no priest sheet: dress the legislators from IV-legislators in ceremonial robes. Canon: the Round predates both the Synod and Parliament, so the Synod meets in the same building Parliament uses later."
+  },
+  {
+   "id": "V-10",
+   "shape": "half",
+   "tilt": "l",
+   "title": "A majority by weight",
+   "desc": "A stout priest settled on the tiers with a lunch basket, three thin priests dashing out, and a balance weighing one against the three.",
+   "scene": "Comic scene in the Round. A stout priest is comfortably settled on a seat row with a lunch basket and cushions, clearly going nowhere. Three thin priests sprint up a radial stairway toward a gate. In the orchestra, a scribe's great bronze balance holds the stout priest's token on one pan and three thin priests' tokens on the other, level.",
+   "sites": [
+    "round (cavea)"
+   ],
+   "cast": "priests, a scribe",
+   "refs": [
+    "IV-legislators",
+    "IV-symbols"
+   ],
+   "caption": "FAT PRIESTS LEFT THE CHAMBER LESS OFTEN, SO FOR A WHILE A MAJORITY WAS COUNTED BY WEIGHT. THE THIN PRIESTS OBJECTED."
+  },
+  {
+   "id": "V-11",
+   "shape": "wide",
+   "title": "NextBallot(b)",
+   "desc": "From the verandah, a priest sends messengers racing down the radial stairways with his new ballot number.",
+   "scene": "High above the Great Round from the south-west, looking down across the whole cavea toward the far verandah, with the harbour town and the sea beyond the ring wall. At the far verandah edge, priest p hands a small sealed scroll with a bronze ballot token (an emblem, no digits) to a messenger; four more messengers already race down different radial stairways, fanning out across the chamber toward priests seated on the seat rows and standing on the mid-height walkway. Some priests are looking up; one is dozing.",
+   "sites": [
+    "round (verandah, stairways)"
+   ],
+   "cast": "priest p, five messengers, priests",
+   "refs": [
+    "IV-messengers",
+    "IV-symbols",
+    "IV-legislators"
+   ],
+   "caption": "STEP 1: THE PRIEST CHOOSES A BALLOT NUMBER, AND HIS MESSENGERS FAN OUT ACROSS THE CHAMBER."
+  },
+  {
+   "id": "V-12",
    "shape": "tall",
    "tilt": "r",
-   "title": "The marginal lamp",
-   "desc": "On a warship's deck at night, a failing signal lamp guttering at half strength; two helmsmen disagree on whether it is lit.",
-   "scene": "An illustrative scene, not tied to a place on the island. At night on a trireme's deck, a single signal lamp hangs from a pole, its flame guttering at half strength. Two helmsmen stare up at it: one points and gestures 'lit!', the other shakes his head 'dark'.",
-   "sites": ["none (illustrative: the warship)"],
-   "cast": "two helmsmen",
-   "refs": [],
-   "caption": "NO ROPE OR BRONZE CAN SAVE YOU: A FAILING LAMP CAN LOOK LIT TO ONE HELMSMAN AND DARK TO THE OTHER."
+   "title": "The back of the ledger",
+   "desc": "A priest unrolls his ledger to its far end, past the decrees, to three short notes: last ballot tried, last vote, last promise.",
+   "scene": "A priest on a seat row winds his ledger through to its far end: the long columns of decrees roll up on one rod, and the last hand's width of parchment opens on the other. There, three short notes have been crossed out and rewritten several times, each marked with a small pictogram: a torch, a voting pebble, a sealed promise. A messenger waits beside him for the reply.",
+   "sites": [
+    "round (seat row)"
+   ],
+   "cast": "a priest, a messenger",
+   "refs": [
+    "IV-ledger",
+    "IV-symbols"
+   ],
+   "caption": "THE BACK OF THE LEDGER HOLDS JUST THREE NOTES: THE LAST BALLOT HE TRIED, HIS LAST VOTE, HIS LAST PROMISE.",
+   "notes": "On a scroll, 'the back of the ledger' is the far end of the roll."
+  },
+  {
+   "id": "V-13",
+   "shape": "tall",
+   "tilt": "l",
+   "title": "The slip of paper",
+   "desc": "A gust through a verandah window lifts a priest's slip of paper out over the col. His ballot is over.",
+   "scene": "At a verandah window. A gust has lifted priest p's slip of paper off the ledge; it tumbles away through the window, out over the col toward the sea. He leans after it with one hand outstretched and a look of mild resignation. Behind him, two messengers stand idle, waiting for instructions that will never come.",
+   "sites": [
+    "round (verandah window, view over the col)"
+   ],
+   "cast": "priest p, two messengers",
+   "refs": [
+    "IV-legislators",
+    "IV-messengers"
+   ],
+   "caption": "IF HE LOST HIS SLIP OF PAPER, HE STOPPED CONDUCTING THE BALLOT. NO HARM DONE \u2014 AND NO DECREE."
+  },
+  {
+   "id": "V-14",
+   "shape": "half",
+   "tilt": "r",
+   "title": "Success(d)",
+   "desc": "All over the Chamber, priests write the same decree into their ledgers at the same moment.",
+   "scene": "Across the cavea, on different tiers, every priest present bends over his ledger held open between its rods, writing the same short entry. Messengers on the stairways hold up message scrolls sealed with a laurel. One priest just arriving at a gate is already unrolling his ledger to join in.",
+   "sites": [
+    "round (cavea)"
+   ],
+   "cast": "priests, messengers",
+   "refs": [
+    "IV-benches",
+    "IV-messengers",
+    "IV-symbols"
+   ],
+   "caption": "STEP 6: SUCCESS! EVERY PRIEST WRITES THE SAME DECREE IN HIS LEDGER."
+  },
+  {
+   "id": "V-15",
+   "shape": "half",
+   "tilt": "l",
+   "title": "Doors barred, hourglass running",
+   "desc": "Inside the east gate, a priest drops the oak bar into its brackets. On the ledge, a glass hourglass runs. Someone knocks outside.",
+   "scene": "Inside the east gate passage, below the verandah. Two priests lower the oak drop-bar into its iron brackets across the bronze doors. On a ledge in the passage stands a glass hourglass, sand running. Beyond them, a majority of priests is settled in the cavea. On the outside of the doors, a late priest knocks.",
+   "sites": [
+    "round (east gate, inside)"
+   ],
+   "cast": "priests",
+   "refs": [
+    "III-props",
+    "IV-legislators"
+   ],
+   "caption": "BAR THE DOORS WITH A MAJORITY INSIDE, AND THE HOURGLASS PROMISES A DECREE WITHIN 99 MINUTES."
+  },
+  {
+   "id": "V-16",
+   "shape": "tall",
+   "tilt": "r",
+   "title": "The glass blowers of Paxos",
+   "desc": "In a workshop off the agora, a glass blower shapes an hourglass while a priest checks a finished one against the sundial's shadow.",
+   "scene": "A glass-blower's workshop in the harbour town, open to the agora. The furnace glows. A craftsman turns a two-bulb hourglass on his pipe, and racks of finished timers in turned-wood frames stand in graded sizes. In the doorway, a priest holds one up while glancing out at the sundial on its pillar in the agora.",
+   "sites": [
+    "town (workshop off the agora; sundial pillar)"
+   ],
+   "cast": "a glass blower, an apprentice, a priest",
+   "refs": [
+    "III-props",
+    "IV-townsfolk"
+   ],
+   "caption": "THE SKILLED GLASS BLOWERS OF PAXOS HAD NO DIFFICULTY MAKING HOURGLASS TIMERS ACCURATE ENOUGH."
+  },
+  {
+   "id": "V-17",
+   "shape": "strip",
+   "title": "Friday afternoon",
+   "desc": "Legislators stream out of the Round and down the Statue Walk for the weekend. One messenger climbs against the tide.",
+   "scene": "Late golden afternoon, looking down the Statue Walk from the Round's gate. Legislators, ledgers under their arms, stream downhill toward the harbour, the town and the banquet house. One carries a fishing rod, another a wine jar. A single messenger struggles uphill against the crowd, holding up a message for a decree that nobody will now finish.",
+   "sites": [
+    "round (gate)",
+    "walk",
+    "town",
+    "banquet"
+   ],
+   "cast": "many legislators, a messenger",
+   "refs": [
+    "IV-benches",
+    "IV-messengers"
+   ],
+   "caption": "LATE FRIDAY AFTERNOON: DECREE 126 PASSED, 125 HALF-DONE, AND EVERYONE WENT HOME FOR THE WEEKEND."
+  },
+  {
+   "id": "V-18",
+   "shape": "strip",
+   "title": "Behind closed doors",
+   "desc": "Gates shut, the president on the verandah, and three waves of messengers: BeginBallot out, Voted back, Success to all.",
+   "scene": "An elevated view into the Round with all four gates barred. The president stands at the verandah. Three waves of messengers, told apart by sash colour (aegean blue, terracotta, gold), move along the radial stairways. Blue carries BeginBallot out to a quorum, terracotta carries Voted back up to the president, and gold carries Success out to every legislator. It reads like a diagram, drawn as a scene.",
+   "sites": [
+    "round (all gates barred)"
+   ],
+   "cast": "the president, legislators, messengers",
+   "refs": [
+    "IV-messengers",
+    "IV-legislators"
+   ],
+   "caption": "BEHIND CLOSED DOORS, A DECREE TOOK THREE MESSAGE DELAYS: BEGIN, VOTED, SUCCESS."
+  },
+  {
+   "id": "V-19",
+   "shape": "half",
+   "tilt": "l",
+   "title": "President \u03a9\u03ba\u03b9",
+   "desc": "Sunburnt from six months abroad and wearing the president's sash, \u03a9\u03ba\u03b9 slowly copies decrees while Parliament waits.",
+   "scene": "On the verandah. \u03a9\u03ba\u03b9, sunburnt and still in his travelling hat, wears the president's sash. He sits hunched over his ledger, copying entry by entry from a borrowed ledger unrolled beside him, surrounded by heaps of rolled scrolls. Around him, legislators wait: one drums his fingers, one has fallen asleep against a column, and a messenger taps his foot.",
+   "sites": [
+    "round (verandah)"
+   ],
+   "cast": "\u03a9\u03ba\u03b9, legislators, a messenger",
+   "refs": [
+    "IV-legislators",
+    "IV-benches",
+    "IV-ledger"
+   ],
+   "caption": "BACK FROM SIX MONTHS ABROAD, \u03a9\u03ba\u03b9 WAS INSTANTLY PRESIDENT, ALPHABETICALLY. PARLIAMENT WAITED WHILE HE COPIED."
+  },
+  {
+   "id": "V-20",
+   "shape": "tall",
+   "title": "The law book",
+   "desc": "A legislator's law book: a set of subject scrolls with pictogram tags. He updates the taxes scroll from the week's decrees.",
+   "scene": "A legislator's law book: a set of two-rod scrolls, one per area of law, stood together in a leather case, each marked with a hanging pictogram tag (olive for taxes, goat for mercantile law, anchor for tariffs) and a small token for the last decree it reflects. He has the taxes scroll open and is amending the olive-tax entry. His ledger lies unrolled to its far end, where the week's decrees are listed.",
+   "sites": [
+    "none (interior close-up)"
+   ],
+   "cast": "a legislator",
+   "refs": [
+    "I-props",
+    "IV-symbols",
+    "IV-ledger"
+   ],
+   "caption": "IN TIME, LEDGERS BECAME LAW BOOKS: ONLY THE CURRENT LAW, AND THE NUMBER OF THE LAST DECREE IT REFLECTS.",
+   "notes": "Canon: the law book is a set of scrolls, one per area of law, not a codex."
+  },
+  {
+   "id": "V-21",
+   "shape": "wide",
+   "title": "Two cheese inspectors",
+   "desc": "Among the agora's cheese stalls, \u0394\u02d8\u03b9\u03ba\u03c3\u03c4\u03c1\u03b1 stamps a wheel unfit while \u0393\u03c9\u03c5\u03b4\u03b1 stamps the same wheel fit.",
+   "scene": "The agora at mid-morning, among the cheese stalls in front of the stoa. Two inspectors each grip the same big wheel of cheese. \u0394\u02d8\u03b9\u03ba\u03c3\u03c4\u03c1\u03b1 brings down a bronze stamp with a frowning-face emblem, and \u0393\u03c9\u03c5\u03b4\u03b1 a stamp with a laurel. Stallholders shout, buyers back away, and a cheese rolls off a counter. In the background: the sundial on its pillar and the goat pen by the fountain.",
+   "sites": [
+    "town (agora: stalls, sundial, goat pen)"
+   ],
+   "cast": "\u0394\u02d8\u03b9\u03ba\u03c3\u03c4\u03c1\u03b1, \u0393\u03c9\u03c5\u03b4\u03b1, stallholders, buyers",
+   "refs": [
+    "IV-townsfolk",
+    "IV-symbols"
+   ],
+   "caption": "\u0394\u02d8\u03b9\u03ba\u03c3\u03c4\u03c1\u03b1 AND \u0393\u03c9\u03c5\u03b4\u03b1, BOTH CHEESE INSPECTOR AT ONCE. THE CHEESE MARKET DESCENDED INTO CHAOS."
+  },
+  {
+   "id": "V-22",
+   "shape": "half",
+   "tilt": "r",
+   "title": "Black goats",
+   "desc": "At the goat pen by the fountain, a legislator's ledger ends at decree 76, so the sale of black goats falls through.",
+   "scene": "At the goat pen by the agora fountain. Farmer \u0394\u03c9\u03bb\u03b5\u03c6's goatherd holds a rope of black goats. Merchant \u03a3\u03ba\u03b5\u03b5\u03bd, purse in hand, waits for an answer. Legislator \u03a3\u03c4\u03c9\u03ba\u03bc\u02d8\u03b9\u03c1 has unrolled his ledger to its very last entry, which is short of the one they need, and shakes his head. \u0394\u03c9\u03bb\u03b5\u03c6 throws up his hands.",
+   "sites": [
+    "town (agora goat pen, fountain)"
+   ],
+   "cast": "\u0394\u03c9\u03bb\u03b5\u03c6, a goatherd, \u03a3\u03ba\u03b5\u03b5\u03bd, \u03a3\u03c4\u03c9\u03ba\u03bc\u02d8\u03b9\u03c1",
+   "refs": [
+    "I-characters",
+    "IV-townsfolk",
+    "IV-benches"
+   ],
+   "caption": "BLACK GOATS WERE LEGAL AS OF DECREE 77. \u03a3\u03c4\u03c9\u03ba\u03bc\u02d8\u03b9\u03c1\u2019S LEDGER STOPPED AT 76, AND THE SALE FELL THROUGH."
+  },
+  {
+   "id": "V-23",
+   "shape": "tall",
+   "tilt": "l",
+   "title": "\u03a0\u03b1\u03c1\u03bd\u03b1\u03c2 hands on the ledger",
+   "desc": "In a town-house courtyard, the elder \u03a0\u03b1\u03c1\u03bd\u03b1\u03c2 hands his tied ledger to his son. A messenger at the door doesn't mind which \u03a0\u03b1\u03c1\u03bd\u03b1\u03c2 he gets.",
+   "scene": "A courtyard in a harbour-town house. The elder statesman \u03a0\u03b1\u03c1\u03bd\u03b1\u03c2, white-bearded, hands his ledger, tied with its cord and seal, to his son, who looks just like a younger him. In the doorway, a messenger holds out a message to whichever \u03a0\u03b1\u03c1\u03bd\u03b1\u03c2 takes it.",
+   "sites": [
+    "town (a house courtyard)"
+   ],
+   "cast": "\u03a0\u03b1\u03c1\u03bd\u03b1\u03c2, his son, a messenger",
+   "refs": [
+    "IV-benches",
+    "IV-messengers"
+   ],
+   "caption": "WHEN \u03a0\u03b1\u03c1\u03bd\u03b1\u03c2 RETIRED, HIS SON TOOK THE LEDGER. NO OTHER LEGISLATOR COULD TELL THE DIFFERENCE."
+  },
+  {
+   "id": "V-24",
+   "shape": "wide",
+   "title": "The fall",
+   "desc": "A storm over the col. In the empty Round a scribe stares at his mistake; General \u039b\u03b1\u03bc\u03c0\u03c3\u03c9\u03bd's hoplites march up the Statue Walk.",
+   "scene": "A storm over the island. Inside the deserted Round, a scribe stands frozen over a ledger open between its rods: the decree that made the drowned sailors the only legislators. Down the valley, General \u039b\u03b1\u03bc\u03c0\u03c3\u03c9\u03bd on horseback leads a column of hoplites up the Statue Walk past the statues. On the dark horizon, sails of an eastern fleet.",
+   "sites": [
+    "round",
+    "walk",
+    "sea horizon"
+   ],
+   "cast": "a scribe, General \u039b\u03b1\u03bc\u03c0\u03c3\u03c9\u03bd, hoplites",
+   "refs": [
+    "IV-townsfolk",
+    "IV-ledger"
+   ],
+   "caption": "ONE SCRIBE\u2019S ERROR MADE DROWNED SAILORS THE ONLY LEGISLATORS. NO DECREE COULD PASS \u2014 NOT EVEN THE FIX."
   }
  ]
 }

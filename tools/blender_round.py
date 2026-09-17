@@ -121,13 +121,13 @@ def statue(k, M, X, Y, z, facing, pose):
 # ---------------------------------------------------------------- the Round
 def build(ground, M0, report):
     X, Y = site("round"); rim = ground.z(X, Y)                                                    # rim = outside ground level at the Round
-    report["The Great Round"] = {"volume": "IV", "radius_m": 25, "relief_before_m": ground.relief(X, Y, 25)[0]}
+    report["The Great Round"] = {"volume": "V", "radius_m": 25, "relief_before_m": ground.relief(X, Y, 25)[0]}
     z_orch = rim - LOWER_ROWS * LOWER_RISE
     z_ver = rim + VERANDAH_UP
     ground.pad(X, Y, 31, rim, 45)
     ground.edit(X, Y, 25, lambda d, dX, dY, g: np.where(d < 24, np.minimum(g, z_orch - 2), g))
     M = {**M0, **round_materials(X, Y), "tile": _noise_mat("Verandah roof tiles", "#b3552f", "#98452a", 4.0, .8)}
-    k = Kit("IV · The Great Round")
+    k = Kit("V · The Great Round")
     P = lambda r, a: (X + r * math.cos(a), Y + r * math.sin(a))
     gates = [0.0, TAU / 4, TAU / 2, 3 * TAU / 4]                                                   # east, north, west, south (Blender +X is east)
     stair_angles = [TAU / 16 + i * TAU / STAIRS for i in range(STAIRS)]                            # between the gates
@@ -264,7 +264,7 @@ def build(ground, M0, report):
         sx, sy = P(29.5, th)
         statue(k, M, sx, sy, rim, th, "orator" if sidx % 3 == 0 else ("scroll" if sidx % 3 == 1 else "stand")); statues += 1
 
-    people = Kit("IV · Scale figures (1.75 m)")
+    people = Kit("V · Scale figures (1.75 m)")
     cloth = [M["himation_blue"], M["himation_ochre"], M["chiton"]]
     for n, (r_, a_, face) in enumerate(((31, .12, math.pi), (31.8, -.1, math.pi), (33, .02, math.pi + .3))):
         fx, fy = P(r_, a_); figure(people, fx, fy, max(ground.z(fx, fy), rim), a_ + face, "stand", M["chiton"], cloth[n], M["skin"])   # on the terrace

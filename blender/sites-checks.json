@@ -4,7 +4,7 @@
  "beacon_fires_in_sight": true,
  "drum_decks_in_sight": true,
  "granary_min_gap_m": 513,
- "oracle_below_local_summit_m": 6.4,
+ "oracle_below_local_summit_m": 7.3,
  "lock_houses": {
   "lock_spacing_m": [
    198,
@@ -23,12 +23,12 @@
   ]
  },
  "statue_walk": {
-  "length_m": 1633,
-  "max_grade_pct": 23.0,
-  "steepest_from_round_m": 135,
-  "mean_grade_pct": 10.9,
+  "length_m": 1844,
+  "max_grade_pct": 23.1,
+  "steepest_from_round_m": 144,
+  "mean_grade_pct": 10.3,
   "max_grade_ungraded_pct": 45.1,
-  "statues": 25,
+  "statues": 26,
   "closest_to_round_m": 35.25,
   "ends_before_gate_deg": 0,
   "end_from_round_m": 35.25
@@ -36,7 +36,7 @@
  "causeway_markers": 16,
  "monastery_jetty_tip_m": -8.4,
  "objects": 12,
- "faces": 5747,
+ "faces": 5877,
  "statue_walk_stops_outside_the_round": true,
  "ok": true
 }

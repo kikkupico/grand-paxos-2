@@ -20,8 +20,8 @@ OUT = ROOT / "blender"
 RENDERS = ROOT / "renders"
 HMIN, HMAX, CELL = -120.0, 480.0, 12.5
 W, H = 11000.0, 8000.0
-VOLUMES = {"I": "Disordered Sundials", "II": "Sleeping Guard", "III": "Passable Season", "IV": "Part-time Parliament",
-           "V": "Generals Before the Walls", "VI": "Ledger of Many Decrees", "VII": "Citadel of Iron Quorums",
+VOLUMES = {"I": "Disordered Sundials", "II": "Sleeping Guard", "III": "Generals Before the Walls", "IV": "Passable Season",
+           "V": "Part-time Parliament", "VI": "Ledger of Many Decrees", "VII": "Citadel of Iron Quorums",
            "VIII": "Quarries of the Roman Guilds", "IX": "Raft Monks"}
 
 def hexrgb(h, a=1.0):
