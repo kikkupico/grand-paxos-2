@@ -167,10 +167,19 @@ def watchtowers(ground, M):
             k.cyl(X, Y, 1.1, g + 11.55, g + 11.8, M["roof"], 12)
             k.frustum(X, Y, 0.9, 0.3, g + 11.75, g + 12.7, M["smoke"], 8)
 
-        # 9. War-horn post on parapet
+        # 9. War-horn post and messenger raven roost on parapet
         px, py = X + 3.9 * math.cos(inland_ang + 1.2), Y + 3.9 * math.sin(inland_ang + 1.2)
         k.box(px, py, g + 10.2, g + 12.6, 0.25, 0.25, 0, M["timber"])
         k.frustum(px, py, 0.08, 0.32, g + 12.3, g + 13.0, M["bronze"], 8)
+
+        # Parapet raven roost and perched messenger raven
+        rx, ry = X + 3.8 * math.cos(inland_ang - 1.2), Y + 3.8 * math.sin(inland_ang - 1.2)
+        k.box(rx, ry, g + 10.2, g + 11.9, 0.14, 0.14, 0, M["timber"])
+        k.box(rx, ry, g + 11.85, g + 12.0, 0.55, 0.12, inland_ang, M["timber"])
+        k.box(rx, ry, g + 12.0, g + 12.35, 0.2, 0.32, inland_ang, M["roof"])
+        k.cyl(rx + 0.1 * math.cos(inland_ang), ry + 0.1 * math.sin(inland_ang), 0.08, g + 12.3, g + 12.48, M["roof"], 8)
+        k.cone(rx + 0.18 * math.cos(inland_ang), ry + 0.18 * math.sin(inland_ang), 0.04, g + 12.32, g + 12.42, M["iron"], 4)
+        k.cyl(rx - 0.04 * math.cos(inland_ang), ry - 0.04 * math.sin(inland_ang), 0.025, g + 11.95, g + 12.06, M["bronze"], 6)
 
         # 10. South Crag specific interior: the sleeping guard at his table
         if i == 2:
@@ -180,13 +189,19 @@ def watchtowers(ground, M):
                 k.box(X + 1.2 * dx + lx * c - ly * s, Y + 1.2 * dy + lx * s + ly * c, g + 0.35, g + 1.05, 0.1, 0.1, inland_ang, M["timber"])
             # Wooden guard bench
             k.box(X + 0.35 * dx, Y + 0.35 * dy, g + 0.35, g + 0.8, 0.45, 0.7, inland_ang, M["timber"])
-            # Wax slates & bronze stylus on the table
+            # Wax slates, bronze stylus & bronze messenger capsule on the table
             k.box(X + 1.3 * dx + 0.3 * dy, Y + 1.3 * dy - 0.3 * dx, g + 1.15, g + 1.18, 0.28, 0.4, inland_ang + 0.2, M["thatch"])
             k.box(X + 1.1 * dx - 0.35 * dy, Y + 1.1 * dy + 0.35 * dx, g + 1.15, g + 1.18, 0.26, 0.38, inland_ang - 0.3, M["thatch"])
             k.box(X + 1.2 * dx - 0.1 * dy, Y + 1.2 * dy + 0.1 * dx, g + 1.18, g + 1.2, 0.04, 0.25, inland_ang + 0.5, M["bronze"])
+            k.cyl(X + 1.35 * dx - 0.18 * dy, Y + 1.35 * dy + 0.18 * dx, 0.035, g + 1.15, g + 1.25, M["bronze"], 8)
             # Bronze oil lamp on the corner of the table with glowing flame
             k.cyl(X + 1.45 * dx + 0.45 * dy, Y + 1.45 * dy - 0.45 * dx, 0.12, g + 1.15, g + 1.25, M["bronze"], 8)
             k.cyl(X + 1.45 * dx + 0.45 * dy, Y + 1.45 * dy - 0.45 * dx, 0.04, g + 1.25, g + 1.33, M["lamp_flame"], 8)
+            # Roosting messenger raven on the arrow-slit stone sill
+            sax, say = math.cos(inland_ang + math.pi), math.sin(inland_ang + math.pi)
+            k.box(X + 3.8 * sax, Y + 3.8 * say, g + 4.2, g + 4.5, 0.22, 0.35, inland_ang + math.pi, M["roof"])
+            k.cyl(X + 3.88 * sax, Y + 3.88 * say, 0.08, g + 4.45, g + 4.62, M["roof"], 8)
+            k.cyl(X + 3.75 * sax, Y + 3.75 * say, 0.025, g + 4.18, g + 4.28, M["bronze"], 6)
             # The Sleeping Guard: slumped face-down over the slate-table
             k.box(X + 0.75 * dx, Y + 0.75 * dy, g + 0.85, g + 1.45, 0.45, 0.55, inland_ang, M["roof"]) # torso
             k.box(X + 1.05 * dx, Y + 1.05 * dy, g + 1.15, g + 1.28, 0.35, 0.6, inland_ang, M["roof"])  # folded arms

@@ -25,10 +25,10 @@
    "shape": "half",
    "tilt": "l",
    "title": "The sleepy guard",
-   "desc": "Inside the stone watchtower at South Crag: an oil lamp gutters in the draft; the lone guard has slumped face-down over his unsealed wax slates, fast asleep, while the dark sea churns outside.",
-   "scene": "Inside the circular stone chamber of the South Crag watchtower. A bronze oil lamp flickers in the draft from the narrow arrow-slit. The lone watchman has slumped forward face-down onto his wooden slate-table, arms folded beneath his head, dead asleep. Beside his hand lie unsealed wax slates from the other towers and an unlit torch. Outside the arrow-slit, waves crash against the cliff in the deepening night.",
+   "desc": "Inside the stone watchtower at South Crag: an oil lamp gutters in the draft; a roosting messenger raven sleeps on the arrow-slit sill with an unread message cylinder; the lone guard has slumped face-down over his unsealed wax slates, fast asleep, while the dark sea churns outside.",
+   "scene": "Inside the circular stone chamber of the South Crag watchtower. A bronze oil lamp flickers in the draft from the narrow arrow-slit. On the stone sill, a black messenger raven roosts with head tucked beneath its wing, an unread bronze message capsule still tied to its leg. The lone watchman has slumped forward face-down onto his wooden slate-table, arms folded beneath his head, dead asleep. Beside his hand lie unsealed wax slates from the other towers and an unlit torch. Outside the arrow-slit, waves crash against the cliff in the deepening night.",
    "sites": ["South Crag watchtower (interior)"],
-   "cast": "the sleeping guard",
+   "cast": "the sleeping guard, roosting messenger raven",
    "refs": ["I-characters"],
    "caption": "THE SLEEPY GUARD: ASLEEP FOR AN HOUR, OR STRUCK DOWN FOR GOOD? NO ONE ON THE OTHER HEADLANDS CAN TELL."
   },
@@ -58,24 +58,24 @@
    "id": "II-04",
    "shape": "tall",
    "tilt": "r",
-   "title": "The crossroads on the cliffs",
-   "desc": "A messenger pauses at a fork in the coastal cliff path, holding two sealed leather message cylinders, while below in the dark harbor the crews wait by their galleys.",
-   "scene": "A steep, rocky fork in the cliffside footpath high above the surf. A young courier in a chiton pauses by a stone cairn, holding two sealed leather message cylinders, one in each hand, hesitating which headland track to take first as waves spray below. Far across the bay, torches gleam from the ramparts of two rival watchtowers, each awaiting his arrival to know whether to sound the horn.",
-   "sites": ["cliff path fork above the sea"],
-   "cast": "cliffside runner",
+   "title": "The roost on the headland",
+   "desc": "A young sentry on a crag holds a black messenger raven on his gloved wrist, fastening a sealed bronze message cylinder before sending it into the swirling coastal mists toward the distant watchtowers.",
+   "scene": "A steep, rocky crag high above the spray of the coastal gorge. A young sentry in a woolen chiton stands by the stone parapet, a large black messenger raven perched firmly on his thick leather gauntlet. With his other hand, he ties a sealed bronze message cylinder to the bird's harness, hesitating as gusts of fog whip off the sea. Far across the bay, torches gleam from the ramparts of two rival watchtowers through the mist, each awaiting this flight to know whether to sound the war-horn.",
+   "sites": ["cliff crag above the sea", "distant watchtowers"],
+   "cast": "sentry with messenger raven",
    "refs": ["I-characters"],
-   "caption": "CASE 2: IF THE FATE OF THE ISLAND HANGS ON WHICH SLATE ONE GUARD READS FIRST, THE REST MUST BE ABLE TO DECIDE WITHOUT HIM — AND THEN IT HANGS ON NOTHING."
+   "caption": "CASE 2: IF THE FATE OF THE ISLAND HANGS ON WHICH TOWER A RAVEN REACHES FIRST, THE REST MUST BE ABLE TO DECIDE WITHOUT IT — AND THEN IT HANGS ON NOTHING."
   },
   {
    "id": "II-05",
    "shape": "wide",
    "title": "The endless vigil",
-   "desc": "Midnight over the island: runners jog along coastal paths, delivering slates from tower to tower under the moon; inside the towers, guards argue over their boards while the war galleys remain chained in the dark harbor.",
-   "scene": "A wide moonlit night across the headlands of Paxos. Long trails wind along the ridge lines, with fast runners carrying torches passing each other between towers, delivering every slate in turn without fail. Inside the glowing watchtowers, guards pore over their chalk slate boards, locked in endless debate. Down in the coves, the island's war galleys sit motionless behind the heavy harbor chains, crewed by silent soldiers waiting for a signal that never comes.",
+   "desc": "Midnight over the island: black messenger ravens fly between coastal towers under the moon, carrying bronze message cylinders across the headlands; inside the towers, guards argue over their boards while the war galleys remain chained in the dark harbor.",
+   "scene": "A wide moonlit night across the headlands of Paxos. Above the jagged sea cliffs and drifting fog, dark wings slice through the night air as trained messenger ravens fly back and forth between the towers, delivering every bronze message capsule in turn without fail. Inside the glowing watchtowers, guards pore over their chalk slate boards, locked in endless debate. Down in the coves, the island's war galleys sit motionless behind the heavy harbor chains, crewed by silent soldiers waiting for a signal that never comes.",
    "sites": ["headlands and coves at night"],
-   "cast": "runners on trails, guards in towers, silent galley crews",
+   "cast": "messenger ravens in flight, guards in towers, silent galley crews",
    "refs": ["III-props"],
-   "caption": "NO SLATE IS LOST. NO TOWER CRUMBLES. EVERY RUNNER ARRIVES. AND THE FLEET NEVER LAUNCHES."
+   "caption": "NO CAPSULE IS LOST. NO TOWER CRUMBLES. EVERY RAVEN ARRIVES. AND THE FLEET NEVER LAUNCHES."
   },
   {
    "id": "II-06",

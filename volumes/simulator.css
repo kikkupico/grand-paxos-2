@@ -1018,7 +1018,8 @@
   color: #fff;
 }
 
-.flp-runner-pool {
+.flp-runner-pool,
+.flp-raven-pool {
   background: #fdfaf2;
   border: 2px solid var(--ink);
   border-radius: 3px;
@@ -1026,14 +1027,16 @@
   margin-top: 10px;
 }
 
-.flp-runner-list {
+.flp-runner-list,
+.flp-raven-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 6px;
 }
 
-.flp-runner-btn {
+.flp-runner-btn,
+.flp-raven-btn {
   background: #f0e6ce;
   border: 1.5px solid var(--ink);
   border-radius: 3px;
@@ -1048,16 +1051,19 @@
   gap: 6px;
 }
 
-.flp-runner-btn:hover {
+.flp-runner-btn:hover,
+.flp-raven-btn:hover {
   background: #faefd8;
   transform: translateY(-1px);
 }
 
-.flp-runner-btn.adversary-safe {
+.flp-runner-btn.adversary-safe,
+.flp-raven-btn.adversary-safe {
   border-color: #2b772a;
 }
 
-.flp-runner-btn.adversary-danger {
+.flp-runner-btn.adversary-danger,
+.flp-raven-btn.adversary-danger {
   border-color: #a82e20;
   background: #f8ded9;
 }

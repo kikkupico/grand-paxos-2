@@ -15,11 +15,11 @@ Twilight over the western sea of Paxos. On the high stone parapet of the North B
 
 - **Shape:** half 4:3
 - **Blender:** South Crag watchtower (interior)
-- **Cast:** the sleeping guard
+- **Cast:** the sleeping guard, roosting messenger raven
 - **Sheets:** `references/I-characters.jpg`
 - **Caption:** THE SLEEPY GUARD: ASLEEP FOR AN HOUR, OR STRUCK DOWN FOR GOOD? NO ONE ON THE OTHER HEADLANDS CAN TELL.
 
-Inside the circular stone chamber of the South Crag watchtower. A bronze oil lamp flickers in the draft from the narrow arrow-slit. The lone watchman has slumped forward face-down onto his wooden slate-table, arms folded beneath his head, dead asleep. Beside his hand lie unsealed wax slates from the other towers and an unlit torch. Outside the arrow-slit, waves crash against the cliff in the deepening night.
+Inside the circular stone chamber of the South Crag watchtower. A bronze oil lamp flickers in the draft from the narrow arrow-slit. On the stone sill, a black messenger raven roosts with head tucked beneath its wing, an unread bronze message capsule still tied to its leg. The lone watchman has slumped forward face-down onto his wooden slate-table, arms folded beneath his head, dead asleep. Beside his hand lie unsealed wax slates from the other towers and an unlit torch. Outside the arrow-slit, waves crash against the cliff in the deepening night.
 
 ## II-02 · The balanced scales of war
 
@@ -41,25 +41,25 @@ An allegorical scene above the sea cliffs. A great wooden beam balance stands po
 
 A panoramic twilight view of four watchtowers perched along the high rocky headlands of Paxos, seen in silhouette against a pale violet sky. From left to right, the signal braziers on the towers shift: the first two burn with white flame (Attack), the fourth burns with black smoke (Defend). At the third tower—the pivotal headland where the verdict flips—the brazier is cold and dark, its guard slumped over the stone sill asleep.
 
-## II-04 · The crossroads on the cliffs
+## II-04 · The roost on the headland
 
 - **Shape:** tall 3:4
-- **Blender:** cliff path fork above the sea
-- **Cast:** cliffside runner
+- **Blender:** cliff crag above the sea; distant watchtowers
+- **Cast:** sentry with messenger raven
 - **Sheets:** `references/I-characters.jpg`
-- **Caption:** CASE 2: IF THE FATE OF THE ISLAND HANGS ON WHICH SLATE ONE GUARD READS FIRST, THE REST MUST BE ABLE TO DECIDE WITHOUT HIM — AND THEN IT HANGS ON NOTHING.
+- **Caption:** CASE 2: IF THE FATE OF THE ISLAND HANGS ON WHICH TOWER A RAVEN REACHES FIRST, THE REST MUST BE ABLE TO DECIDE WITHOUT IT — AND THEN IT HANGS ON NOTHING.
 
-A steep, rocky fork in the cliffside footpath high above the surf. A young courier in a chiton pauses by a stone cairn, holding two sealed leather message cylinders, one in each hand, hesitating which headland track to take first as waves spray below. Far across the bay, torches gleam from the ramparts of two rival watchtowers, each awaiting his arrival to know whether to sound the horn.
+A steep, rocky crag high above the spray of the coastal gorge. A young sentry in a woolen chiton stands by the stone parapet, a large black messenger raven perched firmly on his thick leather gauntlet. With his other hand, he ties a sealed bronze message cylinder to the bird's harness, hesitating as gusts of fog whip off the sea. Far across the bay, torches gleam from the ramparts of two rival watchtowers through the mist, each awaiting this flight to know whether to sound the war-horn.
 
 ## II-05 · The endless vigil
 
 - **Shape:** wide 16:9
 - **Blender:** headlands and coves at night
-- **Cast:** runners on trails, guards in towers, silent galley crews
+- **Cast:** messenger ravens in flight, guards in towers, silent galley crews
 - **Sheets:** `references/III-props.jpg`
-- **Caption:** NO SLATE IS LOST. NO TOWER CRUMBLES. EVERY RUNNER ARRIVES. AND THE FLEET NEVER LAUNCHES.
+- **Caption:** NO CAPSULE IS LOST. NO TOWER CRUMBLES. EVERY RAVEN ARRIVES. AND THE FLEET NEVER LAUNCHES.
 
-A wide moonlit night across the headlands of Paxos. Long trails wind along the ridge lines, with fast runners carrying torches passing each other between towers, delivering every slate in turn without fail. Inside the glowing watchtowers, guards pore over their chalk slate boards, locked in endless debate. Down in the coves, the island's war galleys sit motionless behind the heavy harbor chains, crewed by silent soldiers waiting for a signal that never comes.
+A wide moonlit night across the headlands of Paxos. Above the jagged sea cliffs and drifting fog, dark wings slice through the night air as trained messenger ravens fly back and forth between the towers, delivering every bronze message capsule in turn without fail. Inside the glowing watchtowers, guards pore over their chalk slate boards, locked in endless debate. Down in the coves, the island's war galleys sit motionless behind the heavy harbor chains, crewed by silent soldiers waiting for a signal that never comes.
 
 ## II-06 · Dawn on the headlands
 
