@@ -15,6 +15,8 @@ import blender_arch as ba
 
 def extra_mats():
     return {"fieldstone": mat("Fieldstone", "#b3a486"), "thatch": mat("Thatch", "#a08a5a"), "fire": mat("Beacon fire", "#ff8a3c", .5, 0, "#ff7a2a"),
+            "white_fire": mat("White signal fire", "#fff7ea", .2, 0, "#ffffff"), "smoke": mat("Dark smoke", "#322e2a", .9),
+            "lamp_flame": mat("Lamp flame", "#ffd060", .2, 0, "#ff9920"),
             "rock": mat("Rock outcrop", "#9c927f"), "cave": mat("Cave dark", "#1b1714", 1.0), "hide": mat("Drum hide", "#caa66b")}
 
 def statue(k, M, X, Y, z, ang):
@@ -82,52 +84,128 @@ def watchtowers(ground, M):
     for i in range(4):
         X, Y = site("watchtowers", i); g = ground.z(X, Y)
         ground.pad(X, Y, 10, g, 14)
-        # cylindrical stone tower base & walls
-        k.cyl(X, Y, 4.4, g - 1.5, g + 10.5, M["ashlar"], 24)
-        k.cyl(X, Y, 3.4, g + 0.1, g + 10.5, ba.dark(), 20)           # hollow interior chamber
-        # parapet wall & wall-walk
-        k.ring(X, Y, 3.2, 4.6, g + 10.0, g + 11.2, M["limestone"], 24) # parapet lower wall
-        # crenellations (8 merlons around parapet top, rising to g + 12.0)
-        n_merlons = 8
-        for m in range(n_merlons):
-            a0 = m * TAU / n_merlons
-            a1 = a0 + TAU / (n_merlons * 2)
-            k.ring(X, Y, 3.4, 4.6, g + 11.2, g + 12.0, M["limestone"], 4, a0, a1)
-        # doorway at ground level (facing inland)
-        inland = ground.seaward(X, Y)
-        inland_ang = math.atan2(-inland[1], -inland[0])                # opposite to seaward
+        inland = ground.seaward(X, Y, radius=500)
+        inland_ang = math.atan2(-inland[1], -inland[0])                # opposite to seaward (inland approach)
         dx, dy = math.cos(inland_ang), math.sin(inland_ang)
-        k.box(X + 4.3 * dx, Y + 4.3 * dy, g, g + 2.2, 0.4, 1.2, inland_ang, ba.dark())
-        # arrow-slits (facing seaward)
-        for sa in (inland_ang + math.pi - 0.7, inland_ang + math.pi, inland_ang + math.pi + 0.7):
+        c, s = dx, dy
+
+        # 1. Flagstone base terrace & plinth
+        k.cyl(X, Y, 6.8, g - 1.0, g + 0.35, M["pave"], 24)
+        k.ring(X, Y, 6.5, 7.1, g - 1.0, g + 0.5, M["limestone"], 24)
+        # Approach steps facing inland
+        k.box(X + 5.8 * dx, Y + 5.8 * dy, g - 0.5, g + 0.18, 1.2, 2.2, inland_ang, M["limestone"])
+        k.box(X + 4.9 * dx, Y + 4.9 * dy, g - 0.2, g + 0.35, 1.0, 1.8, inland_ang, M["limestone"])
+
+        # 2. Hollow walls with open doorway facing inland
+        w_door = 1.6
+        half_ang = (w_door / 2.0) / 4.4
+        a_start = inland_ang + half_ang
+        a_end = inland_ang + TAU - half_ang
+
+        # Plinth batter and ground-level wall with open doorway
+        k.ring(X, Y, 3.4, 4.8, g + 0.35, g + 2.0, M["limestone"], 24, a0=a_start, a1=a_end)
+        k.ring(X, Y, 3.4, 4.4, g + 2.0, g + 2.5, M["ashlar"], 24, a0=a_start, a1=a_end)
+        # Upper continuous wall above doorway
+        k.ring(X, Y, 3.4, 4.4, g + 2.5, g + 9.8, M["ashlar"], 24)
+
+        # Horizontal stone string courses
+        k.ring(X, Y, 4.38, 4.54, g + 3.8, g + 4.05, M["limestone"], 24)
+        k.ring(X, Y, 4.38, 4.54, g + 7.2, g + 7.45, M["limestone"], 24)
+
+        # 3. Interior stone floor & ceiling trapdoor deck
+        k.cyl(X, Y, 3.4, g, g + 0.35, M["pave"], 20)
+        k.cyl(X, Y, 2.0, g + 9.8, g + 10.0, M["timber"], 16)
+
+        # 4. Flared machicolation corbels supporting projecting parapet
+        for c_idx in range(16):
+            ca = c_idx * TAU / 16
+            cx, cy = math.cos(ca), math.sin(ca)
+            k.box(X + 4.35 * cx, Y + 4.35 * cy, g + 9.3, g + 9.9, 0.35, 0.45, ca, M["limestone"])
+            k.box(X + 4.5 * cx, Y + 4.5 * cy, g + 9.6, g + 9.9, 0.35, 0.45, ca, M["limestone"])
+        # Cornice ring under parapet
+        k.ring(X, Y, 3.3, 4.8, g + 9.8, g + 10.2, M["limestone"], 24)
+
+        # 5. Parapet wall-walk and crenellated battlements
+        k.ring(X, Y, 2.0, 3.4, g + 10.0, g + 10.2, M["pave"], 20)     # wall-walk floor
+        k.ring(X, Y, 3.3, 4.8, g + 10.2, g + 11.0, M["limestone"], 24) # parapet lower breastwork
+        # 8 crenellations (merlons rising 2.0 m above wall-walk deck)
+        for m in range(8):
+            a0 = m * TAU / 8
+            a1 = a0 + TAU / 16
+            k.ring(X, Y, 3.3, 4.8, g + 11.0, g + 12.2, M["limestone"], 4, a0, a1)
+            k.ring(X, Y, 3.25, 4.85, g + 12.15, g + 12.3, M["marble"], 4, a0, a1)
+
+        # 6. Framed doorway (facing inland toward the courier track)
+        jamb_r = 4.1
+        k.box(X + jamb_r * c - 0.95 * s, Y + jamb_r * s + 0.95 * c, g + 0.35, g + 2.55, 1.2, 0.5, inland_ang, M["limestone"])
+        k.box(X + jamb_r * c + 0.95 * s, Y + jamb_r * s - 0.95 * c, g + 0.35, g + 2.55, 1.2, 0.5, inland_ang, M["limestone"])
+        k.box(X + jamb_r * c, Y + jamb_r * s, g + 2.45, g + 2.8, 1.4, 2.4, inland_ang, M["limestone"])
+
+        # 7. Arrow slits (seaward and flanking angles)
+        for sa in (inland_ang + math.pi - 0.75, inland_ang + math.pi, inland_ang + math.pi + 0.75):
             sx, sy = math.cos(sa), math.sin(sa)
-            k.box(X + 4.35 * sx, Y + 4.35 * sy, g + 4.0, g + 5.2, 0.3, 0.3, sa, ba.dark())
-            k.box(X + 4.35 * sx, Y + 4.35 * sy, g + 7.5, g + 8.7, 0.3, 0.3, sa, ba.dark())
-        # parapet deck
-        k.cyl(X, Y, 3.3, g + 9.8, g + 10.0, M["limestone"], 20)
-        # brazier in the center of the tower deck
-        k.cyl(X, Y, 0.8, g + 10.0, g + 10.7, M["bronze"], 12)
-        k.cyl(X, Y, 1.3, g + 10.7, g + 11.3, M["bronze"], 16)
+            k.box(X + 4.38 * sx, Y + 4.38 * sy, g + 4.2, g + 5.4, 0.25, 0.32, sa, M["cave"])
+            k.box(X + 4.38 * sx, Y + 4.38 * sy, g + 7.6, g + 8.8, 0.25, 0.32, sa, M["cave"])
+
+        # 8. Parapet bronze tripod braziers
+        for ba_ang in (0, TAU / 3, 2 * TAU / 3):
+            bx = math.cos(ba_ang); by = math.sin(ba_ang)
+            k.box(X + 0.8 * bx, Y + 0.8 * by, g + 10.2, g + 11.2, 0.12, 0.15, ba_ang, M["iron"])
+        k.frustum(X, Y, 0.8, 1.45, g + 11.0, g + 11.6, M["bronze"], 16)
+        k.ring(X, Y, 1.3, 1.55, g + 11.55, g + 11.75, M["bronze"], 16)
+
         if i in (0, 1):
-            # Tower 0 & 1: white flame (ATTACK)
-            k.cyl(X, Y, 0.9, g + 11.3, g + 12.4, M["fire"], 12)
+            # Towers 0 & 1 (North Bluff & East Cape): brilliant white signal flame (ATTACK)
+            k.cyl(X, Y, 1.1, g + 11.6, g + 12.8, M["white_fire"], 12)
+            k.frustum(X, Y, 1.0, 0.2, g + 12.6, g + 13.8, M["white_fire"], 8)
         elif i == 2:
-            # Tower 2 (South Crag): the sleeping guard's tower - cold, unlit brazier, guard's table and bench inside
-            k.cyl(X, Y, 0.9, g + 11.0, g + 11.3, M["rock"], 12)       # dark ash/charcoal
-            k.box(X + 1.2 * dx, Y + 1.2 * dy, g, g + 0.85, 1.2, 0.7, inland_ang, M["timber"])
-            k.box(X + 0.4 * dx, Y + 0.4 * dy, g, g + 0.5, 0.5, 0.5, inland_ang, M["timber"])
+            # Tower 2 (South Crag): the sleeping guard's tower — cold unlit embers, brand unlit
+            k.cyl(X, Y, 1.2, g + 11.55, g + 11.7, M["rock"], 12)
+            k.box(X + 0.2, Y + 0.3, g + 11.7, g + 11.82, 0.12, 1.1, 0.7, M["timber"])
         elif i == 3:
-            # Tower 3 (West Point): black pine-smoke brazier (DEFEND)
-            k.cyl(X, Y, 0.9, g + 11.3, g + 12.0, M["roof"], 12)
-        # war-horn / bell post on parapet
-        px, py = X + 3.8 * math.cos(inland_ang + 1.2), Y + 3.8 * math.sin(inland_ang + 1.2)
-        k.box(px, py, g + 10.0, g + 12.6, 0.3, 0.3, 0, M["timber"])
+            # Tower 3 (West Point): smouldering black pine-smoke brazier (DEFEND)
+            k.cyl(X, Y, 1.1, g + 11.55, g + 11.8, M["roof"], 12)
+            k.frustum(X, Y, 0.9, 0.3, g + 11.75, g + 12.7, M["smoke"], 8)
+
+        # 9. War-horn post on parapet
+        px, py = X + 3.9 * math.cos(inland_ang + 1.2), Y + 3.9 * math.sin(inland_ang + 1.2)
+        k.box(px, py, g + 10.2, g + 12.6, 0.25, 0.25, 0, M["timber"])
+        k.frustum(px, py, 0.08, 0.32, g + 12.3, g + 13.0, M["bronze"], 8)
+
+        # 10. South Crag specific interior: the sleeping guard at his table
+        if i == 2:
+            # Slate-table with legs
+            k.box(X + 1.2 * dx, Y + 1.2 * dy, g + 0.35, g + 1.15, 0.8, 1.3, inland_ang, M["timber"])
+            for lx, ly in ((-0.35, -0.55), (-0.35, 0.55), (0.35, -0.55), (0.35, 0.55)):
+                k.box(X + 1.2 * dx + lx * c - ly * s, Y + 1.2 * dy + lx * s + ly * c, g + 0.35, g + 1.05, 0.1, 0.1, inland_ang, M["timber"])
+            # Wooden guard bench
+            k.box(X + 0.35 * dx, Y + 0.35 * dy, g + 0.35, g + 0.8, 0.45, 0.7, inland_ang, M["timber"])
+            # Wax slates & bronze stylus on the table
+            k.box(X + 1.3 * dx + 0.3 * dy, Y + 1.3 * dy - 0.3 * dx, g + 1.15, g + 1.18, 0.28, 0.4, inland_ang + 0.2, M["thatch"])
+            k.box(X + 1.1 * dx - 0.35 * dy, Y + 1.1 * dy + 0.35 * dx, g + 1.15, g + 1.18, 0.26, 0.38, inland_ang - 0.3, M["thatch"])
+            k.box(X + 1.2 * dx - 0.1 * dy, Y + 1.2 * dy + 0.1 * dx, g + 1.18, g + 1.2, 0.04, 0.25, inland_ang + 0.5, M["bronze"])
+            # Bronze oil lamp on the corner of the table with glowing flame
+            k.cyl(X + 1.45 * dx + 0.45 * dy, Y + 1.45 * dy - 0.45 * dx, 0.12, g + 1.15, g + 1.25, M["bronze"], 8)
+            k.cyl(X + 1.45 * dx + 0.45 * dy, Y + 1.45 * dy - 0.45 * dx, 0.04, g + 1.25, g + 1.33, M["lamp_flame"], 8)
+            # The Sleeping Guard: slumped face-down over the slate-table
+            k.box(X + 0.75 * dx, Y + 0.75 * dy, g + 0.85, g + 1.45, 0.45, 0.55, inland_ang, M["roof"]) # torso
+            k.box(X + 1.05 * dx, Y + 1.05 * dy, g + 1.15, g + 1.28, 0.35, 0.6, inland_ang, M["roof"])  # folded arms
+            k.box(X + 1.05 * dx, Y + 1.05 * dy, g + 1.28, g + 1.5, 0.25, 0.25, inland_ang, M["sand"])  # head face-down
+            k.cyl(X + 0.9 * dx - 0.45 * dy, Y + 0.9 * dy + 0.45 * dx, 0.2, g + 1.15, g + 1.35, M["bronze"], 10) # helmet
+            # Wall ladder to parapet trapdoor
+            k.box(X - 2.8 * dy, Y + 2.8 * dx, g + 0.35, g + 10.2, 0.2, 0.6, inland_ang + math.pi / 2, M["timber"])
+            # Unlit torch in iron wall bracket
+            k.box(X + 4.1 * dx + 1.1 * dy, Y + 4.1 * dy - 1.1 * dx, g + 1.5, g + 2.3, 0.08, 0.08, inland_ang, M["timber"])
+            k.box(X + 4.1 * dx + 1.1 * dy, Y + 4.1 * dy - 1.1 * dx, g + 2.2, g + 2.45, 0.14, 0.14, inland_ang, M["roof"])
+            # Clifftop trail cairn outside
+            k.cyl(X + 6.8 * dx + 3.0 * dy, Y + 6.8 * dy - 3.0 * dx, 0.7, g, g + 1.2, M["fieldstone"], 8)
+            k.cyl(X + 6.8 * dx + 3.0 * dy, Y + 6.8 * dy - 3.0 * dx, 0.4, g + 1.2, g + 1.8, M["fieldstone"], 6)
 
     WATCHTOWER_DETAIL.update({
         "towers": 4,
         "merlon_h_m": 2.0,
         "crenel_w_m": 0.8,
-        "wall_walk_w_m": 1.2,
+        "wall_walk_w_m": 1.4,
         "door_h_m": 2.2,
         "arrow_slit_h_m": 1.2,
         "tower_h_m": 12.0,

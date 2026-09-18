@@ -331,6 +331,14 @@ def main():
     site_objs = [hk.finish(colls["I"]) for hk, _ in hamlets] + [press.finish(colls["I"]), beacons.finish(colls["I"]), watchtowers_k.finish(colls["II"]),
                  drums.finish(colls["IV"]), markers.finish(colls["IV"]), walk.finish(colls["V"]), grans.finish(colls["VI"]),
                  guild.finish(colls["VIII"]), monk.finish(colls["IX"])]
+    wt2x_, wt2y_ = site("watchtowers", 2); wtz2_ = ground.z(wt2x_, wt2y_)
+    sea2_ = ground.seaward(wt2x_, wt2y_, radius=500); ia2_ = math.atan2(-sea2_[1], -sea2_[0])
+    dx2_, dy2_ = math.cos(ia2_), math.sin(ia2_)
+    l_data = bpy.data.lights.new("Lamp Light · South Crag", type='POINT')
+    l_data.energy = 110.0; l_data.color = (1.0, 0.78, 0.45)
+    l_ob = bpy.data.objects.new("Lamp Light · South Crag", l_data)
+    l_ob.location = (wt2x_ + 1.45 * dx2_ + 0.45 * dy2_, wt2y_ + 1.45 * dy2_ - 0.45 * dx2_, wtz2_ + 1.65)
+    colls["II"].objects.link(l_ob)
     terrain = ctx["terrain"]
 
     # the large props (tools/blender_props.py): ships, the Raft, market, carts, amphorae, crane
@@ -572,6 +580,8 @@ def main():
     (p0x, p0y, p0z), _ = lantern_info["posts"][0]
     bdir = ((RX - BX) / math.hypot(RX - BX, RY - BY), (RY - BY) / math.hypot(RX - BX, RY - BY)); bz = ground.z(BX, BY)
     WTd2X, WTd2Y = site("watchtowers", 2); wtz2 = ground.z(WTd2X, WTd2Y)
+    sea_wt2 = ground.seaward(WTd2X, WTd2Y, radius=500); ia_wt2 = math.atan2(-sea_wt2[1], -sea_wt2[0])
+    wtdx2, wtdy2 = math.cos(ia_wt2), math.sin(ia_wt2)
     CiX, CiY = site("citadel"); SwX, SwY = site("seawall"); cang = math.atan2(SwY - CiY, SwX - CiX)
     cP = lambda u, v: (CiX + u * math.cos(cang) - v * math.sin(cang), CiY + u * math.sin(cang) + v * math.cos(cang)); gzc = ground.z(*cP(65, 0))
     aX, aY = agora; adeg = math.radians(-SITES["built"]["town"]["agora_m_deg"][2])
@@ -580,7 +590,7 @@ def main():
     cams.update({
         "detail_lighthouse": bt.camera("Cam · the lighthouse from a captain's post", (p0x, p0y, p0z + 1), (lx, ly, 20), look, lens=35),
         "detail_banquet": bt.camera("Cam · the banquet house from the Round's side", (BX + bdir[0] * 34 - bdir[1] * 14, BY + bdir[1] * 34 + bdir[0] * 14, bz + 7), (BX, BY, bz + 3), look, lens=32),
-        "detail_watchtower": bt.camera("Cam · South Crag watchtower", (WTd2X + 26, WTd2Y - 18, wtz2 + 16), (WTd2X, WTd2Y, wtz2 + 9), look, lens=35),
+        "detail_watchtower": bt.camera("Cam · South Crag watchtower", (WTd2X + 6.6 * wtdx2, WTd2Y + 6.6 * wtdy2, wtz2 + 1.55), (WTd2X + 1.1 * wtdx2, WTd2Y + 1.1 * wtdy2, wtz2 + 1.35), look, lens=34),
         "detail_citadel": bt.camera("Cam · the citadel gate", (*cP(112, 22), gzc + 6), (*cP(65, 0), gzc + 8), look, lens=35),
         "detail_town": bt.camera("Cam · the agora and its stoa", (*tP(-55, -45), ground.z(aX, aY) + 16), (*tP(0, 12), ground.z(aX, aY) + 3), look, lens=30),
         "detail_city": bt.camera("Cam · the headland city's temple", (ctf[0] + 45, ctf[1] - 38, ground.z(*ctf) + 26), (ctf[0] - 8, ctf[1], ground.z(*ctf) + 6), look, lens=35),
@@ -591,7 +601,7 @@ def main():
         "round_statue": bt.camera("Cam · a legislator's statue", (RX + 36 * math.cos(.12), RY + 36 * math.sin(.12), rim + 2.6),
                                   (RX + 29.5 * math.cos(TAU / 24), RY + 29.5 * math.sin(TAU / 24), rim + 3.0), look, lens=50),
         "hamlet": cam_at("Cam · hamlet A", (hAX, hAY, ground.z(hAX, hAY)), (-150, -150), 95),
-        "watchtowers": cam_at("Cam · coastal watchtowers along the bluffs", (WT2X, WT2Y, ground.z(WT2X, WT2Y) - 10), (-260, -260), 190),
+        "watchtowers": bt.camera("Cam · coastal watchtowers along the bluffs", (WT2X - 85.0, WT2Y + 115.0, wtz2 + 32.0), (WT2X, WT2Y, wtz2 + 6.0), look, lens=35),
         "neck": cam_at("Cam · the neck: causeway and drummers", ((site("drummers", 0)[0] + site("drummers", 1)[0]) / 2, (site("drummers", 0)[1] + site("drummers", 1)[1]) / 2, 5), (-760, -700), 460, lens=28),
         "granaries": cam_at("Cam · the granary plain", (gcx, gcy, 40), (-900, -420), 620, lens=32),
         "guild": cam_at("Cam · the guild quarter and quarry", ((HLX + cliffX) / 2, (HLY + cliffY) / 2, 60), (s_cl[0] * 650 - 250, s_cl[1] * 650 - 150), 420, lens=28),

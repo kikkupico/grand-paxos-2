@@ -52,7 +52,7 @@
   "towers": 4,
   "merlon_h_m": 2.0,
   "crenel_w_m": 0.8,
-  "wall_walk_w_m": 1.2,
+  "wall_walk_w_m": 1.4,
   "door_h_m": 2.2,
   "arrow_slit_h_m": 1.2,
   "tower_h_m": 12.0
