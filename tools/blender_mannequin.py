@@ -175,6 +175,28 @@ def _prop_abacus(coll, arm, label, hand):
     ob.location = (0, -.06, 0)
     return ob
 
+def _prop_baton(coll, arm, label, hand):
+    """A commander's baton held in `hand`."""
+    me = bpy.data.meshes.new(f"{label} · baton"); bm = bmesh.new()
+    _capsule(bm, (0, 0, -.20), (0, 0, .25), .022, 6)
+    bm.to_mesh(me); bm.free(); me.materials.append(material("#c1912b"))
+    ob = bpy.data.objects.new(f"{label} · baton", me); coll.objects.link(ob)
+    ob.parent = arm; ob.parent_type = "BONE"; ob.parent_bone = hand
+    ob.location = (0, -.06, 0)
+    return ob
+
+def _prop_horn(coll, arm, label, hand):
+    """A bronze war-horn held in `hand`."""
+    me = bpy.data.meshes.new(f"{label} · horn"); bm = bmesh.new()
+    _capsule(bm, (0, 0, -.10), (.35, 0, .25), .028, 6)
+    bmesh.ops.create_cone(bm, cap_ends=True, segments=8, radius1=.10, radius2=.028, depth=.35,
+                          matrix=Matrix.Translation((.45, 0, .32)) @ Matrix.Rotation(math.pi / 4, 4, "Y"))
+    bm.to_mesh(me); bm.free(); me.materials.append(material("#a57a3e"))
+    ob = bpy.data.objects.new(f"{label} · horn", me); coll.objects.link(ob)
+    ob.parent = arm; ob.parent_type = "BONE"; ob.parent_bone = hand
+    ob.location = (0, -.06, 0)
+    return ob
+
 def place(scene, coll, x, y, z, facing_deg, pose_name, hex_, label, carry=None):
     """A posed, coloured mannequin in `coll`. z is the surface underfoot, or the seat for a seated pose. Returns the rig."""
     src_arm, src_body = source(scene)
@@ -192,4 +214,6 @@ def place(scene, coll, x, y, z, facing_deg, pose_name, hex_, label, carry=None):
     elif carry == "slate_left": _prop_slate(coll, arm, label, "LeftHand")
     elif carry == "torch": _prop_torch(coll, arm, label, "RightHand")
     elif carry == "abacus": _prop_abacus(coll, arm, label, "LeftHand")
+    elif carry == "baton": _prop_baton(coll, arm, label, "RightHand")
+    elif carry == "horn": _prop_horn(coll, arm, label, "RightHand")
     return arm

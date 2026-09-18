@@ -1,0 +1,848 @@
+{
+ "volume": "III",
+ "note": "Volume III panel shots and blocking figures across defensive fleet anchorages, warships, skiffs and coastal redoubt.",
+ "colors": {
+  "terracotta": "#bf4a26",
+  "aegean": "#136f9e",
+  "olive": "#66722c",
+  "gold": "#c1912b",
+  "linen": "#ddd3bd",
+  "plum": "#6d3b6b"
+ },
+ "panels": {
+  "III-00": {
+   "aspect": "3:2",
+   "resolution": [
+    1920,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -3550.0,
+     480.0,
+     52.0
+    ],
+    "target": [
+     -3730.0,
+     340.0,
+     8.0
+    ],
+    "lens": 28,
+    "clip_start": 0.5
+   },
+   "figures": [
+    {
+     "id": "cliff_lookout",
+     "label": "Armored sentinel observing the defensive warship crescent",
+     "color": "terracotta",
+     "xy": [
+      -3568.0,
+      462.0
+     ],
+     "z": "surface",
+     "facing_deg": 235,
+     "pose": "stand_look_up",
+     "z_resolved": 37.655,
+     "screen": [
+      0.41,
+      0.831
+     ],
+     "in_frame": true,
+     "screen_h": 0.0689,
+     "visible": true
+    },
+    {
+     "id": "signal_guard",
+     "label": "Signal watchman by cliff brazier",
+     "color": "linen",
+     "xy": [
+      -3564.0,
+      465.0
+     ],
+     "z": "surface",
+     "facing_deg": 240,
+     "pose": "examine",
+     "carry": "torch",
+     "z_resolved": 39.236,
+     "screen": [
+      0.385,
+      0.878
+     ],
+     "in_frame": true,
+     "screen_h": 0.0843,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "brazier_white",
+     "xy": [
+      -3566.0,
+      463.5
+     ],
+     "z": "surface",
+     "angle_deg": 0,
+     "z_resolved": 38.443,
+     "screen": [
+      0.4,
+      0.919
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 274.5,
+   "device": "GPU"
+  },
+  "III-01": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3640.0,
+     180.0,
+     14.0
+    ],
+    "target": [
+     -3770.0,
+     340.0,
+     3.0
+    ],
+    "lens": 30,
+    "clip_start": 0.5
+   },
+   "figures": [
+    {
+     "id": "skiff_courier",
+     "label": "Courier standing on dispatch skiff with message slate",
+     "color": "aegean",
+     "xy": [
+      -3662.5,
+      293.5
+     ],
+     "z": 0.35,
+     "facing_deg": 230,
+     "pose": "stand",
+     "carry": "slate"
+    },
+    {
+     "id": "quarterdeck_officer",
+     "label": "Officer on flagship quarterdeck watching incoming skiff",
+     "color": "gold",
+     "xy": [
+      -3740.0,
+      336.0
+     ],
+     "z": 1.25,
+     "facing_deg": 60,
+     "pose": "examine"
+    }
+   ],
+   "props": []
+  },
+  "III-02": {
+   "aspect": "4:3",
+   "resolution": [
+    1280,
+    960
+   ],
+   "camera": {
+    "loc": [
+     -3736.8,
+     335.5,
+     2.7
+    ],
+    "target": [
+     -3739.4,
+     337.8,
+     1.8
+    ],
+    "lens": 36,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "bribed_admiral",
+     "label": "Seated Flag Admiral taking gold purse and giving dual orders",
+     "color": "plum",
+     "xy": [
+      -3739.8,
+      337.8
+     ],
+     "z": 1.25,
+     "facing_deg": 60,
+     "pose": "sit"
+    },
+    {
+     "id": "foreign_emissary",
+     "label": "Cloaked emissary offering heavy purse of gold drachmas",
+     "color": "terracotta",
+     "xy": [
+      -3738.8,
+      338.5
+     ],
+     "z": 1.25,
+     "facing_deg": 240,
+     "pose": "give"
+    },
+    {
+     "id": "scribe_attack",
+     "label": "Dispatch scribe holding tablet for ATTACK",
+     "color": "linen",
+     "xy": [
+      -3739.0,
+      336.8
+     ],
+     "z": 1.25,
+     "facing_deg": 330,
+     "pose": "hold_slate",
+     "carry": "slate"
+    },
+    {
+     "id": "scribe_fallback",
+     "label": "Dispatch scribe holding tablet for FALL-BACK",
+     "color": "gold",
+     "xy": [
+      -3740.6,
+      338.4
+     ],
+     "z": 1.25,
+     "facing_deg": 150,
+     "pose": "hold_slate",
+     "carry": "slate"
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "xy": [
+      -3739.3,
+      337.8
+     ],
+     "z": 1.25,
+     "angle_deg": 60
+    },
+    {
+     "kind": "purse",
+     "xy": [
+      -3739.1,
+      338.1
+     ],
+     "z": 2.0
+    },
+    {
+     "kind": "oil_lamp",
+     "xy": [
+      -3739.4,
+      337.5
+     ],
+     "z": 2.0,
+     "angle_deg": 45
+    }
+   ]
+  },
+  "III-03": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3861.0,
+     476.8,
+     2.7
+    ],
+    "target": [
+     -3864.5,
+     474.0,
+     2.1
+    ],
+    "lens": 32,
+    "clip_start": 0.2
+   },
+   "figures": [
+    {
+     "id": "admiral_1",
+     "label": "Admiral 1 comparing two conflicting slates on his quarterdeck",
+     "color": "terracotta",
+     "xy": [
+      -3864.0,
+      474.5
+     ],
+     "z": 1.25,
+     "facing_deg": 228,
+     "pose": "examine",
+     "carry": "slate"
+    },
+    {
+     "id": "officer_loyal",
+     "label": "Lieutenant handing over the second contradictory dispatch slate",
+     "color": "aegean",
+     "xy": [
+      -3862.8,
+      475.6
+     ],
+     "z": 1.25,
+     "facing_deg": 48,
+     "pose": "give",
+     "carry": "slate"
+    },
+    {
+     "id": "lookout_deck",
+     "label": "Ship lookout gazing out toward the distant squadron",
+     "color": "linen",
+     "xy": [
+      -3865.0,
+      473.2
+     ],
+     "z": 1.25,
+     "facing_deg": 228,
+     "pose": "stand_look_up"
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "xy": [
+      -3863.4,
+      475.0
+     ],
+     "z": 1.25,
+     "angle_deg": 48
+    },
+    {
+     "kind": "oil_lamp",
+     "xy": [
+      -3863.6,
+      475.2
+     ],
+     "z": 2.0
+    },
+    {
+     "kind": "signet_slate",
+     "xy": [
+      -3863.2,
+      474.8
+     ],
+     "z": 2.0,
+     "angle_deg": 30
+    }
+   ]
+  },
+  "III-04": {
+   "aspect": "3:4",
+   "resolution": [
+    960,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -3503.2,
+     663.0,
+     129.6
+    ],
+    "target": [
+     -3505.5,
+     664.2,
+     128.5
+    ],
+    "lens": 34,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "tactician_admiral",
+     "label": "Admiral bending over chart moving clusters of miniature galleys",
+     "color": "aegean",
+     "xy": [
+      -3505.2,
+      664.2
+     ],
+     "z": 127.7,
+     "facing_deg": 320,
+     "pose": "examine",
+     "z_resolved": 127.7,
+     "screen": [
+      0.577,
+      0.236
+     ],
+     "in_frame": true,
+     "screen_h": 0.6057,
+     "visible": true
+    },
+    {
+     "id": "staff_scribe",
+     "label": "Staff scribe with navigation log scroll",
+     "color": "linen",
+     "xy": [
+      -3505.8,
+      663.4
+     ],
+     "z": 127.7,
+     "facing_deg": 45,
+     "pose": "stand",
+     "carry": "scroll",
+     "z_resolved": 127.7,
+     "screen": [
+      0.057,
+      0.227
+     ],
+     "in_frame": true,
+     "screen_h": 0.5769,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "xy": [
+      -3504.8,
+      663.8
+     ],
+     "z": 127.7,
+     "angle_deg": 45,
+     "z_resolved": 127.7,
+     "screen": [
+      0.484,
+      0.901
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3505.0,
+      663.9
+     ],
+     "z": 128.45,
+     "angle_deg": 45,
+     "z_resolved": 128.45,
+     "screen": [
+      0.481,
+      0.594
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3504.8,
+      664.1
+     ],
+     "z": 128.45,
+     "angle_deg": 30,
+     "z_resolved": 128.45,
+     "screen": [
+      0.634,
+      0.612
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3505.1,
+      664.1
+     ],
+     "z": 128.45,
+     "angle_deg": 60,
+     "z_resolved": 128.45,
+     "screen": [
+      0.55,
+      0.56
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3504.6,
+      663.7
+     ],
+     "z": 128.45,
+     "angle_deg": 210,
+     "z_resolved": 128.45,
+     "screen": [
+      0.482,
+      0.703
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3504.5,
+      663.9
+     ],
+     "z": 128.45,
+     "angle_deg": 225,
+     "z_resolved": 128.45,
+     "screen": [
+      0.632,
+      0.702
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "mini_ship",
+     "xy": [
+      -3504.7,
+      663.6
+     ],
+     "z": 128.45,
+     "angle_deg": 15,
+     "z_resolved": 128.45,
+     "screen": [
+      0.393,
+      0.691
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "oil_lamp",
+     "xy": [
+      -3504.4,
+      663.5
+     ],
+     "z": 128.45,
+     "angle_deg": 120,
+     "z_resolved": 128.45,
+     "screen": [
+      0.413,
+      0.795
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 2.5,
+   "device": "GPU"
+  },
+  "III-05": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3573.0,
+     262.5,
+     2.8
+    ],
+    "target": [
+     -3577.5,
+     258.5,
+     1.8
+    ],
+    "lens": 30,
+    "clip_start": 0.2
+   },
+   "figures": [
+    {
+     "id": "admiral_victorious",
+     "label": "Admiral 2 taking majority vote and raising commander baton for ATTACK",
+     "color": "gold",
+     "xy": [
+      -3576.0,
+      260.0
+     ],
+     "z": 1.25,
+     "facing_deg": 242,
+     "pose": "orator",
+     "carry": "baton"
+    },
+    {
+     "id": "skiff_courier_deck",
+     "label": "Skiff messenger delivering the third and decisive slate",
+     "color": "linen",
+     "xy": [
+      -3574.6,
+      261.2
+     ],
+     "z": 1.25,
+     "facing_deg": 62,
+     "pose": "take",
+     "carry": "slate"
+    },
+    {
+     "id": "helmsman_deck",
+     "label": "Quarterdeck guard awaiting the order to hoist sails",
+     "color": "olive",
+     "xy": [
+      -3577.2,
+      259.0
+     ],
+     "z": 1.25,
+     "facing_deg": 242,
+     "pose": "stand"
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "xy": [
+      -3575.3,
+      260.6
+     ],
+     "z": 1.25,
+     "angle_deg": 62
+    },
+    {
+     "kind": "clay_slate",
+     "xy": [
+      -3575.2,
+      260.5
+     ],
+     "z": 2.0
+    },
+    {
+     "kind": "clay_slate",
+     "xy": [
+      -3575.4,
+      260.7
+     ],
+     "z": 2.0
+    }
+   ]
+  },
+  "III-06": {
+   "aspect": "4:3",
+   "resolution": [
+    1280,
+    960
+   ],
+   "camera": {
+    "loc": [
+     -3823.5,
+     225.0,
+     2.4
+    ],
+    "target": [
+     -3826.5,
+     225.2,
+     2.2
+    ],
+    "lens": 34,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "stern_admiral",
+     "label": "Squadron admiral examining two conflicting orders with identical signet seal",
+     "color": "plum",
+     "xy": [
+      -3826.5,
+      225.0
+     ],
+     "z": 1.25,
+     "facing_deg": 55,
+     "pose": "examine",
+     "carry": "slate",
+     "z_resolved": 1.25,
+     "screen": [
+      0.436,
+      0.224
+     ],
+     "in_frame": true,
+     "screen_h": 0.7307,
+     "visible": true
+    },
+    {
+     "id": "torch_bearer",
+     "label": "Ship sentry holding torch high over the incriminating slates",
+     "color": "linen",
+     "xy": [
+      -3825.8,
+      226.0
+     ],
+     "z": 1.25,
+     "facing_deg": 235,
+     "pose": "torch_high",
+     "carry": "torch",
+     "z_resolved": 1.25,
+     "screen": [
+      0.843,
+      0.172
+     ],
+     "in_frame": true,
+     "screen_h": 0.9235,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "xy": [
+      -3825.2,
+      225.2
+     ],
+     "z": 1.25,
+     "angle_deg": 55,
+     "z_resolved": 1.25,
+     "screen": [
+      0.546,
+      1.197
+     ],
+     "in_frame": false
+    },
+    {
+     "kind": "signet_slate",
+     "xy": [
+      -3825.0,
+      225.3
+     ],
+     "z": 2.0,
+     "angle_deg": 45,
+     "z_resolved": 2.0,
+     "screen": [
+      0.623,
+      0.704
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "signet_slate",
+     "xy": [
+      -3825.4,
+      225.1
+     ],
+     "z": 2.0,
+     "angle_deg": 65,
+     "z_resolved": 2.0,
+     "screen": [
+      0.487,
+      0.646
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 36.2,
+   "device": "GPU"
+  },
+  "III-07": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3730.0,
+     310.0,
+     220.0
+    ],
+    "target": [
+     -3740.0,
+     320.0,
+     0.0
+    ],
+    "lens": 24,
+    "clip_start": 1.0
+   },
+   "figures": [
+    {
+     "id": "flagship_sentry",
+     "label": "Flagship deck sentry visible from the high vantage",
+     "color": "linen",
+     "xy": [
+      -3746.0,
+      333.0
+     ],
+     "z": 1.25,
+     "facing_deg": 235,
+     "pose": "stand"
+    }
+   ],
+   "props": []
+  },
+  "III-08": {
+   "aspect": "3:4",
+   "resolution": [
+    960,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -3748.5,
+     323.5,
+     2.5
+    ],
+    "target": [
+     -3752.5,
+     319.0,
+     2.0
+    ],
+    "lens": 30,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "lookout_lit",
+     "label": "Lookout pointing at the guttering flame shouting Signal lit!",
+     "color": "linen",
+     "xy": [
+      -3750.9,
+      319.6
+     ],
+     "z": 1.85,
+     "facing_deg": 235,
+     "pose": "point",
+     "z_resolved": 1.85,
+     "screen": [
+      0.299,
+      0.251
+     ],
+     "in_frame": true,
+     "screen_h": 0.3284,
+     "visible": true
+    },
+    {
+     "id": "lookout_dark",
+     "label": "Lookout vigorously arguing that the brazier is extinguished",
+     "color": "aegean",
+     "xy": [
+      -3752.1,
+      320.4
+     ],
+     "z": 1.85,
+     "facing_deg": 55,
+     "pose": "argue",
+     "z_resolved": 1.85,
+     "screen": [
+      0.652,
+      0.259
+     ],
+     "in_frame": true,
+     "screen_h": 0.3144,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "brazier",
+     "xy": [
+      -3752.2,
+      319.2
+     ],
+     "z": 1.85,
+     "angle_deg": 235,
+     "z_resolved": 1.85,
+     "screen": [
+      0.482,
+      0.519
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 5.6,
+   "device": "GPU"
+  }
+ }
+}

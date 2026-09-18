@@ -1,0 +1,531 @@
+{
+ "volume": "II",
+ "note": "Volume II panel shots and blocking figures across North Bluff, East Cape, South Crag and West Point watchtowers.",
+ "colors": {
+  "terracotta": "#bf4a26",
+  "aegean": "#136f9e",
+  "olive": "#66722c",
+  "gold": "#c1912b",
+  "linen": "#ddd3bd",
+  "plum": "#6d3b6b"
+ },
+ "panels": {
+  "II-00": {
+   "aspect": "3:2",
+   "resolution": [
+    1920,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -3096.0,
+     3280.0,
+     60.15
+    ],
+    "target": [
+     -3094.8,
+     3283.8,
+     59.5
+    ],
+    "lens": 28,
+    "clip_start": 0.2
+   },
+   "figures": [
+    {
+     "id": "sentry_lookout",
+     "label": "Armored sentry leaning over crenellations watching horizon",
+     "color": "terracotta",
+     "xy": [
+      -3095.2,
+      3282.8
+     ],
+     "z": 58.7,
+     "facing_deg": 135,
+     "pose": "stand_look_up",
+     "z_resolved": 58.7,
+     "screen": [
+      0.478,
+      0.247
+     ],
+     "in_frame": true,
+     "screen_h": 0.6773,
+     "visible": true
+    },
+    {
+     "id": "parapet_guard",
+     "label": "Watchman on wall walk by signal brazier",
+     "color": "linen",
+     "xy": [
+      -3094.0,
+      3283.2
+     ],
+     "z": 58.7,
+     "facing_deg": 160,
+     "pose": "examine",
+     "carry": "torch",
+     "z_resolved": 58.7,
+     "screen": [
+      0.705,
+      0.26
+     ],
+     "in_frame": true,
+     "screen_h": 0.5461,
+     "visible": false
+    }
+   ],
+   "props": [],
+   "lens_clear": false,
+   "centre_clear_m": 2.9,
+   "device": "GPU"
+  },
+  "II-01": {
+   "aspect": "4:3",
+   "resolution": [
+    1280,
+    960
+   ],
+   "camera": {
+    "loc": [
+     -3741.0,
+     1008.2,
+     160.2
+    ],
+    "target": [
+     -3743.3,
+     1006.5,
+     159.2
+    ],
+    "lens": 34,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "sleeping_guard",
+     "label": "The sleeping watchman slumped forward over the slate-table",
+     "color": "linen",
+     "xy": [
+      -3743.3,
+      1006.5
+     ],
+     "z": 158.95,
+     "facing_deg": 38,
+     "pose": "doze",
+     "z_resolved": 158.95,
+     "screen": [
+      0.5,
+      0.27
+     ],
+     "in_frame": true,
+     "screen_h": 0.799,
+     "visible": true
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 2.6,
+   "device": "GPU"
+  },
+  "II-02": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3776.0,
+     988.0,
+     150.0
+    ],
+    "target": [
+     -3780.0,
+     982.0,
+     146.5
+    ],
+    "lens": 32,
+    "clip_start": 0.2
+   },
+   "figures": [
+    {
+     "id": "philosopher_left",
+     "label": "Guard observing the white fire balance",
+     "color": "linen",
+     "xy": [
+      -3779.0,
+      983.5
+     ],
+     "z": "surface",
+     "facing_deg": 130,
+     "pose": "examine",
+     "z_resolved": 144.606,
+     "screen": [
+      0.5,
+      0.755
+     ],
+     "in_frame": true,
+     "screen_h": 0.3208,
+     "visible": true
+    },
+    {
+     "id": "philosopher_right",
+     "label": "Guard observing the black smoke balance",
+     "color": "aegean",
+     "xy": [
+      -3781.0,
+      980.5
+     ],
+     "z": "surface",
+     "facing_deg": 310,
+     "pose": "stand",
+     "z_resolved": 142.771,
+     "screen": [
+      0.5,
+      0.669
+     ],
+     "in_frame": true,
+     "screen_h": 0.2107,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "balance_beam",
+     "xy": [
+      -3780.0,
+      982.0
+     ],
+     "z": "surface",
+     "angle_deg": 40,
+     "z_resolved": 143.694,
+     "screen": [
+      0.5,
+      0.925
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 56.9,
+   "device": "GPU"
+  },
+  "II-03": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3829.0,
+     1121.0,
+     190.1
+    ],
+    "target": [
+     -3744.0,
+     1006.0,
+     165.0
+    ],
+    "lens": 30,
+    "clip_start": 0.5
+   },
+   "figures": [
+    {
+     "id": "sentry_crag",
+     "label": "Sentry standing atop the high bluffs in silhouette",
+     "color": "terracotta",
+     "xy": [
+      -3820.0,
+      1110.0
+     ],
+     "z": "surface",
+     "facing_deg": 320,
+     "pose": "stand_look_up",
+     "z_resolved": 159.547,
+     "screen": [
+      0.469,
+      2.534
+     ],
+     "in_frame": false,
+     "screen_h": 0.1008,
+     "visible": true
+    },
+    {
+     "id": "sleeping_sentry_sill",
+     "label": "Watchman slumped at the dark tower sill",
+     "color": "linen",
+     "xy": [
+      -3743.3,
+      1006.5
+     ],
+     "z": 158.95,
+     "facing_deg": 38,
+     "pose": "doze",
+     "z_resolved": 158.95,
+     "screen": [
+      0.495,
+      0.552
+     ],
+     "in_frame": true,
+     "screen_h": 0.0174,
+     "visible": false
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 140.8,
+   "device": "GPU"
+  },
+  "II-04": {
+   "aspect": "3:4",
+   "resolution": [
+    960,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -3096.0,
+     3280.2,
+     60.1
+    ],
+    "target": [
+     -3095.2,
+     3283.0,
+     59.6
+    ],
+    "lens": 36,
+    "clip_start": 0.1
+   },
+   "figures": [
+    {
+     "id": "young_sentry",
+     "label": "Young sentry securing the bronze capsule to the messenger raven",
+     "color": "aegean",
+     "xy": [
+      -3095.2,
+      3282.8
+     ],
+     "z": 58.7,
+     "facing_deg": 130,
+     "pose": "hold_slate",
+     "carry": "slate",
+     "z_resolved": 58.7,
+     "screen": [
+      0.528,
+      0.252
+     ],
+     "in_frame": true,
+     "screen_h": 0.6224,
+     "visible": true
+    },
+    {
+     "id": "senior_sentry",
+     "label": "Senior watchman holding a signal torch",
+     "color": "linen",
+     "xy": [
+      -3094.0,
+      3282.2
+     ],
+     "z": 58.7,
+     "facing_deg": 70,
+     "pose": "examine",
+     "z_resolved": 58.7,
+     "screen": [
+      1.262,
+      0.244
+     ],
+     "in_frame": false,
+     "screen_h": 0.6807,
+     "visible": false
+    }
+   ],
+   "props": [
+    {
+     "kind": "perched_raven",
+     "xy": [
+      -3095.6,
+      3283.4
+     ],
+     "z": 59.7,
+     "angle_deg": 220,
+     "z_resolved": 59.7,
+     "screen": [
+      0.294,
+      0.439
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": false,
+   "centre_clear_m": 2.6,
+   "device": "GPU"
+  },
+  "II-05": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3080.0,
+     3265.0,
+     60.0
+    ],
+    "target": [
+     -3095.0,
+     3282.0,
+     58.0
+    ],
+    "lens": 32,
+    "clip_start": 0.5
+   },
+   "figures": [
+    {
+     "id": "debating_guard_1",
+     "label": "Guard gesturing over the chalk slate",
+     "color": "terracotta",
+     "xy": [
+      -3093.0,
+      3280.0
+     ],
+     "z": 58.7,
+     "facing_deg": 40,
+     "pose": "argue",
+     "z_resolved": 58.7,
+     "screen": [
+      0.508,
+      0.336
+     ],
+     "in_frame": true,
+     "screen_h": 0.1399,
+     "visible": true
+    },
+    {
+     "id": "debating_guard_2",
+     "label": "Guard examining the arrival of the ravens",
+     "color": "gold",
+     "xy": [
+      -3095.0,
+      3280.0
+     ],
+     "z": 58.7,
+     "facing_deg": 220,
+     "pose": "examine",
+     "carry": "slate",
+     "z_resolved": 58.7,
+     "screen": [
+      0.444,
+      0.338
+     ],
+     "in_frame": true,
+     "screen_h": 0.1312,
+     "visible": false
+    }
+   ],
+   "props": [
+    {
+     "kind": "flying_raven",
+     "xy": [
+      -3088.0,
+      3273.0
+     ],
+     "z": 62.0,
+     "angle_deg": 135,
+     "z_resolved": 62.0,
+     "screen": [
+      0.443,
+      0.067
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "flying_raven",
+     "xy": [
+      -3092.0,
+      3277.0
+     ],
+     "z": 64.0,
+     "angle_deg": 315,
+     "z_resolved": 64.0,
+     "screen": [
+      0.443,
+      -0.028
+     ],
+     "in_frame": false
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 16.6,
+   "device": "GPU"
+  },
+  "II-06": {
+   "aspect": "4:3",
+   "resolution": [
+    1280,
+    960
+   ],
+   "camera": {
+    "loc": [
+     -2658.6,
+     2654.8,
+     57.1
+    ],
+    "target": [
+     -2657.2,
+     2657.5,
+     57.15
+    ],
+    "lens": 32,
+    "clip_start": 0.2
+   },
+   "figures": [
+    {
+     "id": "horn_blower_1",
+     "label": "Guard sounding the bronze war-horn across the water",
+     "color": "gold",
+     "xy": [
+      -2657.2,
+      2657.5
+     ],
+     "z": 55.7,
+     "facing_deg": 135,
+     "pose": "orator",
+     "carry": "horn",
+     "z_resolved": 55.7,
+     "screen": [
+      0.5,
+      0.442
+     ],
+     "in_frame": true,
+     "screen_h": 0.686,
+     "visible": true
+    },
+    {
+     "id": "horn_blower_2",
+     "label": "Second guard raising his horn at sunrise",
+     "color": "linen",
+     "xy": [
+      -2656.2,
+      2658.0
+     ],
+     "z": 55.7,
+     "facing_deg": 115,
+     "pose": "torch_high",
+     "carry": "horn",
+     "z_resolved": 55.7,
+     "screen": [
+      0.648,
+      0.459
+     ],
+     "in_frame": true,
+     "screen_h": 0.5281,
+     "visible": false
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 2.9,
+   "device": "GPU"
+  }
+ }
+}

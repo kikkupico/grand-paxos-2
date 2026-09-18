@@ -63,6 +63,69 @@ def water_clock(k, x, y, z, bronze):
     k.cyl(x, y, .015, z + .38, z + .65, bronze, 6)
 def basket(k, x, y, z, wicker): k.cyl(x, y, .24, z, z + .32, wicker, 12)
 
+def brazier(k, x, y, z, ang, bronze, iron, fire_mat=None):
+    for ba in (0, TAU / 3, 2 * TAU / 3):
+        bx, by = math.cos(ang + ba), math.sin(ang + ba)
+        k.box(x + 0.35 * bx, y + 0.35 * by, z, z + 0.85, 0.08, 0.08, ang + ba, iron)
+    k.frustum(x, y, 0.25, 0.6, z + 0.75, z + 1.05, bronze, 12)
+    k.ring(x, y, 0.55, 0.65, z + 1.02, z + 1.10, bronze, 12)
+    if fire_mat:
+        k.cone(x, y, 0.5, z + 1.05, z + 1.6, fire_mat, 8)
+
+def oil_lamp_prop(k, x, y, z, ang, bronze, flame):
+    k.cyl(x, y, 0.08, z, z + 0.05, bronze, 10)
+    c, s = math.cos(ang), math.sin(ang)
+    k.box(x + 0.08 * c, y + 0.08 * s, z + 0.02, z + 0.06, 0.08, 0.04, ang, bronze)
+    k.cone(x + 0.12 * c, y + 0.12 * s, 0.025, z + 0.05, z + 0.11, flame, 6)
+
+def horn_prop(k, x, y, z, ang, bronze):
+    c, s = math.cos(ang), math.sin(ang)
+    k.beam((x, y, z + 0.05), (x + 0.7 * c, y + 0.7 * s, z + 0.25), 0.035, 0.035, bronze)
+    k.cone(x + 0.7 * c, y + 0.7 * s, 0.14, z + 0.2, z + 0.45, bronze, 8)
+
+def perched_raven(k, x, y, z, ang, dark_mat, bronze):
+    c, s = math.cos(ang), math.sin(ang)
+    k.box(x, y, z + 0.05, z + 0.25, 0.16, 0.28, ang, dark_mat)
+    k.cyl(x + 0.1 * c, y + 0.1 * s, 0.07, z + 0.20, z + 0.32, dark_mat, 8)
+    k.cone(x + 0.16 * c, y + 0.16 * s, 0.03, z + 0.22, z + 0.30, dark_mat, 4)
+    k.cyl(x - 0.04 * c, y - 0.04 * s, 0.022, z, z + 0.07, bronze, 6)
+
+def flying_raven(k, x, y, z, ang, dark_mat):
+    c, s = math.cos(ang), math.sin(ang)
+    k.box(x, y, z, z + 0.12, 0.18, 0.40, ang, dark_mat)
+    k.cone(x + 0.22 * c, y + 0.22 * s, 0.035, z + 0.02, z + 0.10, dark_mat, 4)
+    k.box(x, y, z + 0.04, z + 0.07, 1.1, 0.25, ang + math.pi / 2, dark_mat)
+
+def balance_beam(k, x, y, z, ang, wood, bronze, white_fire, smoke_mat):
+    k.box(x, y, z, z + 1.8, 0.25, 0.25, ang, wood)
+    k.cone(x, y, 0.18, z + 1.8, z + 2.05, bronze, 3)
+    c, s = math.cos(ang), math.sin(ang)
+    k.box(x, y, z + 2.05, z + 2.18, 0.12, 3.8, ang, wood)
+    lx, ly = x - 1.7 * s, y + 1.7 * c
+    k.cyl(lx, ly, 0.02, z + 1.4, z + 2.05, bronze, 4)
+    k.frustum(lx, ly, 0.2, 0.45, z + 1.25, z + 1.48, bronze, 10)
+    k.cone(lx, ly, 0.38, z + 1.48, z + 1.95, white_fire, 8)
+    rx, ry = x + 1.7 * s, y - 1.7 * c
+    k.cyl(rx, ry, 0.02, z + 1.4, z + 2.05, bronze, 4)
+    k.frustum(rx, ry, 0.2, 0.45, z + 1.25, z + 1.48, bronze, 10)
+    k.cone(rx, ry, 0.38, z + 1.48, z + 1.95, smoke_mat, 8)
+
+def mini_ship(k, x, y, z, ang, wood):
+    k.box(x, y, z, z + 0.03, 0.045, 0.16, ang, wood)
+    k.cyl(x, y, 0.006, z + 0.03, z + 0.09, wood, 4)
+
+def purse_prop(k, x, y, z, leather, gold_mat):
+    k.cyl(x, y, 0.10, z, z + 0.14, leather, 8)
+    k.cyl(x, y, 0.05, z + 0.14, z + 0.18, leather, 6)
+    for dx, dy in ((-0.12, 0.04), (-0.08, -0.08), (-0.16, -0.03), (-0.04, -0.13)):
+        k.cyl(x + dx, y + dy, 0.025, z, z + 0.012, gold_mat, 8)
+
+def signet_slate(k, x, y, z, ang, wood, wax, seal_wax):
+    k.box(x, y, z, z + 0.022, 0.20, 0.30, ang, wood)
+    k.box(x, y, z + 0.018, z + 0.026, 0.16, 0.25, ang, wax)
+    c, s = math.cos(ang), math.sin(ang)
+    k.cyl(x - 0.09 * s, y + 0.09 * c, 0.032, z + 0.025, z + 0.033, seal_wax, 8)
+
 # ---------------------------------------------------------------- scene helpers
 def collection(name, parent):
     c = bpy.data.collections.get(name) or bpy.data.collections.new(name)
@@ -103,6 +166,10 @@ def build_panel(scene, pid, spec, colors, top, cams):
         mq.place(scene, coll, *f["xy"], f["z_resolved"], f["facing_deg"], f.get("pose", "stand"), colors[f["color"]], f"{pid} · {f['id']}", f.get("carry"))
     wood, parchment, glass, ink = mat("Blocking · rod", "#6a4a2e"), mat("Blocking · parchment", "#efe3c2"), mat("Blocking · glass", "#bcd8d4", .2), mat("Blocking · ink", "#1c1512")
     terracotta, bronze, wicker = mat("Blocking · terracotta", "#bf7a50"), mat("Blocking · bronze", "#a57a3e"), mat("Blocking · wicker", "#b89e6c")
+    iron, gold_mat = mat("Blocking · iron", "#36383e"), mat("Blocking · gold", "#d4af37")
+    flame, white_fire = mat("Blocking · flame", "#ffaa33"), mat("Blocking · white_fire", "#ffffff")
+    smoke_mat, raven_mat = mat("Blocking · smoke", "#2b2b2b"), mat("Blocking · raven", "#18181c")
+    wax, seal_wax, leather = mat("Blocking · wax", "#d6c59b"), mat("Blocking · seal_wax", "#8a1c14"), mat("Blocking · leather", "#4a2e1b")
     k = Kit(f"{pid} · blocking props")
     for p in spec.get("props", []):
         x, y = p["xy"]
@@ -113,7 +180,20 @@ def build_panel(scene, pid, spec, colors, top, cams):
          "ink_pot": lambda: ink_pot(k, x, y, z, ink), "pen": lambda: pen(k, x, y, z, a, wood), "slip": lambda: slip(k, x, y, z, a, parchment),
          "clay_slate": lambda: clay_slate(k, x, y, z, a, terracotta), "table": lambda: table(k, x, y, z, a, wood),
          "crate": lambda: crate(k, x, y, z, a, wood), "abacus": lambda: abacus_prop(k, x, y, z, a, wood),
-         "water_clock": lambda: water_clock(k, x, y, z, bronze), "basket": lambda: basket(k, x, y, z, wicker)}.get(p["kind"], lambda: None)()
+         "water_clock": lambda: water_clock(k, x, y, z, bronze), "basket": lambda: basket(k, x, y, z, wicker),
+         "brazier": lambda: brazier(k, x, y, z, a, bronze, iron, flame),
+         "brazier_white": lambda: brazier(k, x, y, z, a, bronze, iron, white_fire),
+         "brazier_smoke": lambda: brazier(k, x, y, z, a, bronze, iron, smoke_mat),
+         "brazier_dark": lambda: brazier(k, x, y, z, a, bronze, iron, None),
+         "oil_lamp": lambda: oil_lamp_prop(k, x, y, z, a, bronze, flame),
+         "horn": lambda: horn_prop(k, x, y, z, a, bronze),
+         "perched_raven": lambda: perched_raven(k, x, y, z, a, raven_mat, bronze),
+         "flying_raven": lambda: flying_raven(k, x, y, z, a, raven_mat),
+         "balance_beam": lambda: balance_beam(k, x, y, z, a, wood, bronze, white_fire, smoke_mat),
+         "mini_ship": lambda: mini_ship(k, x, y, z, a, wood),
+         "purse": lambda: purse_prop(k, x, y, z, leather, gold_mat),
+         "signet_slate": lambda: signet_slate(k, x, y, z, a, wood, wax, seal_wax),
+        }.get(p["kind"], lambda: None)()
     ob = k.finish(coll)
     c = spec["camera"]; lx, ly, lz = c["loc"]
     if isinstance(lz, str):                                                                         # "surface+1.6"
