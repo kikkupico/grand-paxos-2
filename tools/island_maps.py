@@ -820,7 +820,7 @@ SVG_STYLE = """<style>
 </style>"""
 
 PAGE = ROOT / "art-direction-grand-island-shape.html"
-VOL_TITLES = {1: "The Disordered Sundials", 2: "The Curse of the Sleeping Guard", 3: "The Generals Before the Walls",
+VOL_TITLES = {1: "The Disordered Sundials", 2: "The Curse of the Sleeping Guard", 3: "Traitors Among Admirals",
               4: "The Passable Season", 5: "The Part-time Parliament", 6: "The Ledger of Many Decrees",
               7: "The Citadel of Iron Quorums", 8: "The Quarries of the Roman Guilds", 9: "The Reformation of the Raft Monks"}
 

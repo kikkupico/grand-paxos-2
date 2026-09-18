@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume III: Traitors Among Admirals — Distributed Algorithms of Ancient Greece</title>
+<link rel="stylesheet" href="volume.css">
+<link rel="stylesheet" href="simulator.css">
+</head>
+<body>
+<nav class="series-nav">
+  <div class="series-nav-inner">
+    <a href="../art-direction-grand-island-shape.html" class="nav-back">← Art direction</a>
+    <span class="nav-current">Volume III</span>
+  </div>
+</nav>
+<div id="tip" role="tooltip"></div>
+<div class="page">
+
+<!-- ================= COVER ================= -->
+<header class="cover">
+  <div class="kicker">Distributed Algorithms of Ancient Greece · Volume III</div><br>
+  <!-- PANEL III-00 -->
+  <div class="frame-cover" id="panel-III-00" data-panel="III-00" data-shape="splash" data-refs="I-props"><div class="img-placeholder ph-splash" role="img" aria-label="The fleet off the headlands: Defensive warships anchored in battle line along the coast; light dispatch skiffs rowing between them with signal tablets; dark hostile sails looming on the distant horizon."><span class="ph-label">III-00 · splash 3:2</span><span class="ph-title">The fleet off the headlands</span><span class="ph-desc">Defensive warships anchored in battle line along the coast; light dispatch skiffs rowing between them with signal tablets; dark hostile sails looming on the distant horizon.</span><span class="ph-meta">Blender: coastal waters off headland; anchorages · Sheets: I-props</span></div></div>
+  <!-- /PANEL III-00 -->
+  <p class="sub display">An illustrated chronicle of the defensive warships off the coast of Paxos, and the bound
+  that decides how many traitors an alliance of admirals can survive.</p>
+  <p class="pub">After M. Pease, R. Shostak &amp; L. Lamport, "Reaching Agreement in the Presence of
+  Faults," <em>JACM</em> 27, 2 (April 1980), 228–234, and L. Lamport, R. Shostak &amp; M. Pease, "The Byzantine
+  Generals Problem," <em>ACM TOPLAS</em> 4, 3 (July 1982), 382–401. The complete mathematics,
+  retold.</p>
+</header>
+
+<nav class="toc">
+  <h6 id="table-of-contents"><a href="#table-of-contents" class="hlink">Table of Contents</a></h6>
+  <ol>
+    <li><a href="#preface">The Translator's Preface</a></li>
+    <li><a href="#s1">The Fleet Off the Coast</a></li>
+    <li><a href="#s2">The Impossibility of Three</a></li>
+    <li><a href="#s3">The Spoken Order</a></li>
+    <li><a href="#s4">The Sealed Order</a></li>
+    <li><a href="#s5">Reefs and Broken Channels</a></li>
+    <li><a href="#s6">Reliable Warships &amp; The Sift</a></li>
+    <li><a href="#s7">The Price of Treachery</a></li>
+    <li><a href="#s8">Relevance to Computer Science</a></li>
+    <li><a href="#refs">References</a></li>
+  </ol>
+</nav>
+
+<!-- ================= PREFACE ================= -->
+<section id="preface">
+  <div class="editor-note">
+    <span class="tag">The translator's preface</span>
+    <p>This volume joins two documents. The first is a short, severe treatise of seven columns
+    on what the geometers called <em>interactive consistency</em>, drawn up for the naval architects of a
+    warship steered by multiple redundant helmsmen and instruments. The second, written two years later by the same three
+    geometers, restates the same profound results as a military problem of treacherous commanders. The dramatic story was
+    far more widely copied than the naval engineering treatise, which confirms a pattern the reader of this series
+    will come to recognize.</p>
+    <p>The geometers were
+    <span class="paxon" data-real="Marshall Pease" data-note="SRI International. First author of “Reaching Agreement in the Presence of Faults” (1980).">Πῆς</span>,
+    <span class="paxon" data-real="Robert Shostak" data-note="SRI International. Co-author of both papers retold in this volume.">Σοστάκ</span>
+    and
+    <span class="paxon" data-real="Leslie Lamport" data-note="The wandering scholar of Volume I, now at SRI International; first author of “The Byzantine Generals Problem” (1982).">Leslie</span>,
+    the wandering scholar of Volume&nbsp;I, who had paused his travels to advise the coastal confederacy.
+    Their admirals commanded the defensive squadrons of warships stationed in the coastal anchorages off
+    the limestone bluffs of Paxos, guarding against a foreign armada sighted on the horizon.</p>
+    <p>The central result of the volume is a mathematical bound: with spoken orders, no alliance can survive
+    unless strictly more than two-thirds of its commanders are loyal. Every fortified council and quorum system
+    of the later volumes is built upon this bedrock.</p>
+    <p class="sig">— The Translator</p>
+  </div>
+
+  <div class="narr">Several squadrons of defensive warships ride at anchor off the coast of Paxos, ready to repel an approaching enemy fleet. Each warship is commanded by its own admiral. Because they are anchored at sea across separate coves and channels, they can communicate only by sending swift oared dispatch skiffs across the water. Some of the admirals are traitors bribed by enemy gold. The geometers asked how the loyal admirals can be certain to execute a unified battle plan — and proved that the answer depends, with mathematical certainty, on whether more than two-thirds of the admirals are loyal, and whether an admiral's word can be unforgeably sealed.</div>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER I ================= -->
+<section id="s1">
+  <div class="issue">
+    <span class="no">Chapter I</span>
+    <h2 id="the-fleet-off-the-coast"><a href="#the-fleet-off-the-coast" class="hlink">The Fleet Off the Coast</a></h2>
+  </div>
+
+  <!-- PANEL III-01 -->
+  <figure class="panel" id="panel-III-01" data-panel="III-01" data-shape="wide" data-refs="I-props">
+    <div class="frame"><div class="img-placeholder ph-wide" role="img" aria-label="The anchored squadrons: The defensive war fleet holding its stations off the rocky coast at dusk; swift oared skiffs ply the water between flagships."><span class="ph-label">III-01 · wide 16:9</span><span class="ph-title">The anchored squadrons</span><span class="ph-desc">The defensive war fleet holding its stations off the rocky coast at dusk; swift oared skiffs ply the water between flagships.</span><span class="ph-meta">Blender: coastal waters · Sheets: I-props</span></div></div>
+    <figcaption>THE SQUADRONS RODE AT ANCHOR OFF THE COAST. THE ADMIRALS COULD CONFER ONLY BY DISPATCH SKIFFS.</figcaption>
+  </figure>
+  <!-- /PANEL III-01 -->
+
+  <h3 id="1-1-the-two-conditions" class="sect"><a href="#1-1-the-two-conditions" class="hlink">1.1 · Two Conditions</a></h3>
+  <div class="prose">
+    <p>When dark sails appear on the twilight horizon, the defensive warships of Paxos must decide upon
+    a coordinated plan of action: either to <b>ATTACK (1)</b> or to <b>FALL-BACK (0)</b>.</p>
+    <ul>
+      <li><b>ATTACK (1):</b> Slip the mooring cables, raise oars, and charge the enemy armada in an unbroken
+      ramming line to break their formation before they reach the shoals.</li>
+      <li><b>FALL-BACK (0):</b> Withdraw into the sheltered coves behind the heavy iron harbor chains, man the
+      shore catapults, and preserve the fleet under the protection of the clifftop batteries.</li>
+    </ul>
+    <p>Because the enemy fleet is formidable, the defensive warships must act strictly in unison. If only some of the
+    warships attack while the others fall back behind the harbor chains, the attacking ships are surrounded,
+    rammed, and overwhelmed in open water. But some of the admirals may be traitors, bribed by foreign gold to prevent
+    the loyal admirals from reaching agreement. The geometers sought a procedure guaranteeing two conditions:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">The Admirals' Requirements</span>
+    <ol type="A">
+      <li>All loyal admirals decide upon the same plan of action.</li>
+      <li>A small number of traitors cannot cause the loyal admirals to adopt a bad plan.</li>
+    </ol>
+  </div>
+  <div class="prose">
+    <p>The loyal admirals obey whatever rule the procedure dictates. The traitors may do anything they wish: they may
+    send conflicting words to different ships, remain silent, or deliberately forge false reports. The method must
+    guarantee Condition A regardless. Condition B cannot easily be defined in the abstract, since that requires defining
+    what a "bad plan" is. Instead, the geometers considered how a collective decision is formed. Each admiral inspects the
+    weather and the enemy vanguard, forming an initial observation <var>v</var>(<var>i</var>) ∈ {ATTACK, FALL-BACK}. Each admiral
+    then shares his assessment with the others, and all combine the collected values
+    <var>v</var>(1), …, <var>v</var>(<var>n</var>) using a fixed, deterministic decision rule — such as a simple majority vote.
+    A few traitors can then tip the outcome only if the loyal admirals were already evenly split, in which case neither plan
+    is disastrous. To ensure that every loyal admiral computes the same vote, what is strictly needed is:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">What Agreement Requires</span>
+    <ol>
+      <li><b>1′.</b> Any two loyal admirals use the same value of <var>v</var>(<var>i</var>) — whether or not admiral <var>i</var> is loyal.</li>
+      <li><b>2.</b> If admiral <var>i</var> is loyal, then the value he sends is used by every loyal admiral as <var>v</var>(<var>i</var>).</li>
+    </ol>
+  </div>
+
+  <h3 id="1-2-commander-and-lieutenants" class="sect"><a href="#1-2-commander-and-lieutenants" class="hlink">1.2 · The Flag Admiral and His Squadron Admirals</a></h3>
+  <div class="prose">
+    <p>Both conditions concern the single assessment sent by one admiral. Thus the geometers reduced the
+    entire problem to that of a single <em>Flag Admiral</em> (the commander) sending an order to his
+    <var>n</var> − 1 <em>Squadron Admirals</em> (the lieutenants):</p>
+  </div>
+  <div class="slab">
+    <div class="slab-head">The Problem of the Admirals</div>
+    <p class="stmt">A Flag Admiral must send an order to his <var>n</var> − 1 squadron admirals such that:</p>
+    <p class="stmt"><b>IC1.</b> All loyal squadron admirals obey the same order.</p>
+    <p class="stmt"><b>IC2.</b> If the Flag Admiral is loyal, then every loyal squadron admiral obeys the order he sends.</p>
+  </div>
+  <div class="prose">
+    <p>These are the famous <em>interactive consistency</em> conditions. If the Flag Admiral is loyal, IC1 follows
+    directly from IC2 — but the Flag Admiral may himself be the traitor! To solve the general problem where every
+    admiral contributes a value, each admiral <var>i</var> takes a turn as Flag Admiral and dispatches the order
+    "use <var>v</var>(<var>i</var>) as my assessment", with the other <var>n</var> − 1 admirals acting as squadron
+    commanders. Once every admiral possesses the vector of values, all apply the identical majority rule.<sup>1</sup></p>
+  </div>
+  <aside class="fn"><b>1.</b> The earlier 1980 treatise states the problem without admirals. There are
+  <var>n</var> helmsmen, at most <var>m</var> of them faulty, each taking a reading from a compass, a wind-vane, or a water-clock.
+  Every sound helmsman must compute the same vector of readings, one entry per helmsman, where the entry for every sound
+  helmsman is his true reading. The entries for faulty helmsmen may be anything, provided all sound helmsmen agree on them.
+  The warship for which this was devised was the experimental vessel <em>Sift</em>, designed by
+  <span class="paxon" data-real="John H. Wensley et al." data-note="SIFT: Software-Implemented Fault Tolerance, built at SRI International.">Γουένσλι</span>.</aside>
+
+  <!-- PANEL III-02 -->
+  <figure class="panel mid tilt-r" id="panel-III-02" data-panel="III-02" data-shape="half" data-refs="I-characters">
+    <div class="frame"><div class="img-placeholder ph-half" role="img" aria-label="The bribed admiral: Inside a lamp-lit flagship cabin at night, a cloaked go-between hands an admiral a purse of foreign gold; the admiral is already dictating conflicting orders to two skiff captains at once."><span class="ph-label">III-02 · half 4:3</span><span class="ph-title">The bribed admiral</span><span class="ph-desc">Inside a lamp-lit flagship cabin at night, a cloaked go-between hands an admiral a purse of foreign gold; the admiral is already dictating conflicting orders to two skiff captains at once.</span><span class="ph-meta">Blender: flagship cabin · Sheets: I-characters</span></div></div>
+    <figcaption>THE BRIBED ADMIRAL NEED NOT REFUSE TO FIGHT. HE NEED ONLY ORDER THE LEFT SQUADRON TO ATTACK AND THE RIGHT SQUADRON TO FALL BACK.</figcaption>
+  </figure>
+  <!-- /PANEL III-02 -->
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER II ================= -->
+<section id="s2">
+  <div class="issue">
+    <span class="no">Chapter II</span>
+    <h2 id="the-impossibility-of-three"><a href="#the-impossibility-of-three" class="hlink">The Impossibility of Three</a></h2>
+  </div>
+
+  <h3 id="2-1-three-admirals" class="sect"><a href="#2-1-three-admirals" class="hlink">2.1 · Three Admirals, One Traitor</a></h3>
+  <div class="prose">
+    <p>The problem seems deceptively simple. Its true difficulty is revealed by an astonishing fact: if the
+    admirals communicate only by <em>spoken</em> messages carried by dispatch skiffs, no method can work unless
+    <b>more than two-thirds of the admirals are loyal</b>. In particular, three admirals cannot cope with a single
+    traitor. A spoken message is one whose contents are delivered by the word of the skiff's crew, with no unforgeable
+    seal, so a traitorous commander can transmit any lie he pleases.</p>
+    <p>To see why, consider two scenarios from the viewpoint of Admiral&nbsp;1:</p>
+    <p><b>Scenario A (Loyal Commander, Traitorous Peer):</b> The Flag Admiral is loyal and sends a skiff to both
+    squadrons ordering ATTACK. But Admiral&nbsp;2 is a traitor. Admiral&nbsp;2 sends a skiff to Admiral&nbsp;1 falsely
+    claiming: <em>"The Flag Admiral ordered me to FALL-BACK."</em> For IC2 to hold, Admiral&nbsp;1 must obey the loyal
+    Flag Admiral: he must <b>ATTACK</b>.</p>
+    <p><b>Scenario B (Traitorous Commander, Loyal Peer):</b> The Flag Admiral is a traitor. He sends a skiff to
+    Admiral&nbsp;1 ordering ATTACK, but sends another skiff to Admiral&nbsp;2 ordering FALL-BACK. Admiral&nbsp;2 is loyal;
+    he truthfully sends a skiff to Admiral&nbsp;1 reporting: <em>"The Flag Admiral ordered me to FALL-BACK."</em></p>
+  </div>
+
+  <!-- PANEL III-03 -->
+  <figure class="panel" id="panel-III-03" data-panel="III-03" data-shape="wide" data-refs="I-characters I-props">
+    <div class="frame"><div class="img-placeholder ph-wide" role="img" aria-label="Two betrayals, one view: A split panel: a loyal Flag Admiral betrayed by a lying lieutenant admiral, and a treacherous Flag Admiral relayed honestly — viewed from Admiral 1&#x27;s quarterdeck, both appear identical."><span class="ph-label">III-03 · wide 16:9</span><span class="ph-title">Two betrayals, one view</span><span class="ph-desc">A split panel: a loyal Flag Admiral betrayed by a lying lieutenant admiral, and a treacherous Flag Admiral relayed honestly — viewed from Admiral 1&#x27;s quarterdeck, both appear identical.</span><span class="ph-meta">Blender: quarterdeck of warship · Sheets: I-characters, I-props</span></div></div>
+    <figcaption>TWO DIFFERENT BETRAYALS — AND FROM THE QUARTERDECK OF ADMIRAL 1, THEY LOOK EXACTLY ALIKE.</figcaption>
+  </figure>
+  <!-- /PANEL III-03 -->
+
+  <div class="prose">
+    <p>Now observe Admiral&nbsp;1's dilemma. In both scenarios, he receives ATTACK directly from the Flag Admiral's skiff,
+    and FALL-BACK reported by Admiral&nbsp;2's skiff. He cannot tell who is lying. If he attacks in Scenario A, he must attack
+    in Scenario B as well. By the exact same logic, Admiral&nbsp;2, who received FALL-BACK directly from the Flag Admiral in
+    Scenario B, must fall-back. In Scenario B, therefore, Admiral&nbsp;1 attacks while Admiral&nbsp;2 falls back.
+    The fleet is split, and IC1 is violated! No protocol exists that allows three warships to agree in the presence of one traitor.</p>
+  </div>
+  <div class="slab">
+    <div class="slab-head">The Geometers' Warning</div>
+    <p class="stmt">This argument may appear convincing, but the reader is strongly advised to be very
+    suspicious of such informal reasoning. The result is correct, but equally plausible "proofs"
+    of invalid results have been published. There is no area of mathematics in which informal reasoning
+    is more likely to lead to error than in the study of this type of protocol.</p>
+  </div>
+  <div class="prose">
+    <p>For the rigorous proof, the later paper refers to the 1980 treatise. There, the <var>n</var> ≤ 3<var>m</var>
+    helmsmen are partitioned into three nonempty groups <var>A</var>, <var>B</var>, and <var>C</var>, none containing
+    more than <var>m</var> members. Three complete histories are constructed such that members of group <var>A</var> cannot
+    distinguish the traitorous-commander history from a history where the commander is loyal, and members of <var>B</var>
+    similarly cannot distinguish it from a history where the commander gave the opposite order. The impossibility holds
+    no matter how many rounds of skiffs are rowed across the sea.</p>
+  </div>
+
+  <h3 id="2-2-illyrian-warships" class="sect"><a href="#2-2-illyrian-warships" class="hlink">2.2 · The Illyrian Warships</a></h3>
+  <!-- PANEL III-04 -->
+  <figure class="panel narrow tilt-l" id="panel-III-04" data-panel="III-04" data-shape="tall" data-refs="I-props">
+    <div class="frame"><div class="img-placeholder ph-tall" role="img" aria-label="The Illyrian warships: An admiral bends over a sea chart crowded with painted miniature wooden galleys, moving a whole cluster of them at once with both hands, like a puppeteer."><span class="ph-label">III-04 · tall 3:4</span><span class="ph-title">The Illyrian warships</span><span class="ph-desc">An admiral bends over a sea chart crowded with painted miniature wooden galleys, moving a whole cluster of them at once with both hands, like a puppeteer.</span><span class="ph-meta">Blender: map cabin · Sheets: I-props</span></div></div>
+    <figcaption>EACH OF THREE ADMIRALS PLAYS THE PART OF A THIRD OF THE ENTIRE ILLYRIAN FLEET.</figcaption>
+  </figure>
+  <!-- /PANEL III-04 -->
+  <div class="prose">
+    <p>From the case of three warships, the geometers derived the general lower bound by contradiction. Suppose some
+    method exists that allows 3<var>m</var> or fewer warships to cope with <var>m</var> traitors. Call this hypothetical
+    fleet the <em>Illyrian</em> navy.<sup>2</sup> Now let three Greek admirals simulate the entire Illyrian fleet:
+    the Greek Flag Admiral simulates the Illyrian commander and up to <var>m</var> − 1 Illyrian captains; each of the two
+    Greek squadron admirals simulates up to <var>m</var> Illyrian captains. Because at most one Greek admiral is a traitor,
+    he simulates at most <var>m</var> Illyrian captains; hence at most <var>m</var> simulated Illyrians are traitors.
+    By hypothesis, the Illyrian method works, forcing all loyal simulated ships to reach the same verdict. But this allows
+    our three Greek admirals to solve the impossible 3-ship dilemma! Contradiction.</p>
+  </div>
+  <aside class="fn"><b>2.</b> The 1982 paper calls them <em>Albanian</em> generals. Illyria was the ancient naval power
+  of the Adriatic whose swift galleys frequently contested these waters.</aside>
+  <div class="slab">
+    <div class="slab-head">The Law of 3<var>m</var> + 1</div>
+    <p class="stmt">With spoken messages, no fleet with fewer than 3<var>m</var> + 1 warships can cope with <var>m</var> traitors.</p>
+  </div>
+
+  <h3 id="2-3-approximate" class="sect"><a href="#2-3-approximate" class="hlink">2.3 · Approximate Agreement Is No Easier</a></h3>
+  <div class="prose">
+    <p>One might suspect the impossibility arises from demanding exact agreement on a binary choice. It does not.
+    Suppose the Flag Admiral orders a time of engagement (e.g. dawn, midday, dusk), and the requirement is merely
+    approximate synchronization:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">Rough Agreement</span>
+    <ol>
+      <li><b>IC1′.</b> All loyal squadron admirals attack within ten minutes of one another.</li>
+      <li><b>IC2′.</b> If the Flag Admiral is loyal, every loyal squadron admiral attacks within ten minutes of the ordered time.</li>
+    </ol>
+  </div>
+  <div class="prose">
+    <p>If three admirals could achieve approximate agreement with one traitor, they could achieve exact agreement.
+    The commander encodes ATTACK as the 1st hour and FALL-BACK as the 2nd hour. A squadron admiral who receives an order
+    at or before 1:10 attacks; at or after 1:50, falls back; between the two, he inquires what his peer received and adopts
+    his decision. By IC1′, the two loyal admirals cannot land on opposite extremes. Thus the 3<var>m</var> + 1 bound
+    applies equally to approximate agreement.</p>
+  </div>
+
+  <hr class="meander">
+
+  <!-- ================= WIDGET: THE ADMIRALS' SQUADRON SIMULATOR ================= -->
+  <div class="interactive-workshop" id="sim-admirals">
+    <div class="sim-container">
+      <div class="sim-header">
+        <div class="sim-header-top">
+          <div>
+            <span class="sim-kicker">Interactive Demonstration · Chapters 2 &amp; 3 (Lamport, Shostak, Pease 1982)</span>
+            <h3 class="sim-title">Traitors Among Admirals: The Naval Consensus Laboratory</h3>
+          </div>
+        </div>
+        <div class="sim-nav-tabs">
+          <button type="button" class="sim-tab-btn active" id="tab-btn-om1" data-mode="om1">⚔️ 4 Admirals: OM(1) Oral Relay (3m + 1)</button>
+          <button type="button" class="sim-tab-btn" id="tab-btn-dilemma" data-mode="dilemma">❓ 3 Admirals: The Impossibility Dilemma</button>
+          <button type="button" class="sim-tab-btn" id="tab-btn-sm1" data-mode="sm1">🔏 3 Admirals: SM(1) Sealed Signets</button>
+        </div>
+      </div>
+
+      <div class="sim-body">
+        <!-- TOOLBAR -->
+        <div class="sim-toolbar">
+          <div class="sim-btn-group">
+            <span class="sim-label-tag">Traitor Configuration:</span>
+            <button type="button" class="sim-btn preset active" id="btn-traitor-none">All Loyal (Consensus)</button>
+            <button type="button" class="sim-btn preset" id="btn-traitor-sq3">Admiral 3 is Traitor (Lies)</button>
+            <button type="button" class="sim-btn action" id="btn-traitor-flag">Flag Admiral is Traitor (Split Orders)</button>
+          </div>
+          <div class="sim-btn-group">
+            <button type="button" class="sim-btn primary" id="btn-step-action">▶ Step 1: Dispatch Skiffs</button>
+            <button type="button" class="sim-btn" id="btn-reset-sim">↺ Reset Fleet</button>
+          </div>
+        </div>
+
+        <!-- SVG FLEET CANVAS -->
+        <div class="flp-deck">
+          <div class="flp-svg-wrap">
+            <svg id="admiral-svg" viewBox="0 0 840 420" xmlns="http://www.w3.org/2000/svg" style="background:#0c1c28; border-radius:3px; width:100%; height:auto;">
+              <!-- Rendered via JS -->
+            </svg>
+          </div>
+
+          <!-- STATUS & VECTORS -->
+          <div class="flp-status-bar">
+            <div>
+              <strong>Fleet Consensus:</strong>
+              <span id="fleet-verdict-badge" class="valence-indicator bivalent">⏳ Awaiting Skiff Relays</span>
+            </div>
+            <div id="fleet-explain-note" style="font-size:.86rem; color:#4a3f35;">
+              Select a traitor configuration above and dispatch the skiffs.
+            </div>
+          </div>
+
+          <!-- SQUADRON LOGS / VECTOR BOARDS -->
+          <div id="admiral-cards-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:12px;">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- STEP LOG -->
+          <div class="sim-log-wrap" id="admiral-log" style="margin-top:12px; max-height:140px;">
+            <div class="sim-log-entry"><span class="log-step">INIT</span> Defensive warships anchored off Paxos. Skiffs standing by at ship's ladders.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER III ================= -->
+<section id="s3">
+  <div class="issue">
+    <span class="no">Chapter III</span>
+    <h2 id="the-spoken-order"><a href="#the-spoken-order" class="hlink">The Spoken Order</a></h2>
+  </div>
+
+  <div class="prose">
+    <p>Having proven that 3<var>m</var> + 1 warships are necessary, the geometers proved they are sufficient
+    by constructing the recursive algorithm <em>OM</em>(<var>m</var>). First, they formalized the physical
+    conditions under which dispatch skiffs operate as three precise assumptions:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">The Skiff Messengers' Oath</span>
+    <ol>
+      <li><b>A1.</b> Every skiff that is dispatched reaches its destination and delivers its order correctly.</li>
+      <li><b>A2.</b> The admiral receiving a skiff knows which warship it was rowed from.</li>
+      <li><b>A3.</b> The failure of a skiff to arrive can be detected (e.g. by daylight water-clocks).</li>
+    </ol>
+  </div>
+  <div class="prose">
+    <p>Assumptions A1 and A2 prevent a traitorous admiral from intercepting skiffs between other ships or claiming
+    falsely to speak for another admiral. A3 prevents a traitor from stalling the fleet by refusing to dispatch skiffs.
+    If no skiff arrives from a ship within the allotted time, the receiving admiral substitutes the safe default:
+    <b>FALL-BACK</b>.</p>
+    <p>The oral protocol <em>OM</em>(<var>m</var>) is defined recursively for <var>m</var> traitors, using a deterministic
+    function <b>majority</b>(<var>v</var><sub>1</sub>, …, <var>v</var><sub><var>k</var></sub>) that returns the majority
+    value if one exists, and FALL-BACK otherwise:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">Algorithm OM(0)</span>
+    <ol>
+      <li>The Flag Admiral dispatches a skiff with his order to each squadron admiral.</li>
+      <li>Each squadron admiral executes the order delivered by the Flag Admiral's skiff, or FALL-BACK if no skiff arrives.</li>
+    </ol>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">Algorithm OM(<var>m</var>), <var>m</var> &gt; 0</span>
+    <ol>
+      <li>The Flag Admiral dispatches a skiff with his order to each of the <var>n</var> − 1 squadron admirals.</li>
+      <li>For each <var>i</var>, let <var>v</var><sub><var>i</var></sub> be the order Admiral <var>i</var> received from the Flag Admiral (or FALL-BACK if none). Admiral <var>i</var> then acts as commander in <em>OM</em>(<var>m</var> − 1), sending skiffs with <var>v</var><sub><var>i</var></sub> to the other <var>n</var> − 2 squadron admirals.</li>
+      <li>For each <var>i</var>, and each <var>j</var> ≠ <var>i</var>, let <var>v</var><sub><var>j</var></sub> be the value Admiral <var>i</var> received from Admiral <var>j</var> in step 2 (or FALL-BACK if none). Admiral <var>i</var> executes majority(<var>v</var><sub>1</sub>, …, <var>v</var><sub><var>n</var>−1</sub>).</li>
+    </ol>
+  </div>
+
+  <!-- PANEL III-05 -->
+  <figure class="panel" id="panel-III-05" data-panel="III-05" data-shape="wide" data-refs="I-props">
+    <div class="frame"><div class="img-placeholder ph-wide" role="img" aria-label="The relay of the skiffs: Four warships anchored in coastal waters: dispatch skiffs criss-cross between them; on the deck of Warship 2, the admiral tallies three slates (two Attack, one Fall-back) to take the majority."><span class="ph-label">III-05 · wide 16:9</span><span class="ph-title">The relay of the skiffs</span><span class="ph-desc">Four warships anchored in coastal waters: dispatch skiffs criss-cross between them; on the deck of Warship 2, the admiral tallies three slates (two Attack, one Fall-back) to take the majority.</span><span class="ph-meta">Blender: coastal waters; quarterdeck · Sheets: I-props</span></div></div>
+    <figcaption>FOUR ADMIRALS, ONE TRAITOR: ADMIRAL 2 HEARS “ATTACK”, “ATTACK”, AND ONE LIE — AND OBEYS THE MAJORITY.</figcaption>
+  </figure>
+  <!-- /PANEL III-05 -->
+
+  <div class="prose">
+    <p>Consider the minimal fleet: <var>n</var> = 4 warships and <var>m</var> = 1 traitor.</p>
+    <p><b>Case 1: The Traitor is a Squadron Admiral (say, Admiral 3).</b> The Flag Admiral is loyal and dispatches
+    ATTACK to all three squadrons. In Round 2, Admiral&nbsp;1 and Admiral&nbsp;2 relay ATTACK to each other truthfully.
+    Traitorous Admiral&nbsp;3 may send FALL-BACK (or garbage). Admiral&nbsp;2 receives the vector {ATTACK, ATTACK, FALL-BACK}.
+    The majority is unambiguously <b>ATTACK</b>. IC1 and IC2 are preserved.</p>
+    <p><b>Case 2: The Traitor is the Flag Admiral.</b> The Flag Admiral sends contradictory orders: ATTACK to Admiral&nbsp;1,
+    FALL-BACK to Admiral&nbsp;2, and ATTACK to Admiral&nbsp;3. In Round 2, the three loyal squadron admirals relay what they received
+    truthfully via skiffs. Every loyal admiral receives the exact same vector {ATTACK, FALL-BACK, ATTACK}. All compute
+    majority(ATTACK, FALL-BACK, ATTACK) = <b>ATTACK</b>! Even though the Flag Admiral lied, the fleet acts in unison, avoiding
+    annihilation.</p>
+  </div>
+  <div class="slab">
+    <div class="slab-head">Lemma 1</div>
+    <p class="stmt">For any <var>m</var> and <var>k</var>, <em>OM</em>(<var>m</var>) satisfies IC2 if there are more than 2<var>k</var> + <var>m</var> admirals and at most <var>k</var> traitors.</p>
+  </div>
+  <details class="proof">
+    <summary>Proof</summary>
+    <ol class="proofsteps">
+      <li>By induction on <var>m</var>. IC2 concerns only a loyal Flag Admiral. By A1, <em>OM</em>(0) works when the Flag Admiral is loyal.</li>
+      <li>Assume the lemma for <var>m</var> − 1. The loyal Flag Admiral sends <var>v</var> to all <var>n</var> − 1 squadron admirals. Each loyal squadron admiral applies <em>OM</em>(<var>m</var> − 1) with <var>n</var> − 1 admirals. Since <var>n</var> − 1 &gt; 2<var>k</var> + (<var>m</var> − 1), by induction hypothesis every loyal squadron admiral gets <var>v</var><sub><var>j</var></sub> = <var>v</var> for each loyal peer <var>j</var>.</li>
+      <li>There are at most <var>k</var> traitors and <var>n</var> − 1 &gt; 2<var>k</var>, meaning a strict majority of the <var>n</var> − 1 squadron admirals are loyal. Each loyal admiral holds <var>v</var> for a majority of his vector entries, and majority yields <var>v</var>. <span class="qed">∎</span></li>
+    </ol>
+  </details>
+  <div class="slab">
+    <div class="slab-head">Theorem 1</div>
+    <p class="stmt">For any <var>m</var>, <em>OM</em>(<var>m</var>) satisfies IC1 and IC2 if there are more than 3<var>m</var> admirals and at most <var>m</var> traitors.</p>
+  </div>
+  <details class="proof">
+    <summary>Proof</summary>
+    <ol class="proofsteps">
+      <li>By induction on <var>m</var>. With no traitors, <em>OM</em>(0) satisfies IC1 and IC2. Assume the theorem for <var>m</var> − 1.</li>
+      <li>If the Flag Admiral is loyal, setting <var>k</var> = <var>m</var> in Lemma 1 establishes IC2, from which IC1 immediately follows.</li>
+      <li>If the Flag Admiral is a traitor, at most <var>m</var> − 1 squadron admirals are traitors. There are <var>n</var> − 1 squadron admirals, with <var>n</var> − 1 &gt; 3<var>m</var> − 1 &gt; 3(<var>m</var> − 1). By induction hypothesis, <em>OM</em>(<var>m</var> − 1) satisfies IC1 and IC2 among the squadron admirals.</li>
+      <li>Hence for every <var>j</var>, any two loyal squadron admirals receive the identical value <var>v</var><sub><var>j</var></sub>. All loyal admirals therefore assemble the identical vector and compute the identical majority value. <span class="qed">∎</span></li>
+    </ol>
+  </details>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER IV ================= -->
+<section id="s4">
+  <div class="issue">
+    <span class="no">Chapter IV</span>
+    <h2 id="the-sealed-order"><a href="#the-sealed-order" class="hlink">The Sealed Order</a></h2>
+  </div>
+
+  <div class="prose">
+    <p>It is the traitors' ability to fabricate lies during relay that makes oral consensus so demanding.
+    If that ability is restricted, the problem becomes dramatically easier. The geometers equipped the admirals
+    with unforgeable bronze signet rings pressed into hot pitch on wooden dispatch slates:</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">The Admiral's Signet</span>
+    <ol>
+      <li><b>A4.</b> (a) A loyal admiral's signet seal cannot be forged, and any tampering with a sealed slate can be detected immediately. (b) Any admiral can verify the authenticity of any admiral's signet.</li>
+    </ol>
+  </div>
+  <div class="prose">
+    <p>Nothing is assumed about a traitor's seal; traitors may share their signet rings to collude. With seals,
+    the 3<var>m</var> + 1 barrier collapses: the protocol below tolerates <var>m</var> traitors for <b>any number of
+    warships <var>n</var> ≥ <var>m</var> + 2</b>! Even three warships can withstand a traitorous commander.</p>
+    <p>In algorithm <em>SM</em>(<var>m</var>), the Flag Admiral (admiral 0) seals an order and sends it by skiff to each
+    squadron admiral. Each squadron admiral appends his own seal and relays the slate to the others. An admiral maintains
+    a set <var>V</var><sub><var>i</var></sub> of properly signed orders. A deterministic function <b>choice</b> satisfies
+    choice({<var>v</var>}) = <var>v</var>, choice(∅) = FALL-BACK, and choice({ATTACK, FALL-BACK}) = FALL-BACK.</p>
+  </div>
+  <div class="decree rules">
+    <span class="rhead">Algorithm SM(<var>m</var>)</span>
+    <ol>
+      <li>Initially <var>V</var><sub><var>i</var></sub> = ∅. The Flag Admiral seals and sends his order <var>v</var>:0 to each squadron admiral via skiff.</li>
+      <li>For each squadron admiral <var>i</var>:
+        <ul>
+          <li>If he receives <var>v</var>:0 from the Flag Admiral and has received no order yet, he sets <var>V</var><sub><var>i</var></sub> = {<var>v</var>} and dispatches <var>v</var>:0:<var>i</var> to all other squadron admirals.</li>
+          <li>If he receives <var>v</var>:0:<var>j</var><sub>1</sub>:…:<var>j</var><sub><var>k</var></sub> with valid seals and <var>v</var> ∉ <var>V</var><sub><var>i</var></sub>, he adds <var>v</var> to <var>V</var><sub><var>i</var></sub>. If <var>k</var> &lt; <var>m</var>, he appends his seal and dispatches <var>v</var>:0:<var>j</var><sub>1</sub>:…:<var>j</var><sub><var>k</var></sub>:<var>i</var> to every admiral not yet in the signature chain.</li>
+        </ul>
+      </li>
+      <li>When no more skiffs can arrive, Admiral <var>i</var> executes choice(<var>V</var><sub><var>i</var></sub>).</li>
+    </ol>
+  </div>
+
+  <!-- PANEL III-06 -->
+  <figure class="panel mid tilt-r" id="panel-III-06" data-panel="III-06" data-shape="half" data-refs="I-characters I-props">
+    <div class="frame"><div class="img-placeholder ph-half" role="img" aria-label="The same signet, twice: An admiral holds two wax slates side by side in torchlight — one ordering Attack, one ordering Fall-back — both bearing the identical signet ring seal of the Flag Admiral."><span class="ph-label">III-06 · half 4:3</span><span class="ph-title">The same signet, twice</span><span class="ph-desc">An admiral holds two wax slates side by side in torchlight — one ordering Attack, one ordering Fall-back — both bearing the identical signet ring seal of the Flag Admiral.</span><span class="ph-meta">Blender: warship deck · Sheets: I-characters, I-props</span></div></div>
+    <figcaption>THE SAME SIGNET ON TWO CONFLICTING ORDERS. ONLY THE FLAG ADMIRAL COULD HAVE STRUCK BOTH — PROVING HE IS THE TRAITOR.</figcaption>
+  </figure>
+  <!-- /PANEL III-06 -->
+
+  <div class="prose">
+    <p>Now observe how three warships resolve the traitorous commander dilemma: the Flag Admiral sends ATTACK to
+    Admiral&nbsp;1 and FALL-BACK to Admiral&nbsp;2. Admiral&nbsp;1 signs and forwards ATTACK to Admiral&nbsp;2; Admiral&nbsp;2
+    signs and forwards FALL-BACK to Admiral&nbsp;1. Both loyal admirals now hold both slates, each bearing the genuine signet
+    of the Flag Admiral! Because no loyal admiral could forge the commander's seal, both know the Flag Admiral is treacherous.
+    Both evaluate choice({ATTACK, FALL-BACK}) = <b>FALL-BACK</b> in perfect harmony!<sup>4</sup></p>
+  </div>
+  <aside class="fn"><b>4.</b> Notice that in <em>SM</em>(1), the squadron admirals do not even need to seal their relays,
+  since with <var>m</var> = 1 the chain length is at most 1. The Flag Admiral's signature alone provides proof of betrayal.</aside>
+  <div class="slab">
+    <div class="slab-head">Theorem 2</div>
+    <p class="stmt">For any <var>m</var>, <em>SM</em>(<var>m</var>) solves the problem of the admirals if there are at most <var>m</var> traitors.</p>
+  </div>
+  <details class="proof">
+    <summary>Proof</summary>
+    <ol class="proofsteps">
+      <li><b>IC2:</b> A loyal Flag Admiral dispatches <var>v</var>:0 to every squadron admiral. By A4, no traitor can forge any other order <var>v′</var>:0 with the Flag Admiral's seal. Every loyal admiral has <var>V</var><sub><var>i</var></sub> = {<var>v</var>}, and choice({<var>v</var>}) = <var>v</var>.</li>
+      <li><b>IC1:</b> If the Flag Admiral is a traitor, it suffices to prove that if any loyal admiral <var>i</var> places <var>v</var> in <var>V</var><sub><var>i</var></sub>, then every loyal admiral <var>j</var> also places <var>v</var> in <var>V</var><sub><var>j</var></sub>.</li>
+      <li>If admiral <var>i</var> received <var>v</var>:0 directly in step 2(A), he forwards it signed to <var>j</var>. If <var>i</var> received <var>v</var>:0:<var>j</var><sub>1</sub>:…:<var>j</var><sub><var>k</var></sub> in step 2(B): if <var>j</var> is already in the signature chain, <var>j</var> previously verified and possessed <var>v</var>.</li>
+      <li>If <var>j</var> is not in the chain, and <var>k</var> &lt; <var>m</var>, then <var>i</var> forwards the chain with his seal to <var>j</var>. If <var>k</var> = <var>m</var>, then since the commander is a traitor, at most <var>m</var> − 1 of the <var>m</var> signers are traitors; at least one signer was a loyal admiral who forwarded <var>v</var> to all peers. <span class="qed">∎</span></li>
+    </ol>
+  </details>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER V ================= -->
+<section id="s5">
+  <div class="issue">
+    <span class="no">Chapter V</span>
+    <h2 id="reefs-and-broken-channels"><a href="#reefs-and-broken-channels" class="hlink">Reefs and Broken Channels</a></h2>
+  </div>
+
+  <!-- PANEL III-07 -->
+  <figure class="panel" id="panel-III-07" data-panel="III-07" data-shape="wide" data-refs="I-props">
+    <div class="frame"><div class="img-placeholder ph-wide" role="img" aria-label="Reefs and crosscurrents: High bird&#x27;s-eye view over the coastal sea: warships separated by treacherous shallows and reefs, where skiffs can pass only along certain deep channels through intermediate ships."><span class="ph-label">III-07 · wide 16:9</span><span class="ph-title">Reefs and crosscurrents</span><span class="ph-desc">High bird&#x27;s-eye view over the coastal sea: warships separated by treacherous shallows and reefs, where skiffs can pass only along certain deep channels through intermediate ships.</span><span class="ph-meta">Blender: coastal reefs and shoals · Sheets: I-props</span></div></div>
+    <figcaption>NOT EVERY WARSHIP COULD REACH EVERY OTHER. SOME ORDERS HAD TO ROW THROUGH OTHER ADMIRALS&#x27; SQUADRONS.</figcaption>
+  </figure>
+  <!-- /PANEL III-07 -->
+
+  <div class="prose">
+    <p>In an open sea, every warship can dispatch a skiff directly to any other. But along the rugged coastline of Paxos,
+    jagged limestone reefs, shallows, and violent rip tides prevent skiffs from rowing between certain anchorages.
+    The naval communication channels form an undirected graph, with an edge existing only between warships separated
+    by safe, navigable water.</p>
+    <p>For spoken orders, the connectivity requirements are demanding. The geometers defined a <em>regular set of neighbours</em>:
+    a set of <var>p</var> neighbours of admiral <var>i</var> that have disjoint paths to any other admiral <var>k</var>.
+    The graph must be 3<var>m</var>-regular:</p>
+  </div>
+  <div class="slab">
+    <div class="slab-head">Theorem 3 · Spoken Agreement on Constrained Channels</div>
+    <p class="stmt">For any <var>m</var> &gt; 0 and <var>p</var> ≥ 3<var>m</var>, algorithm <em>OM</em>(<var>m</var>, <var>p</var>) solves the problem with at most <var>m</var> traitors if the naval channel graph is <var>p</var>-regular.</p>
+  </div>
+  <div class="prose">
+    <p>A 3<var>m</var>-regular graph demands tremendous connectivity: with 3<var>m</var> + 1 warships, every single warship
+    must have a direct channel to every other. But with <b>sealed orders</b>, the requirement drops to the theoretical minimum:
+    the loyal warships must merely form a <em>connected subgraph</em>! So long as a skiff can find some route between any two
+    loyal warships without passing through a traitor's anchorage, consensus is assured.</p>
+  </div>
+  <div class="slab">
+    <div class="slab-head">Theorem 4 · Sealed Agreement on Arbitrary Channels</div>
+    <p class="stmt">If there are at most <var>m</var> traitors and the channel subgraph among loyal warships is connected with diameter <var>d</var>, then <em>SM</em>(<var>m</var> + <var>d</var> − 1) solves the problem of the admirals. In particular, if the loyal warships are connected at all, <em>SM</em>(<var>n</var> − 2) guarantees consensus.</p>
+  </div>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER VI ================= -->
+<section id="s6">
+  <div class="issue">
+    <span class="no">Chapter VI</span>
+    <h2 id="reliable-warships-sift"><a href="#reliable-warships-sift" class="hlink">Reliable Warships &amp; The Sift</a></h2>
+  </div>
+
+  <div class="prose">
+    <p>The geometers closed by returning to the engineering problem that inspired their research. Apart from crafting
+    every bronze bolt and timber so flawlessly that it never breaks, the only known way to build an ultra-reliable warship
+    is to employ multiple redundant helmsmen and navigators, each computing the steering heading and taking a majority vote.
+    That works only if all sound helmsmen compute with identical inputs. But every sensor reading comes from a single physical
+    point — one water-clock, one compass needle, one lookout — and a failing sensor can send conflicting signals to different
+    watchmen.</p>
+  </div>
+
+  <!-- PANEL III-08 -->
+  <figure class="panel narrow tilt-r" id="panel-III-08" data-panel="III-08" data-shape="tall" data-refs="I-characters">
+    <div class="frame"><div class="img-placeholder ph-tall" role="img" aria-label="The marginal signal lamp: On a warship&#x27;s bow at night, a signal brazier gutters dimly in sea spray; two lookouts argue over whether it signals bright or dark."><span class="ph-label">III-08 · tall 3:4</span><span class="ph-title">The marginal signal lamp</span><span class="ph-desc">On a warship&#x27;s bow at night, a signal brazier gutters dimly in sea spray; two lookouts argue over whether it signals bright or dark.</span><span class="ph-meta">Blender: warship bow at night · Sheets: I-characters</span></div></div>
+    <figcaption>NO TIMBER OR RIGGING CAN SAVE YOU: A FAILING BRAZIER CAN LOOK LIT TO ONE LOOKOUT AND DARK TO ANOTHER.</figcaption>
+  </figure>
+  <!-- /PANEL III-08 -->
+
+  <div class="prose">
+    <p>It is tempting to imagine a mechanical fix — make all helmsmen stare at the same signal brazier. But a failing
+    lamp can gutter at an intermediate threshold that one lookout registers as lit and another as dark. There is
+    <b>no physical rigging</b> that can guarantee agreement from a faulty source without running the protocol of the admirals.</p>
+    <p>Furthermore, the geometers showed that the mathematical assumptions A1–A4 require real physical foundations:</p>
+    <ul>
+      <li><b>A1 (Correct Delivery):</b> Broken lines or sunken skiffs look identical to a mutinous crew; spoken protocols tolerate <var>m</var> combined faults.</li>
+      <li><b>A2 (Known Sender):</b> Direct skiff lines avoid intermediary routing, preventing imposter messages.</li>
+      <li><b>A3 (Detecting Silence):</b> Detecting the absence of a message strictly requires bounded transit time μ and synchronized water-clocks with maximum drift τ. Clocks must agree within τ, meaning clock synchronization itself requires Byzantine resilience!<sup>5</sup></li>
+      <li><b>A4 (Signets):</b> Modern cryptographers realize unforgeable signets using digital signatures (Diffie-Hellman, RSA), ensuring verification without enabling forgery.<sup>6</sup></li>
+    </ul>
+  </div>
+  <aside class="fn"><b>5.</b> Clock synchronization under Byzantine faults was solved by Lamport and Melliar-Smith in 1984.</aside>
+  <aside class="fn"><b>6.</b> Diffie &amp; Hellman (1976), Rivest, Shamir &amp; Adleman (1978).</aside>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER VII ================= -->
+<section id="s7">
+  <div class="issue">
+    <span class="no">Chapter VII</span>
+    <h2 id="the-price-of-treachery"><a href="#the-price-of-treachery" class="hlink">The Price of Treachery</a></h2>
+  </div>
+
+  <div class="prose">
+    <p>Surviving arbitrary treachery is computationally expensive. Both <em>OM</em>(<var>m</var>) and <em>SM</em>(<var>m</var>)
+    require message chains up to <var>m</var> + 1 rounds: an admiral may have to wait for an order relayed through <var>m</var>
+    intermediate skiffs. Fischer and Lynch (1982) proved that <b><var>m</var> + 1 rounds are strictly necessary</b> for any
+    consensus protocol tolerating <var>m</var> Byzantine faults. The geometers' algorithms are time-optimal.</p>
+  </div>
+  <div class="table-wrap">
+    <table class="chron">
+      <thead>
+        <tr>
+          <th>Protocol</th>
+          <th class="c">Warships Needed (<var>m</var> Traitors)</th>
+          <th class="c">Rounds</th>
+          <th>Naval Channels Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Spoken Orders (<em>OM</em>)</b></td>
+          <td class="c">≥ 3<var>m</var> + 1 (strictly necessary)</td>
+          <td class="c"><var>m</var> + 1</td>
+          <td>Every channel, or a 3<var>m</var>-regular graph</td>
+        </tr>
+        <tr>
+          <td><b>Sealed Signets (<em>SM</em>)</b></td>
+          <td class="c">≥ <var>m</var> + 2 (any number)</td>
+          <td class="c"><var>m</var> + 1 (<var>m</var> + <var>d</var> with reefs)</td>
+          <td>Loyal warships remain connected</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p>When complete confidence against malicious actors is demanded, the bound 3<var>m</var> + 1 cannot be evaded.
+    The price must be paid in warships, in skiff crews, and in the time required for repeated rounds of verification.</p>
+  </div>
+</section>
+
+<hr class="meander">
+
+<!-- ================= CHAPTER VIII ================= -->
+<section id="s8">
+  <div class="issue">
+    <span class="no">Chapter VIII</span>
+    <h2 id="relevance-to-computer-science"><a href="#relevance-to-computer-science" class="hlink">Relevance to Computer Science</a></h2>
+  </div>
+
+  <div class="table-wrap">
+    <table class="chron">
+      <thead>
+        <tr><th>In the coastal fleet</th><th>In the papers (Pease, Shostak, Lamport 1980, 1982)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Warship / Admiral</td><td>Processor / Replicated node</td></tr>
+        <tr><td>Bribed / Traitorous Admiral</td><td>Byzantine faulty node (arbitrary, malicious, or erroneous behavior)</td></tr>
+        <tr><td>Flag Admiral &amp; Squadron Admirals</td><td>Sender &amp; Replicas; Interactive Consistency (IC1, IC2)</td></tr>
+        <tr><td>Dispatch skiff message</td><td>Message passing network packet</td></tr>
+        <tr><td>Spoken message</td><td>Unauthenticated message (assumptions A1–A3)</td></tr>
+        <tr><td>Illyrian warships simulation</td><td>Simulation reduction proving the 3<var>m</var> + 1 lower bound</td></tr>
+        <tr><td>Bronze signet ring in hot wax</td><td>Cryptographic digital signature (public-key authentication, A4)</td></tr>
+        <tr><td>Reefs and channels</td><td>Network topology graph; <var>p</var>-regularity; diameter <var>d</var></td></tr>
+        <tr><td>The flagship <em>Sift</em></td><td>SIFT: Software-Implemented Fault Tolerance (flight control at SRI)</td></tr>
+        <tr><td>ATTACK (1) / FALL-BACK (0)</td><td>Binary consensus decision output</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p>The 3<var>m</var> + 1 bound for unauthenticated Byzantine agreement is the foundational cornerstone of all
+    fault-tolerant distributed systems. It governs modern blockchain networks, aerospace flight controllers, and
+    practical state machine replication protocols like PBFT (Castro &amp; Liskov 1999, retold in Volume&nbsp;VII),
+    which uses exactly 3<var>f</var> + 1 replicas to tolerate <var>f</var> malicious nodes. The algorithms here assume
+    synchrony (bounded skiff times and clocks). When synchrony is absent, the FLP impossibility (Volume&nbsp;II) takes over;
+    and when synchrony is partial, Paxos (Volume&nbsp;IV) and PBFT find their footing.</p>
+  </div>
+</section>
+
+<hr class="meander">
+
+<!-- ================= REFERENCES ================= -->
+<section id="refs">
+  <div class="issue">
+    <span class="no">The Library</span>
+    <h2 id="references"><a href="#references" class="hlink">References</a></h2>
+  </div>
+  <ol class="refs prose">
+    <li>Davies, D. and Wakerly, J. 1978. Synchronization and matching in redundant systems. <em>IEEE Transactions on Computers C-27</em>, 6 (June), 531–539.</li>
+    <li>Diffie, W. and Hellman, M. E. 1976. New directions in cryptography. <em>IEEE Transactions on Information Theory IT-22</em> (Nov.), 644–654.</li>
+    <li>Dolev, D. 1982. The Byzantine generals strike again. <em>Journal of Algorithms 3</em>, 1 (Jan.).</li>
+    <li>Fischer, M. J. and Lynch, N. A. 1982. A lower bound for the time to assure interactive consistency. <em>Information Processing Letters 14</em>, 4, 183–186.</li>
+    <li>Lamport, L., Shostak, R., and Pease, M. 1982. The Byzantine generals problem. <em>ACM Transactions on Programming Languages and Systems 4</em>, 3 (July), 382–401.</li>
+    <li>Pease, M., Shostak, R., and Lamport, L. 1980. Reaching agreement in the presence of faults. <em>Journal of the ACM 27</em>, 2 (April), 228–234.</li>
+    <li>Rivest, R. L., Shamir, A., and Adleman, L. 1978. A method for obtaining digital signatures and public-key cryptosystems. <em>Communications of the ACM 21</em>, 2 (Feb.), 120–126.</li>
+    <li>Wensley, J. H., et al. 1978. SIFT: Design and analysis of a fault-tolerant computer for aircraft control. <em>Proceedings of the IEEE 66</em>, 10 (Oct.), 1240–1255.</li>
+  </ol>
+</section>
+
+<div>
+  <hr class="meander">
+  <div class="paper-card">
+    <h4>🏛️ Foundational Research Papers</h4>
+    <p style="font-size:.9rem; margin-top:0; color:#5c4e3b">The original papers this volume retells:</p>
+    <div class="paper-item">
+      <div style="font-weight:700">Reaching Agreement in the Presence of Faults</div>
+      <div style="font-size:.88rem; color:#5c4e3b; margin:2px 0">Marshall Pease, Robert Shostak, Leslie Lamport (1980) · <em>Journal of the ACM, 27(2):228–234</em></div>
+      <a href="https://lamport.azurewebsites.net/pubs/reaching.pdf" class="paper-btn" target="_blank" rel="noopener">📄 Read the Paper (PDF)</a>
+    </div>
+    <div class="paper-item">
+      <div style="font-weight:700">The Byzantine Generals Problem</div>
+      <div style="font-size:.88rem; color:#5c4e3b; margin:2px 0">Leslie Lamport, Robert Shostak, Marshall Pease (1982) · <em>ACM TOPLAS, 4(3):382–401</em></div>
+      <a href="https://lamport.azurewebsites.net/pubs/byz.pdf" class="paper-btn" target="_blank" rel="noopener">📄 Read the Paper (PDF)</a>
+    </div>
+  </div>
+</div>
+
+<footer class="colophon">
+  <hr class="meander">
+  <p>An allegorical retelling of Pease, Shostak &amp; Lamport (1980) and Lamport, Shostak &amp; Pease (1982).
+  The setting has been moved from military encampments on land to the defensive warships and dispatch skiffs off the coast of Paxos.
+  For the original mathematics, always consult the original papers.</p>
+  <nav class="bottom-nav">
+    <a href="../art-direction-grand-island-shape.html" class="bottom-btn all">🏛️ Art direction</a>
+  </nav>
+</footer>
+
+</div><!--/page-->
+
+<script>
+"use strict";
+/* ================= hidden-name tooltips ================= */
+(function(){
+  const tip = document.getElementById('tip');
+  function show(el){
+    tip.innerHTML = '<span class="who">' + el.dataset.real + '</span>' + (el.dataset.note || '');
+    tip.style.display = 'block';
+    const r = el.getBoundingClientRect();
+    const tw = tip.offsetWidth;
+    let x = window.scrollX + r.left + r.width/2 - tw/2;
+    x = Math.max(8, Math.min(x, window.scrollX + document.documentElement.clientWidth - tw - 8));
+    tip.style.left = x + 'px';
+    tip.style.top = (window.scrollY + r.bottom + 8) + 'px';
+  }
+  document.querySelectorAll('.paxon').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>show(el));
+    el.addEventListener('mouseleave', ()=>{ tip.style.display='none'; });
+    el.addEventListener('click', (e)=>{ e.stopPropagation(); show(el); });
+  });
+  document.addEventListener('click', ()=>{ tip.style.display='none'; });
+})();
+
+/* ================= THE ADMIRALS' SQUADRON SIMULATOR ================= */
+(function(){
+  let currentMode = 'om1'; // 'om1', 'dilemma', 'sm1'
+  let currentTraitor = 'none'; // 'none', 'sq3', 'flag'
+  let step = 0; // 0: init, 1: round 1 dispatched, 2: round 2 relayed
+
+  const svg = document.getElementById('admiral-svg');
+  const badgeEl = document.getElementById('fleet-verdict-badge');
+  const noteEl = document.getElementById('fleet-explain-note');
+  const gridEl = document.getElementById('admiral-cards-grid');
+  const logEl = document.getElementById('admiral-log');
+  const stepBtn = document.getElementById('btn-step-action');
+
+  if (!svg) return;
+
+  function addLog(s, msg) {
+    if (!logEl) return;
+    const entry = document.createElement('div');
+    entry.className = 'sim-log-entry';
+    entry.innerHTML = `<span class="log-step">${s}</span> ${msg}`;
+    logEl.appendChild(entry);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function reset() {
+    step = 0;
+    if (logEl) logEl.innerHTML = '';
+    addLog('INIT', `Mode: <strong>${currentMode.toUpperCase()}</strong>. Traitor: <strong>${currentTraitor.toUpperCase()}</strong>. Warships riding at anchor.`);
+    render();
+  }
+
+  // Define ships positions for 4-ship and 3-ship layouts
+  function getFleet() {
+    if (currentMode === 'om1') {
+      // 4 warships in a diamond formation
+      return [
+        { id: 0, name: 'Flag Admiral (0)', x: 420, y: 75,  role: 'commander', isTraitor: currentTraitor === 'flag' },
+        { id: 1, name: 'Admiral 1 (West)', x: 170, y: 240, role: 'squadron',  isTraitor: false },
+        { id: 2, name: 'Admiral 2 (South)', x: 420, y: 350, role: 'squadron',  isTraitor: false },
+        { id: 3, name: 'Admiral 3 (East)', x: 670, y: 240, role: 'squadron',  isTraitor: currentTraitor === 'sq3' }
+      ];
+    } else {
+      // 3 warships in a triangle formation
+      return [
+        { id: 0, name: 'Flag Admiral (0)', x: 420, y: 85,  role: 'commander', isTraitor: currentTraitor === 'flag' },
+        { id: 1, name: 'Admiral 1 (West)', x: 230, y: 310, role: 'squadron',  isTraitor: false },
+        { id: 2, name: 'Admiral 2 (East)', x: 610, y: 310, role: 'squadron',  isTraitor: currentTraitor === 'sq3' }
+      ];
+    }
+  }
+
+  function getMessages() {
+    const fleet = getFleet();
+    const msgs = [];
+
+    if (currentMode === 'om1') {
+      // 4-ship OM(1)
+      if (step >= 1) {
+        // Round 1: Flag Admiral to lieutenants
+        if (currentTraitor === 'flag') {
+          // Traitor Flag Admiral sends split orders
+          msgs.push({ from: 0, to: 1, val: 'ATTACK', round: 1 });
+          msgs.push({ from: 0, to: 2, val: 'FALL-BACK', round: 1 });
+          msgs.push({ from: 0, to: 3, val: 'ATTACK', round: 1 });
+        } else {
+          // Loyal Flag Admiral sends ATTACK to all
+          msgs.push({ from: 0, to: 1, val: 'ATTACK', round: 1 });
+          msgs.push({ from: 0, to: 2, val: 'ATTACK', round: 1 });
+          msgs.push({ from: 0, to: 3, val: 'ATTACK', round: 1 });
+        }
+      }
+
+      if (step >= 2) {
+        // Round 2: Lieutenants cross-relay
+        const r1Vals = {};
+        msgs.filter(m => m.round === 1).forEach(m => { r1Vals[m.to] = m.val; });
+
+        const lieutenants = [1, 2, 3];
+        lieutenants.forEach(fromId => {
+          lieutenants.forEach(toId => {
+            if (fromId !== toId) {
+              let relayedVal = r1Vals[fromId] || 'FALL-BACK';
+              if (fromId === 3 && currentTraitor === 'sq3') {
+                // Traitorous Admiral 3 lies during relay!
+                relayedVal = 'FALL-BACK';
+              }
+              msgs.push({ from: fromId, to: toId, val: relayedVal, round: 2 });
+            }
+          });
+        });
+      }
+    } else if (currentMode === 'dilemma') {
+      // 3-ship dilemma
+      if (step >= 1) {
+        if (currentTraitor === 'flag') {
+          msgs.push({ from: 0, to: 1, val: 'ATTACK', round: 1 });
+          msgs.push({ from: 0, to: 2, val: 'FALL-BACK', round: 1 });
+        } else {
+          msgs.push({ from: 0, to: 1, val: 'ATTACK', round: 1 });
+          msgs.push({ from: 0, to: 2, val: 'ATTACK', round: 1 });
+        }
+      }
+      if (step >= 2) {
+        // Peer relay
+        if (currentTraitor === 'sq3') {
+          // Traitor Admiral 2 lies to Admiral 1
+          msgs.push({ from: 2, to: 1, val: 'FALL-BACK', round: 2 });
+          msgs.push({ from: 1, to: 2, val: 'ATTACK', round: 2 });
+        } else if (currentTraitor === 'flag') {
+          // Loyal Admiral 2 faithfully relays FALL-BACK to Admiral 1
+          msgs.push({ from: 2, to: 1, val: 'FALL-BACK', round: 2 });
+          msgs.push({ from: 1, to: 2, val: 'ATTACK', round: 2 });
+        } else {
+          msgs.push({ from: 2, to: 1, val: 'ATTACK', round: 2 });
+          msgs.push({ from: 1, to: 2, val: 'ATTACK', round: 2 });
+        }
+      }
+    } else if (currentMode === 'sm1') {
+      // 3-ship SM(1) with signed slates
+      if (step >= 1) {
+        if (currentTraitor === 'flag') {
+          msgs.push({ from: 0, to: 1, val: 'ATTACK:seal(0)', round: 1, raw: 'ATTACK' });
+          msgs.push({ from: 0, to: 2, val: 'FALL-BACK:seal(0)', round: 1, raw: 'FALL-BACK' });
+        } else {
+          msgs.push({ from: 0, to: 1, val: 'ATTACK:seal(0)', round: 1, raw: 'ATTACK' });
+          msgs.push({ from: 0, to: 2, val: 'ATTACK:seal(0)', round: 1, raw: 'ATTACK' });
+        }
+      }
+      if (step >= 2) {
+        // Exchange signed slates
+        if (currentTraitor === 'flag') {
+          msgs.push({ from: 1, to: 2, val: 'ATTACK:seal(0):seal(1)', round: 2, raw: 'ATTACK' });
+          msgs.push({ from: 2, to: 1, val: 'FALL-BACK:seal(0):seal(2)', round: 2, raw: 'FALL-BACK' });
+        } else if (currentTraitor === 'sq3') {
+          // Traitor cannot forge Flag's seal on FALL-BACK!
+          msgs.push({ from: 1, to: 2, val: 'ATTACK:seal(0):seal(1)', round: 2, raw: 'ATTACK' });
+          msgs.push({ from: 2, to: 1, val: 'ATTACK:seal(0):seal(2)', round: 2, raw: 'ATTACK' });
+        } else {
+          msgs.push({ from: 1, to: 2, val: 'ATTACK:seal(0):seal(1)', round: 2, raw: 'ATTACK' });
+          msgs.push({ from: 2, to: 1, val: 'ATTACK:seal(0):seal(2)', round: 2, raw: 'ATTACK' });
+        }
+      }
+    }
+
+    return msgs;
+  }
+
+  function advanceStep() {
+    if (step === 0) {
+      step = 1;
+      addLog('ROUND 1', 'Flag Admiral dispatches skiffs with initial orders to all squadron flagships.');
+    } else if (step === 1) {
+      step = 2;
+      addLog('ROUND 2', 'Squadron admirals cross-relay the orders they received via dispatch skiffs.');
+    } else {
+      step = 0;
+      addLog('RESET', 'Restarting scenario.');
+    }
+    render();
+  }
+
+  function render() {
+    const fleet = getFleet();
+    const msgs = getMessages();
+
+    // Update button text
+    if (step === 0) stepBtn.textContent = '▶ Step 1: Dispatch Skiffs';
+    else if (step === 1) stepBtn.textContent = '▶ Step 2: Relay Skiffs';
+    else stepBtn.textContent = '↺ Restart Run';
+
+    svg.innerHTML = '';
+
+    // Water background gradient & waves
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    defs.innerHTML = `
+      <marker id="skiff-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#d4a017"/>
+      </marker>
+      <marker id="skiff-arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ea5d9"/>
+      </marker>
+    `;
+    svg.appendChild(defs);
+
+    // Channel connection lines
+    for (let i = 0; i < fleet.length; i++) {
+      for (let j = i + 1; j < fleet.length; j++) {
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        p.setAttribute('x1', fleet[i].x); p.setAttribute('y1', fleet[i].y);
+        p.setAttribute('x2', fleet[j].x); p.setAttribute('y2', fleet[j].y);
+        p.setAttribute('stroke', 'rgba(100, 160, 200, 0.18)');
+        p.setAttribute('stroke-width', '2');
+        p.setAttribute('stroke-dasharray', '5 5');
+        svg.appendChild(p);
+      }
+    }
+
+    // Render active skiff tracks & badges
+    msgs.forEach((m, idx) => {
+      const fromS = fleet.find(f => f.id === m.from);
+      const toS = fleet.find(f => f.id === m.to);
+      if (!fromS || !toS) return;
+
+      const isR1 = m.round === 1;
+      const tProgress = 0.5 + (m.from * 0.08 - m.to * 0.05);
+      const mx = fromS.x * (1 - tProgress) + toS.x * tProgress;
+      const my = fromS.y * (1 - tProgress) + toS.y * tProgress;
+
+      // Directed skiff path
+      const pathLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      pathLine.setAttribute('x1', fromS.x); pathLine.setAttribute('y1', fromS.y);
+      pathLine.setAttribute('x2', toS.x); pathLine.setAttribute('y2', toS.y);
+      pathLine.setAttribute('stroke', isR1 ? '#d4a017' : '#4ea5d9');
+      pathLine.setAttribute('stroke-width', '2');
+      pathLine.setAttribute('marker-end', isR1 ? 'url(#skiff-arr)' : 'url(#skiff-arr-blue)');
+      svg.appendChild(pathLine);
+
+      // Skiff icon + text badge
+      const bg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', mx - 42); rect.setAttribute('y', my - 12);
+      rect.setAttribute('width', '84'); rect.setAttribute('height', '24');
+      rect.setAttribute('rx', '4');
+      rect.setAttribute('fill', m.val.includes('ATTACK') ? '#1a4968' : '#682e1a');
+      rect.setAttribute('stroke', isR1 ? '#d4a017' : '#88c9f2');
+      rect.setAttribute('stroke-width', '1.2');
+      bg.appendChild(rect);
+
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', mx); txt.setAttribute('y', my + 4);
+      txt.setAttribute('font-family', 'Optima, sans-serif');
+      txt.setAttribute('font-size', '10.5');
+      txt.setAttribute('font-weight', '700');
+      txt.setAttribute('fill', '#fff');
+      txt.setAttribute('text-anchor', 'middle');
+      txt.textContent = `🚣 ${m.from}→${m.to}: ${m.val.split(':')[0]}`;
+      bg.appendChild(txt);
+      svg.appendChild(bg);
+    });
+
+    // Render Warships
+    fleet.forEach(s => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+      // Trireme hull shape
+      const hull = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      hull.setAttribute('d', `M ${s.x - 36} ${s.y} Q ${s.x} ${s.y - 18} ${s.x + 36} ${s.y} Q ${s.x} ${s.y + 18} ${s.x - 36} ${s.y} Z`);
+      hull.setAttribute('fill', s.isTraitor ? '#612117' : '#1f4861');
+      hull.setAttribute('stroke', s.isTraitor ? '#e85d43' : '#72b6df');
+      hull.setAttribute('stroke-width', '2.5');
+      g.appendChild(hull);
+
+      // Central deck mast circle
+      const mast = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      mast.setAttribute('cx', s.x); mast.setAttribute('cy', s.y);
+      mast.setAttribute('r', '7');
+      mast.setAttribute('fill', '#e0d2b4');
+      mast.setAttribute('stroke', '#111');
+      g.appendChild(mast);
+
+      // Pennant & Label
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', s.x);
+      txt.setAttribute('y', s.y > 200 ? s.y + 36 : s.y - 26);
+      txt.setAttribute('font-family', 'Optima, sans-serif');
+      txt.setAttribute('font-size', '12');
+      txt.setAttribute('font-weight', '700');
+      txt.setAttribute('fill', s.isTraitor ? '#f78a74' : '#faeed7');
+      txt.setAttribute('text-anchor', 'middle');
+      txt.textContent = s.name + (s.isTraitor ? ' [TRAITOR]' : ' [LOYAL]');
+      g.appendChild(txt);
+
+      svg.appendChild(g);
+    });
+
+    // Compute decisions and update vectors
+    updateBoards(fleet, msgs);
+  }
+
+  function updateBoards(fleet, msgs) {
+    if (!gridEl) return;
+    gridEl.innerHTML = '';
+
+    const decisions = {};
+
+    fleet.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'diamond-node-card';
+      card.style.border = s.isTraitor ? '2px solid #a82e20' : '2px solid var(--ink)';
+      card.style.background = s.isTraitor ? '#faeae6' : '#fff';
+
+      let content = `<strong>${s.name}</strong><br><span style="font-size:.78rem; color:#666;">${s.isTraitor ? '⚠️ Bribed Traitor' : '✓ Loyal Admiral'}</span><hr style="margin:4px 0; border:0; border-top:1px solid #ddd;">`;
+
+      if (s.id === 0) {
+        // Flag Admiral
+        content += `<div style="font-size:.82rem;">Initial Action: <b>${currentTraitor === 'flag' ? 'ATTACK / FALL-BACK (Split!)' : 'ATTACK'}</b></div>`;
+      } else {
+        // Squadron Admiral
+        const inMsgs = msgs.filter(m => m.to === s.id);
+        const r1 = inMsgs.find(m => m.round === 1);
+        const r2 = inMsgs.filter(m => m.round === 2);
+
+        content += `<div style="font-size:.8rem; margin-bottom:3px;">From Flag: <b>${r1 ? r1.val : '—'}</b></div>`;
+        if (r2.length > 0) {
+          content += `<div style="font-size:.8rem;">Relays: ${r2.map(m => `[From ${m.from}: ${m.val.split(':')[0]}]`).join(' ')}</div>`;
+        }
+
+        // Decision rule at step 2
+        if (step >= 2) {
+          let chosen = 'FALL-BACK';
+          if (currentMode === 'om1') {
+            // Majority of all received
+            const vals = inMsgs.map(m => m.val);
+            const attackCount = vals.filter(v => v === 'ATTACK').length;
+            chosen = attackCount >= 2 ? 'ATTACK' : 'FALL-BACK';
+            content += `<div style="font-size:.84rem; font-weight:700; margin-top:4px; color:${chosen === 'ATTACK' ? 'var(--aegean)' : 'var(--terra)'};">Majority Vote: ${chosen}</div>`;
+          } else if (currentMode === 'dilemma') {
+            // In 3-ship dilemma
+            if (s.id === 1) {
+              chosen = 'ATTACK'; // Forced by IC2 in Scenario A
+            } else {
+              chosen = (currentTraitor === 'flag' || currentTraitor === 'sq3') ? 'FALL-BACK' : 'ATTACK';
+            }
+            content += `<div style="font-size:.84rem; font-weight:700; margin-top:4px; color:${chosen === 'ATTACK' ? 'var(--aegean)' : 'var(--terra)'};">Heuristic Choice: ${chosen}</div>`;
+          } else if (currentMode === 'sm1') {
+            // Signed message choice
+            const distinct = Array.from(new Set(inMsgs.map(m => m.raw || m.val.split(':')[0])));
+            if (distinct.length === 1) chosen = distinct[0];
+            else chosen = 'FALL-BACK (Dual seal caught!)';
+            content += `<div style="font-size:.84rem; font-weight:700; margin-top:4px; color:var(--aegean);">SM Choice: ${chosen}</div>`;
+          }
+          decisions[s.id] = chosen;
+        }
+      }
+
+      card.innerHTML = content;
+      gridEl.appendChild(card);
+    });
+
+    // Update main verdict badge & note
+    if (step < 2) {
+      badgeEl.className = 'valence-indicator bivalent';
+      badgeEl.textContent = step === 0 ? '⏳ Ships Awaiting Orders' : '🚣 Round 1 Orders in Transit';
+      noteEl.innerHTML = step === 0 ? 'Click "Step 1: Dispatch Skiffs" to send orders from the Flag Admiral.' : 'Click "Step 2: Relay Skiffs" to have squadron admirals exchange reports.';
+    } else {
+      // Evaluate consensus
+      const loyalDecisions = Object.entries(decisions)
+        .filter(([id, _]) => id !== '0' && (id !== '3' || currentTraitor !== 'sq3') && (id !== '2' || currentMode !== 'dilemma' || currentTraitor !== 'sq3'))
+        .map(([_, v]) => v);
+
+      const allEqual = loyalDecisions.every(v => v === loyalDecisions[0]);
+
+      if (currentMode === 'dilemma' && (currentTraitor === 'flag' || currentTraitor === 'sq3')) {
+        badgeEl.className = 'valence-indicator zero-valent';
+        badgeEl.style.background = '#a82e20';
+        badgeEl.innerHTML = '💥 DISASTER: Split Fleet! (IC1 Violated)';
+        noteEl.innerHTML = `<strong>Impossibility Demonstrated:</strong> Admiral 1 ordered <em>ATTACK</em> while Admiral 2 ordered <em>FALL-BACK</em>! The attacking ships row out alone and are annihilated.`;
+      } else if (allEqual) {
+        badgeEl.className = 'valence-indicator one-valent';
+        badgeEl.innerHTML = `⚔️ UNIFIED CONSENSUS: ${loyalDecisions[0]}`;
+        noteEl.innerHTML = `<strong>Success:</strong> All loyal squadron flagships agreed on <strong>${loyalDecisions[0]}</strong>! The fleet acts as one body with no divided squadrons.`;
+      } else {
+        badgeEl.className = 'valence-indicator zero-valent';
+        badgeEl.innerHTML = '⚠️ Divided Fleet';
+      }
+    }
+  }
+
+  // Event handlers
+  stepBtn?.addEventListener('click', advanceStep);
+  document.getElementById('btn-reset-sim')?.addEventListener('click', reset);
+
+  document.getElementById('btn-traitor-none')?.addEventListener('click', (e) => {
+    currentTraitor = 'none';
+    document.querySelectorAll('.sim-toolbar .preset, .sim-toolbar .action').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    reset();
+  });
+
+  document.getElementById('btn-traitor-sq3')?.addEventListener('click', (e) => {
+    currentTraitor = 'sq3';
+    document.querySelectorAll('.sim-toolbar .preset, .sim-toolbar .action').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    reset();
+  });
+
+  document.getElementById('btn-traitor-flag')?.addEventListener('click', (e) => {
+    currentTraitor = 'flag';
+    document.querySelectorAll('.sim-toolbar .preset, .sim-toolbar .action').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    reset();
+  });
+
+  // Tab handlers
+  document.querySelectorAll('.sim-tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.sim-tab-btn').forEach(b => b.classList.remove('active'));
+      const target = e.currentTarget;
+      target.classList.add('active');
+      currentMode = target.dataset.mode;
+
+      // Adjust button labels if needed
+      const sqBtn = document.getElementById('btn-traitor-sq3');
+      if (sqBtn) {
+        sqBtn.textContent = currentMode === 'om1' ? 'Admiral 3 is Traitor (Lies)' : 'Admiral 2 is Traitor (Lies)';
+      }
+      reset();
+    });
+  });
+
+  reset();
+})();
+</script>
+</body>
+</html>

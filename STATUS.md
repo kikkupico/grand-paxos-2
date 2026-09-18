@@ -26,7 +26,7 @@ _Last updated 16 Sep 2026._
 
 ## Decisions
 - **One island, the Dependency Spine.** It is laid out along the dependency graph between the papers. Walking from the NW tip reads the volumes in order, I to IX, and every volume comes after the ones it builds on. Four other layouts were explored and dropped; they're in git history before the commit that removed `art-direction-grand.html`.
-- **Volumes are numbered in walking order**, which is also dependency and story order: I Disordered Sundials, II Sleeping Guard, III Generals Before the Walls, IV Passable Season, V Part-time Parliament, VI Ledger of Many Decrees, VII Citadel of Iron Quorums, VIII Quarries of the Roman Guilds, IX Raft Monks.
+- **Volumes are numbered in walking order**, which is also dependency and story order: I Disordered Sundials, II Sleeping Guard, III Traitors Among Admirals, IV Passable Season, V Part-time Parliament, VI Ledger of Many Decrees, VII Citadel of Iron Quorums, VIII Quarries of the Roman Guilds, IX Raft Monks.
 - **World:** 11 × 8 km, about 18.5 km² of land.
 - **Time:** one terrain and one generation in five phases, one per graph band and island zone, with buildings only added. See `ERAS.md`.
 - **Every site belongs to one volume.** Kinds of place several volumes need are built per volume: III's cothon (the lantern harbour), IV's merchant quays and town, VII's walled harbour, VIII's guild hall, I's beacons and III's drummers.
