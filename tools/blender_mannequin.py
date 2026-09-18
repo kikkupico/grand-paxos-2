@@ -44,6 +44,14 @@ POSES = {
             ("RightArm", "Y", -45), ("RightForeArm", "Y", -70), ("LeftArm", "Y", 40), ("LeftForeArm", "Y", -60)],
     "give": [("LeftArm", "X", -6), ("RightArm", "Y", -70), ("RightForeArm", "Y", -15), ("Spine1", "Y", 6)],
     "take": [("LeftArm", "X", -6), ("RightArm", "Y", -60), ("RightForeArm", "Y", -25), ("Spine", "Y", 8)],
+    "argue": [("LeftArm", "X", -20), ("LeftForeArm", "Y", -40), ("RightArm", "Y", -100), ("RightForeArm", "Y", -30), ("Spine", "Y", 8)],
+    "point": [("LeftArm", "X", -6), ("RightArm", "Y", -90), ("RightForeArm", "Y", 0), ("Spine", "Y", 4)],
+    "hold_slate": [("LeftArm", "X", -6), ("RightArm", "Y", -55), ("RightForeArm", "Y", -55), ("Head", "Y", 15)],
+    "examine": [("LeftArm", "Y", -45), ("RightArm", "Y", -45), ("LeftForeArm", "Y", -65), ("RightForeArm", "Y", -65), ("Head", "Y", 25)],
+    "push_beam": [("Spine", "Y", 25), ("Spine1", "Y", 15), ("Head", "Y", -10),
+                  ("LeftUpLeg", "Y", -25), ("LeftLeg", "Y", 30), ("RightUpLeg", "Y", 35), ("RightLeg", "Y", 20),
+                  ("LeftArm", "Y", -80), ("LeftForeArm", "Y", -10), ("RightArm", "Y", -80), ("RightForeArm", "Y", -10)],
+    "torch_high": [("LeftArm", "X", -6), ("RightArm", "Y", -160), ("RightArm", "X", 15), ("RightForeArm", "Y", -10), ("Head", "Y", -15)],
     "sit": SIT,
     "sit_look_up": SIT + [("Neck", "Y", -12), ("Head", "Y", -28)],
     "doze": SIT + [("Spine1", "Y", 12), ("Neck", "Y", 25), ("Head", "Y", 25)],
@@ -136,6 +144,37 @@ def _prop_scroll(coll, arm, label, hand, open_=False):
     ob.location = (0, -.06, 0)                                                                      # from the bone's tail, back into the palm
     return ob
 
+def _prop_slate(coll, arm, label, hand):
+    """A rectangular clay order slate held in `hand`."""
+    me = bpy.data.meshes.new(f"{label} · slate"); bm = bmesh.new()
+    _box(bm, (0, 0, 0), .018, .16, .22)
+    bm.to_mesh(me); bm.free(); me.materials.append(material("#bf7a50"))
+    ob = bpy.data.objects.new(f"{label} · slate", me); coll.objects.link(ob)
+    ob.parent = arm; ob.parent_type = "BONE"; ob.parent_bone = hand
+    ob.location = (0, -.06, 0)
+    return ob
+
+def _prop_torch(coll, arm, label, hand):
+    """A wooden torch with a glowing flame head held in `hand`."""
+    me = bpy.data.meshes.new(f"{label} · torch"); bm = bmesh.new()
+    _capsule(bm, (0, 0, -.25), (0, 0, .25), .02, 6)
+    _ellipsoid(bm, (0, 0, .32), .06, .06, .09, 8)
+    bm.to_mesh(me); bm.free(); me.materials.append(material("#ff8a3c"))
+    ob = bpy.data.objects.new(f"{label} · torch", me); coll.objects.link(ob)
+    ob.parent = arm; ob.parent_type = "BONE"; ob.parent_bone = hand
+    ob.location = (0, -.06, 0)
+    return ob
+
+def _prop_abacus(coll, arm, label, hand):
+    """A portable wooden counting frame held in `hand`."""
+    me = bpy.data.meshes.new(f"{label} · abacus"); bm = bmesh.new()
+    _box(bm, (0, 0, 0), .022, .22, .15)
+    bm.to_mesh(me); bm.free(); me.materials.append(material("#a07040"))
+    ob = bpy.data.objects.new(f"{label} · abacus", me); coll.objects.link(ob)
+    ob.parent = arm; ob.parent_type = "BONE"; ob.parent_bone = hand
+    ob.location = (0, -.06, 0)
+    return ob
+
 def place(scene, coll, x, y, z, facing_deg, pose_name, hex_, label, carry=None):
     """A posed, coloured mannequin in `coll`. z is the surface underfoot, or the seat for a seated pose. Returns the rig."""
     src_arm, src_body = source(scene)
@@ -149,4 +188,8 @@ def place(scene, coll, x, y, z, facing_deg, pose_name, hex_, label, carry=None):
     bpy.context.view_layer.update(); pose(arm, pose_name)
     if carry == "scroll": _prop_scroll(coll, arm, label, "RightHand")
     elif carry == "ledger_open": _prop_scroll(coll, arm, label, "RightHand", open_=True)
+    elif carry == "slate": _prop_slate(coll, arm, label, "RightHand")
+    elif carry == "slate_left": _prop_slate(coll, arm, label, "LeftHand")
+    elif carry == "torch": _prop_torch(coll, arm, label, "RightHand")
+    elif carry == "abacus": _prop_abacus(coll, arm, label, "LeftHand")
     return arm

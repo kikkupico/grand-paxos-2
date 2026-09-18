@@ -49,6 +49,19 @@ def hourglass(k, x, y, z, m, frame):
 def ink_pot(k, x, y, z, m): k.cyl(x, y, .035, z, z + .06, m, 10)
 def pen(k, x, y, z, ang, m): k.beam((x - .09 * math.cos(ang), y - .09 * math.sin(ang), z + .01), (x + .09 * math.cos(ang), y + .09 * math.sin(ang), z + .01), .01, .01, m)
 def slip(k, x, y, z, ang, m): k.beam((x, y, z), (x + .12 * math.cos(ang), y + .12 * math.sin(ang), z + .07), .14, .004, m)
+def clay_slate(k, x, y, z, ang, m): k.box(x, y, z, z + .025, .20, .28, ang, m)
+def table(k, x, y, z, ang, m):
+    k.box(x, y, z + .70, z + .75, 1.2, .8, ang, m)
+    c, s = math.cos(ang), math.sin(ang)
+    for dx, dy in ((-.5, -.3), (-.5, .3), (.5, -.3), (.5, .3)):
+        px, py = x + dx * c - dy * s, y + dx * s + dy * c
+        k.box(px, py, z, z + .70, .08, .08, ang, m)
+def crate(k, x, y, z, ang, m): k.box(x, y, z, z + .95, 1.3, 1.0, ang, m)
+def abacus_prop(k, x, y, z, ang, m): k.box(x, y, z, z + .04, .45, .28, ang, m)
+def water_clock(k, x, y, z, bronze):
+    k.cyl(x, y, .14, z, z + .38, bronze, 12)
+    k.cyl(x, y, .015, z + .38, z + .65, bronze, 6)
+def basket(k, x, y, z, wicker): k.cyl(x, y, .24, z, z + .32, wicker, 12)
 
 # ---------------------------------------------------------------- scene helpers
 def collection(name, parent):
@@ -89,11 +102,18 @@ def build_panel(scene, pid, spec, colors, top, cams):
     for f in spec["figures"]:
         mq.place(scene, coll, *f["xy"], f["z_resolved"], f["facing_deg"], f.get("pose", "stand"), colors[f["color"]], f"{pid} · {f['id']}", f.get("carry"))
     wood, parchment, glass, ink = mat("Blocking · rod", "#6a4a2e"), mat("Blocking · parchment", "#efe3c2"), mat("Blocking · glass", "#bcd8d4", .2), mat("Blocking · ink", "#1c1512")
+    terracotta, bronze, wicker = mat("Blocking · terracotta", "#bf7a50"), mat("Blocking · bronze", "#a57a3e"), mat("Blocking · wicker", "#b89e6c")
     k = Kit(f"{pid} · blocking props")
-    for p in spec["props"]:
-        x, y = p["xy"]; z = p["z"]; a = math.radians(p.get("angle_deg", 0))
+    for p in spec.get("props", []):
+        x, y = p["xy"]
+        z = surface(scene, x, y, below=p.get("z_from", 3000.0)) if p["z"] == "surface" else p["z"]
+        p["z_resolved"] = round(z, 3)
+        a = math.radians(p.get("angle_deg", 0))
         {"scroll_closed": lambda: scroll_closed(k, x, y, z, a, parchment, wood), "hourglass": lambda: hourglass(k, x, y, z, glass, wood),
-         "ink_pot": lambda: ink_pot(k, x, y, z, ink), "pen": lambda: pen(k, x, y, z, a, wood), "slip": lambda: slip(k, x, y, z, a, parchment)}[p["kind"]]()
+         "ink_pot": lambda: ink_pot(k, x, y, z, ink), "pen": lambda: pen(k, x, y, z, a, wood), "slip": lambda: slip(k, x, y, z, a, parchment),
+         "clay_slate": lambda: clay_slate(k, x, y, z, a, terracotta), "table": lambda: table(k, x, y, z, a, wood),
+         "crate": lambda: crate(k, x, y, z, a, wood), "abacus": lambda: abacus_prop(k, x, y, z, a, wood),
+         "water_clock": lambda: water_clock(k, x, y, z, bronze), "basket": lambda: basket(k, x, y, z, wicker)}.get(p["kind"], lambda: None)()
     ob = k.finish(coll)
     c = spec["camera"]; lx, ly, lz = c["loc"]
     if isinstance(lz, str):                                                                         # "surface+1.6"
@@ -137,8 +157,9 @@ def render_panel(scene, pid, spec, coll, cam):
     spec["lens_clear"] = not any(near)
     hit, loc, *_ = scene.ray_cast(dg, eye, (m_ @ (frame[2] + (frame[1] - frame[2]) * .5 + (frame[3] - frame[2]) * .5) - eye).normalized())
     spec["centre_clear_m"] = round((loc - eye).length, 1) if hit else None                          # nothing big right in front of the lens
-    for p in spec["props"]:
-        v = world_to_camera_view(scene, cam, Vector((p["xy"][0], p["xy"][1], p["z"] + .05)))
+    for p in spec.get("props", []):
+        pz = p.get("z_resolved", p["z"])
+        v = world_to_camera_view(scene, cam, Vector((p["xy"][0], p["xy"][1], pz + .05)))
         p["screen"] = [round(v.x, 3), round(1 - v.y, 3)]; p["in_frame"] = bool(0 <= v.x <= 1 and 0 <= v.y <= 1 and v.z > 0)
     spec["device"] = use_cycles(scene); out = OUT / f"{pid}-layout.png"
     scene.render.filepath = str(out); bpy.ops.render.render(write_still=True)
@@ -158,7 +179,7 @@ def main():
         out = render_panel(scene, pid, spec, coll, cam)
         print("PANEL", pid, out, "lens clear:", spec["lens_clear"], "centre clear to", spec["centre_clear_m"], "m;", "figures in frame:", sum(f["in_frame"] for f in spec["figures"]), "/", len(spec["figures"]),
               "visible:", sum(f["visible"] for f in spec["figures"]),
-              "props in frame:", sum(p["in_frame"] for p in spec["props"]), "/", len(spec["props"]), "on", spec["device"])
+              "props in frame:", sum(p["in_frame"] for p in spec.get("props", [])), "/", len(spec.get("props", [])), "on", spec["device"])
     path.write_text(json.dumps(shots, ensure_ascii=False, indent=1))
     blend = bt.OUT / f"panels-{vol}.blend"
     bpy.ops.wm.save_as_mainfile(filepath=str(blend), compress=True)

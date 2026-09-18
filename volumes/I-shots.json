@@ -1,0 +1,1095 @@
+{
+ "volume": "I",
+ "note": "Volume I panel shots and blocking figures across Hamlets A, K, M, Olive Press and Beacons.",
+ "colors": {
+  "terracotta": "#bf4a26",
+  "aegean": "#136f9e",
+  "olive": "#66722c",
+  "gold": "#c1912b",
+  "linen": "#ddd3bd",
+  "plum": "#6d3b6b"
+ },
+ "panels": {
+  "I-00": {
+   "aspect": "3:2",
+   "resolution": [
+    1920,
+    1280
+   ],
+   "camera": {
+    "loc": [
+     -5400,
+     2200,
+     750
+    ],
+    "target": [
+     -3000,
+     2200,
+     100
+    ],
+    "lens": 22,
+    "clip_start": 0.5,
+    "z_resolved": 750
+   },
+   "figures": [
+    {
+     "id": "runner",
+     "label": "runner on hill track",
+     "color": "gold",
+     "xy": [
+      -3420,
+      2820
+     ],
+     "z": "surface",
+     "facing_deg": 50,
+     "pose": "run",
+     "carry": "slate",
+     "z_resolved": 174.298,
+     "screen": [
+      0.316,
+      0.516
+     ],
+     "in_frame": true,
+     "screen_h": 0.0007,
+     "visible": true
+    },
+    {
+     "id": "trader_A",
+     "label": "Trader A at Hamlet A",
+     "color": "terracotta",
+     "xy": [
+      -3614,
+      3232
+     ],
+     "z": "surface",
+     "facing_deg": 210,
+     "pose": "stand",
+     "z_resolved": 120.581,
+     "screen": [
+      0.166,
+      0.568
+     ],
+     "in_frame": true,
+     "screen_h": 0.0008,
+     "visible": true
+    },
+    {
+     "id": "trader_K",
+     "label": "Trader K at Hamlet K",
+     "color": "aegean",
+     "xy": [
+      -3914,
+      1422
+     ],
+     "z": "surface",
+     "facing_deg": 80,
+     "pose": "stand",
+     "z_resolved": 168.198,
+     "screen": [
+      0.8,
+      0.599
+     ],
+     "in_frame": true,
+     "screen_h": 0.0009,
+     "visible": true
+    },
+    {
+     "id": "trader_M",
+     "label": "Trader M at Hamlet M",
+     "color": "plum",
+     "xy": [
+      -2090,
+      1946
+     ],
+     "z": "surface",
+     "facing_deg": 290,
+     "pose": "stand",
+     "z_resolved": 40.583,
+     "screen": [
+      0.546,
+      0.451
+     ],
+     "in_frame": true,
+     "screen_h": 0.0005,
+     "visible": true
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 2053.1,
+   "device": "GPU"
+  },
+  "I-01": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -5200,
+     2300,
+     520
+    ],
+    "target": [
+     -2900,
+     2300,
+     100
+    ],
+    "lens": 22,
+    "clip_start": 0.5,
+    "z_resolved": 520
+   },
+   "figures": [
+    {
+     "id": "trader_A",
+     "label": "Trader A at sundial",
+     "color": "terracotta",
+     "xy": [
+      -3614,
+      3230
+     ],
+     "z": "surface",
+     "facing_deg": 190,
+     "pose": "examine",
+     "z_resolved": 120.601,
+     "screen": [
+      0.152,
+      0.571
+     ],
+     "in_frame": true,
+     "screen_h": 0.0011,
+     "visible": false
+    },
+    {
+     "id": "trader_K",
+     "label": "Trader K in yard",
+     "color": "aegean",
+     "xy": [
+      -3915,
+      1420
+     ],
+     "z": "surface",
+     "facing_deg": 90,
+     "pose": "stand",
+     "z_resolved": 167.977,
+     "screen": [
+      0.905,
+      0.593
+     ],
+     "in_frame": true,
+     "screen_h": 0.0014,
+     "visible": true
+    },
+    {
+     "id": "trader_M",
+     "label": "Trader M in cove",
+     "color": "plum",
+     "xy": [
+      -2092,
+      1946
+     ],
+     "z": "surface",
+     "facing_deg": 270,
+     "pose": "stand",
+     "z_resolved": 40.583,
+     "screen": [
+      0.569,
+      0.469
+     ],
+     "in_frame": true,
+     "screen_h": 0.0006,
+     "visible": true
+    },
+    {
+     "id": "runner",
+     "label": "runner along contour path",
+     "color": "gold",
+     "xy": [
+      -3350,
+      2620
+     ],
+     "z": "surface",
+     "facing_deg": 30,
+     "pose": "run",
+     "carry": "slate",
+     "z_resolved": 205.269,
+     "screen": [
+      0.396,
+      0.486
+     ],
+     "in_frame": true,
+     "screen_h": 0.001,
+     "visible": false
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 1756.1,
+   "device": "GPU"
+  },
+  "I-02": {
+   "aspect": "4:3",
+   "resolution": [
+    1600,
+    1200
+   ],
+   "camera": {
+    "loc": [
+     -3621.5,
+     3226.5,
+     "surface+1.6"
+    ],
+    "target": [
+     -3616.5,
+     3231.5,
+     121.7
+    ],
+    "lens": 28,
+    "clip_start": 0.2,
+    "z_resolved": 122.4
+   },
+   "figures": [
+    {
+     "id": "aristides",
+     "label": "Aristides (Trader A) waving purchase slate",
+     "color": "terracotta",
+     "xy": [
+      -3617.5,
+      3230.8
+     ],
+     "z": "surface",
+     "facing_deg": 45,
+     "pose": "argue",
+     "carry": "slate",
+     "z_resolved": 120.581,
+     "screen": [
+      0.472,
+      0.436
+     ],
+     "in_frame": true,
+     "screen_h": 0.3026,
+     "visible": true
+    },
+    {
+     "id": "leonidas",
+     "label": "Leonidas (Trader M) shouting over priority",
+     "color": "plum",
+     "xy": [
+      -3615.8,
+      3232.2
+     ],
+     "z": "surface",
+     "facing_deg": 225,
+     "pose": "point",
+     "z_resolved": 120.581,
+     "screen": [
+      0.5,
+      0.426
+     ],
+     "in_frame": true,
+     "screen_h": 0.2222,
+     "visible": true
+    },
+    {
+     "id": "scholar",
+     "label": "wandering scholar arriving in green himation",
+     "color": "olive",
+     "xy": [
+      -3619.5,
+      3229.0
+     ],
+     "z": "surface",
+     "facing_deg": 40,
+     "pose": "stand",
+     "carry": "scroll",
+     "z_resolved": 120.598,
+     "screen": [
+      0.414,
+      0.463
+     ],
+     "in_frame": true,
+     "screen_h": 0.5445,
+     "visible": true
+    },
+    {
+     "id": "clerk_1",
+     "label": "dock clerk backing away",
+     "color": "linen",
+     "xy": [
+      -3614.2,
+      3233.8
+     ],
+     "z": "surface",
+     "facing_deg": 210,
+     "pose": "take",
+     "z_resolved": 120.581,
+     "screen": [
+      0.5,
+      0.42
+     ],
+     "in_frame": true,
+     "screen_h": 0.1744,
+     "visible": true
+    },
+    {
+     "id": "clerk_2",
+     "label": "clerk watching dispute",
+     "color": "gold",
+     "xy": [
+      -3615.5,
+      3229.8
+     ],
+     "z": "surface",
+     "facing_deg": 130,
+     "pose": "stand",
+     "z_resolved": 120.681,
+     "screen": [
+      0.726,
+      0.416
+     ],
+     "in_frame": true,
+     "screen_h": 0.2718,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "crate",
+     "label": "prized consignment crate",
+     "xy": [
+      -3616.6,
+      3231.5
+     ],
+     "z": "surface",
+     "z_resolved": 120.581,
+     "screen": [
+      0.492,
+      0.656
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 8.0,
+   "device": "GPU"
+  },
+  "I-03": {
+   "aspect": "3:4",
+   "resolution": [
+    1200,
+    1600
+   ],
+   "camera": {
+    "loc": [
+     -3919.5,
+     1416.5,
+     "surface+1.5"
+    ],
+    "target": [
+     -3917.4,
+     1419.0,
+     168.8
+    ],
+    "lens": 35,
+    "clip_start": 0.2,
+    "z_resolved": 169.143
+   },
+   "figures": [
+    {
+     "id": "trader_K",
+     "label": "Trader K flicking abacus bead",
+     "color": "aegean",
+     "xy": [
+      -3918.0,
+      1419.5
+     ],
+     "z": "surface",
+     "facing_deg": 110,
+     "pose": "examine",
+     "carry": "abacus",
+     "z_resolved": 167.643,
+     "screen": [
+      0.187,
+      0.368
+     ],
+     "in_frame": true,
+     "screen_h": 0.5071,
+     "visible": true
+    },
+    {
+     "id": "runner",
+     "label": "runner holding out stamped slate",
+     "color": "gold",
+     "xy": [
+      -3916.8,
+      1418.5
+     ],
+     "z": "surface",
+     "facing_deg": 290,
+     "pose": "give",
+     "carry": "slate",
+     "z_resolved": 167.717,
+     "screen": [
+      0.813,
+      0.345
+     ],
+     "in_frame": true,
+     "screen_h": 0.5086,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "label": "trader's threshold bench",
+     "xy": [
+      -3918.2,
+      1418.8
+     ],
+     "z": "surface",
+     "angle_deg": 20,
+     "z_resolved": 167.643,
+     "screen": [
+      0.271,
+      0.916
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 8.5,
+   "device": "GPU"
+  },
+  "I-04": {
+   "aspect": "4:3",
+   "resolution": [
+    1600,
+    1200
+   ],
+   "camera": {
+    "loc": [
+     -3336.5,
+     2769.0,
+     "surface+1.5"
+    ],
+    "target": [
+     -3327.5,
+     2768.5,
+     193.3
+    ],
+    "lens": 26,
+    "clip_start": 0.2,
+    "z_resolved": 191.979
+   },
+   "figures": [
+    {
+     "id": "grower",
+     "label": "grower pushing the heavy press beam",
+     "color": "terracotta",
+     "xy": [
+      -3329.0,
+      2770.0
+     ],
+     "z": "surface",
+     "facing_deg": 180,
+     "pose": "push_beam",
+     "z_resolved": 193.116,
+     "screen": [
+      0.368,
+      0.297
+     ],
+     "in_frame": true,
+     "screen_h": 0.2143,
+     "visible": true
+    },
+    {
+     "id": "folk_1",
+     "label": "grower in queue with olive basket",
+     "color": "linen",
+     "xy": [
+      -3328.0,
+      2768.0
+     ],
+     "z": "surface",
+     "facing_deg": 280,
+     "pose": "stand",
+     "carry": "slate",
+     "z_resolved": 192.266,
+     "screen": [
+      0.544,
+      0.431
+     ],
+     "in_frame": true,
+     "screen_h": 0.1938,
+     "visible": true
+    },
+    {
+     "id": "folk_2",
+     "label": "olive farmer waiting in queue",
+     "color": "gold",
+     "xy": [
+      -3327.5,
+      2766.8
+     ],
+     "z": "surface",
+     "facing_deg": 280,
+     "pose": "stand",
+     "z_resolved": 192.266,
+     "screen": [
+      0.632,
+      0.443
+     ],
+     "in_frame": true,
+     "screen_h": 0.1822,
+     "visible": true
+    },
+    {
+     "id": "folk_3",
+     "label": "common folk watching queue",
+     "color": "aegean",
+     "xy": [
+      -3327.0,
+      2765.5
+     ],
+     "z": "surface",
+     "facing_deg": 280,
+     "pose": "stand",
+     "z_resolved": 192.266,
+     "screen": [
+      0.718,
+      0.455
+     ],
+     "in_frame": true,
+     "screen_h": 0.1718,
+     "visible": true
+    },
+    {
+     "id": "runner",
+     "label": "runner arriving with request slate",
+     "color": "plum",
+     "xy": [
+      -3329.5,
+      2771.8
+     ],
+     "z": "surface",
+     "facing_deg": 140,
+     "pose": "run",
+     "carry": "slate",
+     "z_resolved": 193.116,
+     "screen": [
+      0.179,
+      0.269
+     ],
+     "in_frame": true,
+     "screen_h": 0.2316,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "basket",
+     "label": "basket of olives",
+     "xy": [
+      -3328.3,
+      2767.8
+     ],
+     "z": "surface",
+     "z_resolved": 192.266,
+     "screen": [
+      0.565,
+      0.601
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "basket",
+     "label": "basket of olives",
+     "xy": [
+      -3327.8,
+      2766.5
+     ],
+     "z": "surface",
+     "z_resolved": 192.266,
+     "screen": [
+      0.666,
+      0.604
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 7.2,
+   "device": "GPU"
+  },
+  "I-05": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -2554.0,
+     2765.0,
+     24.0
+    ],
+    "target": [
+     -2540.0,
+     2753.0,
+     26.0
+    ],
+    "lens": 28,
+    "clip_start": 0.5,
+    "z_resolved": 24.0
+   },
+   "figures": [
+    {
+     "id": "conspirator_1",
+     "label": "conspirator touching torch to beacon",
+     "color": "plum",
+     "xy": [
+      -2542.5,
+      2754.5
+     ],
+     "z": 29.43,
+     "facing_deg": 135,
+     "pose": "torch_high",
+     "carry": "torch",
+     "z_resolved": 29.43,
+     "screen": [
+      0.523,
+      0.048
+     ],
+     "in_frame": true,
+     "screen_h": 0.1443,
+     "visible": false
+    },
+    {
+     "id": "conspirator_2",
+     "label": "accomplice pointing across bay",
+     "color": "terracotta",
+     "xy": [
+      -2545.0,
+      2753.0
+     ],
+     "z": 29.43,
+     "facing_deg": 135,
+     "pose": "point",
+     "z_resolved": 29.43,
+     "screen": [
+      0.665,
+      0.012
+     ],
+     "in_frame": true,
+     "screen_h": 0.1526,
+     "visible": true
+    },
+    {
+     "id": "runner",
+     "label": "distant runner on mountain pass with torch",
+     "color": "gold",
+     "xy": [
+      -2320.0,
+      2480.0
+     ],
+     "z": "surface",
+     "facing_deg": 130,
+     "pose": "run",
+     "carry": "torch",
+     "z_resolved": 0.0,
+     "screen": [
+      0.639,
+      0.737
+     ],
+     "in_frame": true,
+     "screen_h": 0.0068,
+     "visible": false
+    }
+   ],
+   "props": [],
+   "lens_clear": true,
+   "centre_clear_m": 9.3,
+   "device": "GPU"
+  },
+  "I-06": {
+   "aspect": "3:4",
+   "resolution": [
+    1200,
+    1600
+   ],
+   "camera": {
+    "loc": [
+     -3317.8,
+     2771.0,
+     193.8
+    ],
+    "target": [
+     -3316.0,
+     2773.0,
+     193.3
+    ],
+    "lens": 38,
+    "clip_start": 0.2,
+    "z_resolved": 193.8
+   },
+   "figures": [
+    {
+     "id": "clerk",
+     "label": "clerk nudging water-clock float forward",
+     "color": "linen",
+     "xy": [
+      -3316.5,
+      2772.4
+     ],
+     "z": "surface",
+     "facing_deg": 65,
+     "pose": "examine",
+     "carry": "slate",
+     "z_resolved": 192.348,
+     "screen": [
+      0.523,
+      0.218
+     ],
+     "in_frame": true,
+     "screen_h": 0.9027,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "label": "shelf for water clocks",
+     "xy": [
+      -3315.8,
+      2773.2
+     ],
+     "z": "surface",
+     "angle_deg": 65,
+     "z_resolved": 192.351,
+     "screen": [
+      0.507,
+      0.776
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "water_clock",
+     "label": "clepsydra 1",
+     "xy": [
+      -3316.1,
+      2773.3
+     ],
+     "z": 193.02,
+     "z_resolved": 193.02,
+     "screen": [
+      0.368,
+      0.571
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "water_clock",
+     "label": "clepsydra 2",
+     "xy": [
+      -3315.7,
+      2773.1
+     ],
+     "z": 193.02,
+     "z_resolved": 193.02,
+     "screen": [
+      0.572,
+      0.561
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "water_clock",
+     "label": "clepsydra 3",
+     "xy": [
+      -3315.3,
+      2772.9
+     ],
+     "z": 193.02,
+     "z_resolved": 193.02,
+     "screen": [
+      0.761,
+      0.551
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "clay_slate",
+     "label": "fresh order slate",
+     "xy": [
+      -3316.3,
+      2772.9
+     ],
+     "z": 193.02,
+     "z_resolved": 193.02,
+     "screen": [
+      0.412,
+      0.616
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 1.8,
+   "device": "GPU"
+  },
+  "I-07": {
+   "aspect": "3:4",
+   "resolution": [
+    1200,
+    1600
+   ],
+   "camera": {
+    "loc": [
+     -3617.8,
+     3225.0,
+     "surface+1.4"
+    ],
+    "target": [
+     -3616.2,
+     3227.0,
+     122.2
+    ],
+    "lens": 40,
+    "clip_start": 0.2,
+    "z_resolved": 122.392
+   },
+   "figures": [
+    {
+     "id": "scribe",
+     "label": "scribe copying counts on 3-row abacus",
+     "color": "gold",
+     "xy": [
+      -3616.5,
+      3226.5
+     ],
+     "z": "surface",
+     "facing_deg": 30,
+     "pose": "sit",
+     "z_resolved": 121.058,
+     "screen": [
+      0.557,
+      0.712
+     ],
+     "in_frame": true,
+     "screen_h": 0.9535,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "label": "scribe's work table",
+     "xy": [
+      -3616.2,
+      3227.2
+     ],
+     "z": "surface",
+     "angle_deg": 30,
+     "z_resolved": 121.049,
+     "screen": [
+      0.434,
+      0.93
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "abacus",
+     "label": "enlarged three-row abacus",
+     "xy": [
+      -3616.2,
+      3227.2
+     ],
+     "z": 121.42,
+     "angle_deg": 30,
+     "z_resolved": 121.42,
+     "screen": [
+      0.433,
+      0.786
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "clay_slate",
+     "label": "received order slate",
+     "xy": [
+      -3616.5,
+      3227.0
+     ],
+     "z": 121.42,
+     "z_resolved": 121.42,
+     "screen": [
+      0.357,
+      0.838
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "ink_pot",
+     "label": "ink pot",
+     "xy": [
+      -3615.8,
+      3227.4
+     ],
+     "z": 121.42,
+     "z_resolved": 121.42,
+     "screen": [
+      0.529,
+      0.739
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 7.6,
+   "device": "GPU"
+  },
+  "I-08": {
+   "aspect": "16:9",
+   "resolution": [
+    1920,
+    1080
+   ],
+   "camera": {
+    "loc": [
+     -3921.0,
+     1416.0,
+     "surface+1.5"
+    ],
+    "target": [
+     -3916.5,
+     1420.0,
+     170.2
+    ],
+    "lens": 24,
+    "clip_start": 0.2,
+    "z_resolved": 169.143
+   },
+   "figures": [
+    {
+     "id": "clerk",
+     "label": "clerk dramatically switching seal stamp from white to red",
+     "color": "terracotta",
+     "xy": [
+      -3917.5,
+      1420.2
+     ],
+     "z": "surface",
+     "facing_deg": 140,
+     "pose": "examine",
+     "carry": "slate",
+     "z_resolved": 167.712,
+     "screen": [
+      0.399,
+      0.67
+     ],
+     "in_frame": true,
+     "screen_h": 0.4105,
+     "visible": true
+    },
+    {
+     "id": "runner_red",
+     "label": "runner delivering red-sealed slate",
+     "color": "aegean",
+     "xy": [
+      -3916.2,
+      1419.0
+     ],
+     "z": "surface",
+     "facing_deg": 320,
+     "pose": "give",
+     "carry": "slate",
+     "z_resolved": 167.788,
+     "screen": [
+      0.614,
+      0.655
+     ],
+     "in_frame": true,
+     "screen_h": 0.3952,
+     "visible": true
+    },
+    {
+     "id": "trader_K",
+     "label": "Trader K observing audit begin",
+     "color": "linen",
+     "xy": [
+      -3918.5,
+      1421.0
+     ],
+     "z": "surface",
+     "facing_deg": 120,
+     "pose": "stand",
+     "z_resolved": 167.85,
+     "screen": [
+      0.232,
+      0.637
+     ],
+     "in_frame": true,
+     "screen_h": 0.4242,
+     "visible": true
+    },
+    {
+     "id": "distant_runner",
+     "label": "runner with white slate on distant track",
+     "color": "gold",
+     "xy": [
+      -3880.0,
+      1455.0
+     ],
+     "z": "surface",
+     "facing_deg": 45,
+     "pose": "run",
+     "carry": "slate",
+     "z_resolved": 192.696,
+     "screen": [
+      0.479,
+      0.204
+     ],
+     "in_frame": true,
+     "screen_h": 0.0327,
+     "visible": true
+    }
+   ],
+   "props": [
+    {
+     "kind": "table",
+     "label": "audit dispatch table",
+     "xy": [
+      -3917.0,
+      1420.3
+     ],
+     "z": "surface",
+     "z_resolved": 167.773,
+     "screen": [
+      0.433,
+      0.995
+     ],
+     "in_frame": true
+    },
+    {
+     "kind": "clay_slate",
+     "label": "red and white wax slates",
+     "xy": [
+      -3917.0,
+      1420.3
+     ],
+     "z": 168.46,
+     "z_resolved": 168.46,
+     "screen": [
+      0.434,
+      0.843
+     ],
+     "in_frame": true
+    }
+   ],
+   "lens_clear": true,
+   "centre_clear_m": 17.0,
+   "device": "GPU"
+  }
+ }
+}
