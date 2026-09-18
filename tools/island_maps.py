@@ -171,8 +171,8 @@ SITES = [  # num, key, name, volume, kind
     (4,  "press",     "Olive press",                   "1", "dot"),
     (5,  "beacons",   "Beacon headlands",              "1", "multi"),
     (6,  "watchtowers", "Coastal watchtowers",          "2", "tower"),
-    (7,  "city",      "Besieged headland city",        "3", "citadel"),
-    (8,  "camps",     "Siege camps",                   "3", "multi"),
+    (7,  "fleet",      "Defensive fleet anchorages",    "3", "fleet"),
+    (8,  "redoubt",    "Admirals' coastal redoubt",     "3", "redoubt"),
     (9,  "cothon",    "Lantern harbour (cothon)",      "4", "cothon"),
     (10, "drummers",  "Drummers' headlands",           "4", "multi"),
     (11, "strait",    "The causeway",                  "4", "strait"),
@@ -197,14 +197,20 @@ VOL_ROMAN = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "
 # what each site demands of the ground: (min m, max m, within-metres-of-sea or None)
 RULES = {"hamA": (40, 230, None), "hamK": (40, 230, None), "hamM": (40, 230, None), "press": (90, 300, None),
          "citadel": (60, 240, 420), "watchtowers": (25, 220, 260),
-         "town": (4, 50, 320), "round": (140, 270, None), "banquet": (90, 250, None),
-         "granary": (5, 90, None), "granary2": (90, 240, None), "cliffs": (15, 220, 140), "locks": (60, 300, None),
-         "monastery": (15, 180, None), "beacons": (15, 260, 260), "drummers": (15, 260, 260), "port": (1, 30, 200),
-         "city": (60, 240, 420), "camps": (60, 300, None), "seawall": (1, 25, 150), "hall": (60, 260, None)}
+          "town": (4, 50, 320), "round": (140, 270, None), "banquet": (90, 250, None),
+          "granary": (5, 90, None), "granary2": (90, 240, None), "cliffs": (15, 220, 140), "locks": (60, 300, None),
+          "monastery": (15, 180, None), "beacons": (15, 260, 260), "drummers": (15, 260, 260), "port": (1, 30, 200),
+          "fleet": (-90, -10, None), "redoubt": (60, 220, 420), "seawall": (1, 25, 150), "hall": (60, 260, None)}
 
 # ---------------------------------------------------------------- the island
 AXIS = ((1500.0, 1300.0), (9800.0, 7200.0))                                       # NW root -> SE leaves
 ROUND_COL, PORT = (5384.0, 4132.0), (5990.0, 3630.0)                              # the Round's col, and the quays below it
+
+def axis_at(t, n=0.0):
+    (x0, y0), (x1, y1) = AXIS
+    L = math.hypot(x1 - x0, y1 - y0); ux, uy = (x1 - x0) / L, (y1 - y0) / L
+    nx, ny = uy, -ux
+    return (x0 + ux * L * t + nx * n, y0 + uy * L * t + ny * n)
 
 def island():
     """The island laid out along the papers' dependency graph, read NW -> SE:
@@ -222,7 +228,7 @@ def island():
     m = ridge(*at(-.02), *at(.84), 620, 95, p=2.0)                               # the low spine that strings the beads
     m += bead(.05, 520, 760, 640, 190)                                           # I   Disordered Sundials
     m += bead(.11, -560, 720, 620, 285)                                          # II  Sleeping Shepherd (the summit)
-    m += bead(.15, -1250, 560, 480, 150)                                         # III Generals: headland city
+    m += bead(.15, -1250, 560, 480, 150)                                         # III Admirals: coastal headland
     m += bead(.27, 0, 520, 420, 70)                                              # IV  Passable Season: the low neck
     m += bead(.425, 0, 380, 520, 185) + bead(.545, 0, 380, 520, 180)             # V   two knolls either side of the Round's col
     m += bead(.485, 0, 950, 650, 100, p=3.0)                                     #     the Parliament's broad middle
@@ -255,7 +261,8 @@ def island():
         "hamA": at(.0, 650), "hamK": at(.08, -1000), "hamM": at(.17, 700), "press": at(.05, 450),
         "beacons": [at(.15, 1150), at(.225, 1000)],                              # I: across the north-east bay
         "watchtowers": [at(.04, 1000), at(.11, 750), at(.12, -1150), at(.05, -1350)], # II (North Bluff, East Cape, South Crag, West Point)
-        "city": at(.155, -1450), "camps": [at(.13, -1050), at(.16, -1000), at(.18, -1100)], # III
+        "fleet": [at(.155, -1780), at(.138, -1740), at(.172, -1750), at(.155, -1920)], # III (Flag w0, Wing w1, Wing w2, Vanguard w3)
+        "redoubt": at(.155, -1350),                                              # III (cliff redoubt overlooking fleet)
         "drummers": [at(.285, 700), at(.335, 700)], "strait": bezier(cw, 3)[1],  # IV (the cothon is the hint below)
         "town": at(.535, 900), "port": PORT, "round": ROUND_COL, "banquet": at(.48, 300),       # V
         "granary": [at(.62, -350), at(.65, -850), at(.68, -1300)], "granary2": at(.69, -150),  # VI
@@ -264,7 +271,7 @@ def island():
         "cliffs": at(.83, -1350),
         "monastery": at(.975, 150),                                                            # IX
     }
-    zones = [("I", .03, 900), ("II", .11, -650), ("III", .155, -1700), ("IV", .30, -700), ("V", .49, -900),
+    zones = [("I", .03, 900), ("II", .11, -650), ("III", .155, -1800), ("IV", .30, -700), ("V", .49, -900),
              ("VI", .64, -1250), ("VII", .815, 2050), ("VIII", .80, -1450), ("IX", .975, -650)]
     return h, sites, at(.26, -520), {"round_radius": 0, "round_saddle": True, "causeway": (cw, sea_before),
                                      "axis": AXIS, "sites": SITES, "sight_pairs": ["beacons", "drummers"],
@@ -388,7 +395,7 @@ TRACKS = [("hamA", "press"), ("press", "beacons:0"), ("press", "watchtowers:0"),
           ("watchtowers:0", "watchtowers:1"), ("watchtowers:1", "watchtowers:2"),
           ("watchtowers:2", "watchtowers:3"), ("watchtowers:3", "watchtowers:0"),
           ("watchtowers:3", "hamK"), ("hamM", "beacons:1"),
-          ("watchtowers:2", "city"), ("city", "camps:0"),
+          ("watchtowers:2", "redoubt"), ("redoubt", "fleet"),
           ("watchtowers:1", "cothon"), ("beacons:1", "cothon"), ("cothon", "strait"), ("strait", "drummers:0"), ("strait", "drummers:1"),
           ("strait", "port"), ("port", "town"), ("round", "banquet"),
           ("town", "granary:0"), ("granary:0", "granary:1"), ("granary:1", "granary:2"), ("granary:0", "granary2"),
@@ -400,6 +407,8 @@ def site_point(h, loc, ref):
     key, _, k = ref.partition(":")
     v = loc[key]
     p = v[int(k or 0)] if isinstance(v, list) else v
+    if key == "fleet":                                                           # mule track ends at the shore landing / skiff slipway
+        p = axis_at(.155, -1670)
     if key == "strait":                                                          # onto the causeway's crest
         best = max(((p[0] + dx, p[1] + dy) for dx in range(-100, 101, 12) for dy in range(-100, 101, 12)), key=lambda q: h_at(h, *q) - math.hypot(q[0] - p[0], q[1] - p[1]) / 50)
         p = best
@@ -709,7 +718,7 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
         S.append(f'<rect class="house" x="-4.4" y="-3" width="8.8" height="6" transform="translate({x / U:.1f} {y / U:.1f}) rotate({bdeg:.1f})"/>')
     # site symbols; number badges dodge symbols and each other
     # site symbols; number badges dodge symbols and each other
-    RAD = {"round": 20, "cothon": 34, "strait": 24, "citadel": 22, "cliff": 30, "port": 16, "harbour": 20, "hall": 12, "tower": 12}
+    RAD = {"round": 20, "cothon": 34, "strait": 24, "citadel": 22, "cliff": 30, "port": 16, "harbour": 20, "hall": 12, "tower": 12, "fleet": 24, "redoubt": 18}
     marks = []
     for num, skey, name, vols, kind in site_list:
         if skey not in loc: continue
@@ -761,6 +770,34 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
                 s2x, s2y = sx - 1.6 * dx - 0.7 * nx, sy - 1.6 * dy - 0.7 * ny
                 d_ship = f"M{bx:.1f} {by:.1f} Q{p1x:.1f} {p1y:.1f} {p2x:.1f} {p2y:.1f} L{stx:.1f} {sty:.1f} L{s2x:.1f} {s2y:.1f} Q{s1x:.1f} {s1y:.1f} Z"
                 S.append(f'<path class="sym-ship" d="{d_ship}"/>')
+        elif kind == "fleet":
+            # 4 defensive warships anchored in battle line with skiff tracks
+            for k, (wx, wy) in enumerate(pts[:4]):
+                px, py = wx / U, wy / U
+                ang = math.radians(235)
+                dx, dy = math.cos(ang), math.sin(ang)
+                nx, ny = -math.sin(ang), math.cos(ang)
+                bx, by = px + 6.0 * dx, py + 6.0 * dy
+                stx, sty = px - 6.0 * dx, py - 6.0 * dy
+                p1x, p1y = px + 1.0 * dx + 2.2 * nx, py + 1.0 * dy + 2.2 * ny
+                p2x, p2y = px - 3.5 * dx + 1.6 * nx, py - 3.5 * dy + 1.6 * ny
+                s1x, s1y = px + 1.0 * dx - 2.2 * nx, py + 1.0 * dy - 2.2 * ny
+                s2x, s2y = px - 3.5 * dx - 1.6 * nx, py - 3.5 * dy - 1.6 * ny
+                d_ship = f"M{bx:.1f} {by:.1f} Q{p1x:.1f} {p1y:.1f} {p2x:.1f} {p2y:.1f} L{stx:.1f} {sty:.1f} L{s2x:.1f} {s2y:.1f} Q{s1x:.1f} {s1y:.1f} Z"
+                rx, ry = bx + 2.5 * dx, by + 2.5 * dy
+                S.append(f'<path class="sym-ship" d="{d_ship}"/>'
+                         f'<line class="sym-ship" x1="{bx:.1f}" y1="{by:.1f}" x2="{rx:.1f}" y2="{ry:.1f}"/>')
+            if not clean and len(pts) >= 4:
+                # Skiff routes between flagships
+                for (a, b) in ((0, 1), (0, 2), (0, 3)):
+                    p0 = (pts[a][0] / U, pts[a][1] / U)
+                    p1 = (pts[b][0] / U, pts[b][1] / U)
+                    S.append(f'<line class="sym-skiff-lane" x1="{p0[0]:.1f}" y1="{p0[1]:.1f}" x2="{p1[0]:.1f}" y2="{p1[1]:.1f}"/>')
+        elif kind == "redoubt":
+            S.append(f'<rect class="sym-hall" x="{x - 12:.1f}" y="{y - 9:.1f}" width="24" height="18" rx="2"/>'
+                     f'<rect class="sym-bldg" x="{x - 14:.1f}" y="{y - 11:.1f}" width="6" height="6"/>'
+                     f'<rect class="sym-bldg" x="{x + 8:.1f}" y="{y - 11:.1f}" width="6" height="6"/>'
+                     f'<circle class="sym-tower-fire" cx="{x:.1f}" cy="{y:.1f}" r="2.2"/>')
         elif kind == "tower":
             for tx, ty in pts:
                 px, py = tx / U, ty / U
@@ -782,8 +819,8 @@ def svg_for(title, h, site_list, loc, zones=(), clean=False):
         elif kind == "cliff":
             for k in range(-3, 4):
                 S.append(f'<line class="sym-cliff" x1="{x + k * 9:.1f}" y1="{y - 9:.1f}" x2="{x + k * 9 + 4:.1f}" y2="{y + 9:.1f}"/>')
-        if kind != "tower":
-            for px, py in pts[(1 if kind in ("round", "cothon", "citadel", "strait", "cliff", "port", "harbour", "hall") else 0):]:
+        if kind not in ("tower", "fleet"):
+            for px, py in pts[(1 if kind in ("round", "cothon", "citadel", "strait", "cliff", "port", "harbour", "hall", "redoubt") else 0):]:
                 if clean: S.append(f'<rect class="sym-bldg" x="{px / U - 4:.1f}" y="{py / U - 3:.1f}" width="8" height="6"/>')
                 else: S.append(f'<circle class="sym-dot" cx="{px / U:.1f}" cy="{py / U:.1f}" r="7"/>')
         if not clean:
@@ -813,7 +850,7 @@ SVG_STYLE = """<style>
 .sym-cothon{fill:#7fb2c8;stroke:#1c1512;stroke-width:2.2}.sym-cothon-isle{fill:#f8f5ee;stroke:#1c1512;stroke-width:1.4}.sym-quay{stroke:#1c1512;stroke-width:2}
 .sym-citadel{fill:#8e2323;stroke:#1c1512;stroke-width:1.6}.sym-strait{fill:none;stroke:#8e2323;stroke-width:2.2;stroke-dasharray:4 3}
 .sym-cliff{stroke:#1c1512;stroke-width:2}.sym-port{fill:none;stroke:#1c1512;stroke-width:3.2;stroke-linecap:round}.sym-mole{fill:none;stroke:#1c1512;stroke-width:5;stroke-linecap:round}.sym-hall{fill:#f8f5ee;stroke:#1c1512;stroke-width:2.2}.sym-bldg{fill:#bf4a26;stroke:#1c1512;stroke-width:.8}.sym-dot{fill:#1c1512;stroke:#faf3e0;stroke-width:1.5}
-.sym-tower{fill:#1c1512;stroke:#faf3e0;stroke-width:1}.sym-tower-fire{fill:#e2822a}.sym-ship{fill:#1c1512;stroke:#faf3e0;stroke-width:.8}
+.sym-tower{fill:#1c1512;stroke:#faf3e0;stroke-width:1}.sym-tower-fire{fill:#e2822a}.sym-ship{fill:#1c1512;stroke:#faf3e0;stroke-width:.8}.sym-skiff-lane{fill:none;stroke:#136f9e;stroke-width:1;stroke-dasharray:3 3;opacity:.65}
 .zone{fill:#1c1512;fill-opacity:.2;font:700 italic 74px Optima,'Gill Sans',sans-serif;text-anchor:middle;dominant-baseline:middle}.num-bg{fill:#1c1512}.num{fill:#ffe36e;font:700 19px Optima,'Gill Sans',sans-serif;text-anchor:middle}
 .compass{fill:#1c1512}.compass-n,.scale-t{fill:#1c1512;font:700 22px Optima,'Gill Sans',sans-serif;text-anchor:middle}.scale-t.sm{font-size:17px;text-anchor:start;font-weight:400}
 .scale-bg{fill:#faf3e0;fill-opacity:.85;stroke:#1c1512;stroke-width:1}.scale{fill:none;stroke:#1c1512;stroke-width:2}.scale.st{stroke-width:4;stroke:#bf4a26}

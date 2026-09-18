@@ -15,10 +15,16 @@
    "radius_m": 270,
    "basin_depth_m": -7.0
   },
-  "Besieged headland city": {
+  "Admirals' coastal redoubt": {
    "volume": "III",
-   "radius_m": 115.0,
-   "relief_before_m": 56.4
+   "radius_m": 35,
+   "relief_before_m": 28.1
+  },
+  "Defensive fleet anchorages": {
+   "volume": "III",
+   "radius_m": 190,
+   "warships": 4,
+   "skiffs": 3
   },
   "Citadel of Iron Quorums": {
    "volume": "VII",
@@ -44,8 +50,8 @@
    "insulae": 26
   }
  },
- "objects": 9,
- "faces": 47535,
+ "objects": 16,
+ "faces": 45640,
  "round_east_gate_to_banquet_deg": 0.0,
  "land_buildings_on_land": true,
  "pier_tips_in_water": true,

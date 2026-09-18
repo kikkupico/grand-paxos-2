@@ -50,7 +50,7 @@ def segment_distance(X, Y, pts):
         out = np.minimum(out, np.hypot(X - (x0 + t * dx), Y - (y0 + t * dy)))
     return out
 
-EXCLUDE_M = {"round": 45, "banquet": 26, "cothon": 285, "port": 120, "city": 135, "camps": 42, "citadel": 100, "seawall": 130,
+EXCLUDE_M = {"round": 45, "banquet": 26, "cothon": 285, "port": 120, "redoubt": 45, "citadel": 100, "seawall": 130,
              "granary": 48, "granary2": 40, "hall": 32, "locks": 16, "cliffs": 115, "monastery": 42, "hamA": 34, "hamK": 34, "hamM": 34,
              "press": 22, "beacons": 10, "watchtowers": 18, "drummers": 12}
 
@@ -77,7 +77,7 @@ def masks(ground, smooth, sightlines, prop_spots=()):
     for line in track_lines + [walk]: track_d = np.minimum(track_d, segment_distance(X, Y, line))
     corridor = np.zeros(z.shape, bool)
     for p, q in sightlines: corridor |= segment_distance(X, Y, [p[:2], q[:2]]) < 30               # wider than a face, since density interpolates across 12.5 m cells
-    settle_pts = [B(x, y) for key in ("hamA", "hamK", "hamM", "press", "town", "granary", "granary2", "city", "monastery", "hall")
+    settle_pts = [B(x, y) for key in ("hamA", "hamK", "hamM", "press", "town", "granary", "granary2", "redoubt", "monastery", "hall")
                   for x, y, _ in SITES["sites"][key]["points_m"]]
     settle_d = np.min([np.hypot(X - sx, Y - sy) for sx, sy in settle_pts], axis=0)
     free = land & ~excl & (track_d > 7)

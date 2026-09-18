@@ -17,21 +17,13 @@
   "porch_columns": 4
  },
  "houses": {
-  "houses": 201,
-  "with_door": 201,
-  "windows": 921
+  "houses": 125,
+  "with_door": 125,
+  "windows": 746
  },
  "house_door_h_m": 2.1,
  "house_window_sill_m": 2.0,
  "temples": {
-  "headland city": {
-   "column_h_over_d": 5.5,
-   "axial_over_d": 2.4,
-   "step_riser_m": 0.32,
-   "door_h_m": 3.71,
-   "length_m": 23.2,
-   "width_m": 12.4
-  },
   "citadel quorum hall": {
    "column_h_over_d": 5.5,
    "axial_over_d": 2.4,

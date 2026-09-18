@@ -24,6 +24,13 @@ import blender_nature as bn
 import blender_round as br
 import blender_arch as ba
 import blender_props as bp
+AXIS = ((1500.0, 1300.0), (9800.0, 7200.0))
+
+def axis_at(t, n=0.0):
+    (x0, y0), (x1, y1) = AXIS
+    L = math.hypot(x1 - x0, y1 - y0); ux, uy = (x1 - x0) / L, (y1 - y0) / L
+    nx, ny = uy, -ux
+    return (x0 + ux * L * t + nx * n, y0 + uy * L * t + ny * n)
 
 # ---------------------------------------------------------------- the buildings
 def banquet_house(ground, M, coll, report, round_xy):
@@ -171,54 +178,83 @@ def harbour_town(ground, M, coll, report):
                   M["plaster"], M["roof"], rise=min(sx, sy) * .2)
     return k
 
-def headland_city(ground, M, coll, report, toward):
-    X, Y = site("city"); g0 = ground.z(X, Y)
-    home = math.atan2(toward[1] - Y, toward[0] - X)
-    walls = []
-    for a in np.linspace(0, TAU, 28, endpoint=False):
-        r = 115.0
-        while r > 45 and ground.z(X + r * math.cos(a), Y + r * math.sin(a)) < 3: r -= 5
-        walls.append((X + r * math.cos(a), Y + r * math.sin(a), a, r))
-    gate = min(range(28), key=lambda i: abs((walls[i][2] - home + math.pi) % TAU - math.pi))
-    report["Besieged headland city"] = {"volume": "III", "radius_m": max(w[3] for w in walls), "relief_before_m": ground.relief(X, Y, 80)[0]}
-    k = Kit("III · Besieged headland city")
-    for i in range(28):
-        (x0, y0, _, _), (x1, y1, _, _) = walls[i], walls[(i + 1) % 28]
-        if i == gate: continue
-        L = math.hypot(x1 - x0, y1 - y0); za, zb = ground.z(x0, y0), ground.z(x1, y1)
-        k.box((x0 + x1) / 2, (y0 + y1) / 2, min(za, zb) - 3, max(za, zb) + 9, L + 1.5, 3, math.atan2(y1 - y0, x1 - x0), M["ashlar"])
-        mx_, my_ = (x0 + x1) / 2 - X, (y0 + y1) / 2 - Y; nn = math.hypot(mx_, my_)
-        ba.crenellate(k, x0, y0, x1, y1, max(za, zb) + 9, (mx_ / nn, my_ / nn), 1.2, M["ashlar"])
-    for i in range(0, 28, 2):
-        x, y, a, _ = walls[i]; z = ground.z(x, y)
-        k.box(x, y, z - 3, z + 14, 7, 7, a, M["ashlar"]); ba.crenellate_box(k, x, y, 7, 7, a, z + 14, M["ashlar"])
-    for i in (gate, (gate + 1) % 28):
-        x, y, a, _ = walls[i]; z = ground.z(x, y)
-        k.box(x, y, z - 3, z + 16, 8, 8, a, M["ashlar"]); ba.crenellate_box(k, x, y, 8, 8, a, z + 16, M["ashlar"])
-    rnd = random.Random(5); best = (g0, X, Y)
-    c, s = math.cos(home), math.sin(home)
-    for u in np.arange(-110, 111, 17):
-        for v in np.arange(-110, 111, 17):
-            x, y = X + u * c - v * s, Y + u * s + v * c
-            a = math.atan2(y - Y, x - X); i = int(round(a / TAU * 28)) % 28
-            if math.hypot(u, v) > walls[i][3] - 14 or ground.z(x, y) < 3: continue
-            if ground.z(x, y) > best[0]: best = (ground.z(x, y), x, y)
-            if rnd.random() < .3: continue
-            house(k, ground, x, y, rnd.uniform(10, 13), rnd.uniform(8, 11), rnd.uniform(5, 7), home, M["plaster"], M["roof"])
-    _, tx, ty = best                                                                                  # temple on the highest ground inside
-    report["_city_temple"] = ba.temple(k, M, ground, tx, ty, home, 6, .9, n_side=11)
-    camps = Kit("III · Siege camps")
-    for n, (x, y, z) in enumerate(SITES["sites"]["camps"]["points_m"]):
-        CX, CY = B(x, y); face = math.atan2(Y - CY, X - CX); gz = ground.z(CX, CY)
-        camps.ring(CX, CY, 32, 32.4, gz - 2, gz + 2.6, M["timber"], 48, face + math.radians(8), face + TAU - math.radians(8))
-        c2, s2 = math.cos(face), math.sin(face)
-        for row in (-1, 1):
-            for col in range(5):
-                u, v = -16 + col * 8, row * 9
-                px, py = CX + u * c2 - v * s2, CY + u * s2 + v * c2
-                camps.gable(px, py, ground.z(px, py), 4.5, 3.5, 2.4, face, M["canvas"])
-        camps.gable(CX - 18 * c2, CY - 18 * s2, ground.z(CX - 18 * c2, CY - 18 * s2), 9, 6, 3.5, face, M["canvas"])
-    return k, camps
+def admirals_redoubt(ground, M, coll, report, toward):
+    X, Y = site("redoubt"); g0 = ground.z(X, Y)
+    seaward = ground.seaward(X, Y, radius=600)
+    face = math.atan2(seaward[1], seaward[0])
+    c, s = math.cos(face), math.sin(face)
+    P = lambda u, v: (X + u * c - v * s, Y + u * s + v * c)
+    report["Admirals' coastal redoubt"] = {"volume": "III", "radius_m": 35, "relief_before_m": ground.relief(X, Y, 30)[0]}
+    k = Kit("III · Admirals' coastal redoubt")
+    ground.pad(X, Y, 24, g0, 32)
+    # Fortification rampart along the cliff edge
+    L_rampart, W_rampart = 36.0, 22.0
+    corners = [(-L_rampart/2, -W_rampart/2), (L_rampart/2, -W_rampart/2), (L_rampart/2, W_rampart/2), (-L_rampart/2, W_rampart/2)]
+    for i in range(4):
+        (u0, v0), (u1, v1) = corners[i], corners[(i + 1) % 4]
+        a, b = P(u0, v0), P(u1, v1)
+        za, zb = ground.z(*a), ground.z(*b)
+        top_ = max(za, zb) + 5.5
+        k.box((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, min(za, zb) - 2, top_, math.hypot(b[0] - a[0], b[1] - a[1]), 2.2, math.atan2(b[1] - a[1], b[0] - a[0]), M["ashlar"])
+        ba.crenellate(k, a[0], a[1], b[0], b[1], top_, (c, s), 1.2, M["ashlar"])
+    # Watchtower with signal brazier at the seaward corner
+    tw_x, tw_y = P(L_rampart/2 - 4, -W_rampart/2 + 4)
+    tw_z = ground.z(tw_x, tw_y)
+    k.cyl(tw_x, tw_y, 4.2, tw_z - 2, tw_z + 12.0, M["ashlar"], 16)
+    k.cyl(tw_x, tw_y, 4.8, tw_z + 12.0, tw_z + 13.2, M["ashlar"], 16)
+    ba.crenellate_ring(k, tw_x, tw_y, 4.8, tw_z + 13.2, M["ashlar"])
+    # Signal brazier atop the tower
+    k.cyl(tw_x, tw_y, 1.2, tw_z + 13.2, tw_z + 14.5, M["iron"], 12)
+    fire_mat = M.get("white_fire", M.get("fire", M["bronze"]))
+    k.cyl(tw_x, tw_y, .9, tw_z + 14.5, tw_z + 15.5, fire_mat, 8)
+    # Admirals' chart house / council pavilion inside
+    ch_x, ch_y = P(-4, 0)
+    house(k, ground, ch_x, ch_y, 14.0, 10.0, 5.0, face, M["plaster"], M["roof"])
+    # Lookout terrace with parapet on the seaward lip
+    k.box(*P(L_rampart/2 + 2, 0), g0 - 1, g0 + .2, 6.0, 16.0, face, M["pave"])
+    return k
+
+def fleet_anchorages(ground, M, coll, report):
+    pts = [site("fleet", i) for i in range(4)]
+    report["Defensive fleet anchorages"] = {"volume": "III", "radius_m": 190, "warships": 4, "skiffs": 3}
+    headings = [math.radians(235), math.radians(228), math.radians(242), math.radians(235)]
+    ship_names = ["III · Flagship Sift (Flag Admiral)", "III · Warship 1 (Admiral 1)",
+                  "III · Warship 2 (Admiral 2)", "III · Warship 3 (Admiral 3)"]
+    warship_obs = []
+    for i in range(4):
+        wx, wy = pts[i]
+        sh_k, _ = bp.ship(ship_names[i], M, "galley", wx, wy, headings[i], sail="furled", oars=True, crew=12)
+        if i == 0:
+            c, s = math.cos(headings[i]), math.sin(headings[i])
+            bx, by = wx + 14.5 * c, wy + 14.5 * s
+            sh_k.cyl(bx, by, .3, 1.6, 2.8, M["iron"], 8)
+            sh_k.cyl(bx, by, .25, 2.8, 3.4, M.get("fire", M["bronze"]), 8)
+            sh_k.box(wx - .8, wy, 9.0, 10.2, 1.8, .08, headings[i], M["bronze"])
+        sh_ob = sh_k.finish(coll)
+        warship_obs.append(sh_ob)
+
+    skiff_obs = []
+    skiff_positions = [
+        ((pts[0][0] * .55 + pts[1][0] * .45), (pts[0][1] * .55 + pts[1][1] * .45), math.atan2(pts[1][1] - pts[0][1], pts[1][0] - pts[0][0])),
+        ((pts[0][0] * .5 + pts[2][0] * .5), (pts[0][1] * .5 + pts[2][1] * .5), math.atan2(pts[2][1] - pts[0][1], pts[2][0] - pts[0][0])),
+        ((pts[0][0] * .4 + pts[3][0] * .6), (pts[0][1] * .4 + pts[3][1] * .6), math.atan2(pts[3][1] - pts[0][1], pts[3][0] - pts[0][0])),
+    ]
+    for n, (sx, sy, sang) in enumerate(skiff_positions):
+        sk, _ = bp.ship(f"III · Dispatch skiff {n + 1}", M, "skiff", sx, sy, sang, crew=4)
+        skiff_obs.append(sk.finish(coll))
+
+    lx, ly = B(*axis_at(.155, -1670))
+    s_sea = ground.seaward(lx, ly, radius=300)
+    s_ang = math.atan2(s_sea[1], s_sea[0])
+    sc, ss = math.cos(s_ang), math.sin(s_ang)
+    quay_k = Kit("III · Fleet landing quay")
+    quay_k.box(lx + 8 * sc, ly + 8 * ss, -.5, 1.8, 16.0, 7.0, s_ang, M["ashlar"])
+    for u in (-4, 4):
+        quay_k.cyl(lx + 8 * sc + u * -ss, ly + 8 * ss + u * sc, .35, 1.8, 2.6, M["iron"], 8)
+    for st in range(6):
+        quay_k.box(lx - st * 1.5 * sc, ly - st * 1.5 * ss, 1.8 + st * .4, 1.8 + (st + 1) * .4, 2.0, 5.0, s_ang, M["pave"])
+
+    return warship_obs, skiff_obs, quay_k
 
 def citadel(ground, M, coll, report):
     X, Y = site("citadel"); HX, HY = site("seawall"); g0 = ground.z(X, Y)
@@ -295,6 +331,7 @@ def main():
     args = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ctx = bt.build(); scene = ctx["scene"]
     ground = Ground(ctx["terrain"]); M = palette()
+    M.update(bs.extra_mats()); M.update(bp.extra_mats())
     top = bt.collection("Buildings")
     colls = {v: bt.collection(f"{v} · {bt.VOLUMES[v]}", top) for v in ("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")}
     report = {}
@@ -303,15 +340,16 @@ def main():
     bk, banquet_info = banquet_house(ground, M, colls["V"], report, (RX, RY))
     ck, lantern_info = lantern_harbour(ground, M, colls["IV"], report)
     ground.commit()                                                                                  # later builders sample the levelled ground
-    ck_city, ck_camps = headland_city(ground, M, colls["III"], report, (RX, RY))
+    redoubt_k = admirals_redoubt(ground, M, colls["III"], report, (RX, RY))
+    warship_obs, skiff_obs, quay_k = fleet_anchorages(ground, M, colls["III"], report)
     cit, harb, (HSX, HSY, HTH) = citadel(ground, M, colls["VII"], report)
     ground.commit()
     mq, port_geom = merchant_quays(ground, M, colls["V"], report)
     tw = harbour_town(ground, M, colls["V"], report)
-    citadel_detail, city_temple = report.pop("_citadel_detail"), report.pop("_city_temple")
+    citadel_detail = report.pop("_citadel_detail")
     round_ob = rk.finish(colls["V"]); round_people.finish(colls["V"])
     objs = [round_ob, bk.finish(colls["V"]), ck.finish(colls["IV"]), mq.finish(colls["V"]), tw.finish(colls["V"]),
-            ck_city.finish(colls["III"]), ck_camps.finish(colls["III"]), cit.finish(colls["VII"]), harb.finish(colls["VII"])]
+            redoubt_k.finish(colls["III"]), *warship_obs, *skiff_obs, quay_k.finish(colls["III"]), cit.finish(colls["VII"]), harb.finish(colls["VII"])]
 
     # the remaining sites (tools/blender_sites.py)
     M.update(bs.extra_mats())
@@ -389,11 +427,12 @@ def main():
                    ("Monastery jetty reaches water", jetty_tip < -1)])
 
     BX, BY = site("banquet")
-    land = {n: site(k_) for n, k_ in (("The Great Round", "round"), ("Banquet house", "banquet"), ("Besieged headland city", "city"),
+    land = {n: site(k_) for n, k_ in (("The Great Round", "round"), ("Banquet house", "banquet"), ("Admirals' coastal redoubt", "redoubt"),
                                       ("Citadel of Iron Quorums", "citadel"))}
-    circles = {"The Great Round": (RX, RY, 32), "Banquet house": (BX, BY, 17), "Besieged headland city": (*site("city"), report["Besieged headland city"]["radius_m"]),
+    circles = {"The Great Round": (RX, RY, 32), "Banquet house": (BX, BY, 17), "Admirals' coastal redoubt": (*site("redoubt"), report["Admirals' coastal redoubt"]["radius_m"]),
                "Citadel of Iron Quorums": (*site("citadel"), 82), "Lantern harbour": (*B(*SITES["built"]["cothon"]["centre_m"]), 270),
-               "Citadel harbour and sea wall": (HSX, HSY, 116)}
+               "Citadel harbour and sea wall": (HSX, HSY, 116),
+               "Defensive fleet anchorages": (*site("fleet", 0), report["Defensive fleet anchorages"]["radius_m"])}
     names = list(circles)
     overlaps = [f"{a} / {b}" for i, a in enumerate(names) for b in names[i + 1:]
                 if math.hypot(circles[a][0] - circles[b][0], circles[a][1] - circles[b][1]) < circles[a][2] + circles[b][2]]
@@ -409,9 +448,11 @@ def main():
     (bt.OUT / "buildings-checks.json").write_text(json.dumps(res, indent=1))
     print("BUILDINGS CHECKS", json.dumps(res))
     rel = report
+    red_relief = rel["Admirals' coastal redoubt"]["relief_before_m"]
     bt.page_block("BUILDINGS",
                   [("Models", f"{res['objects']} objects, {res['faces']:,} faces"),
                    ("Ground relief levelled under the Round", f"{rel['The Great Round']['relief_before_m']} m"),
+                   ("…under the redoubt", f"{red_relief} m"),
                    ("…under the citadel", f"{rel['Citadel of Iron Quorums']['relief_before_m']} m"),
                    ("Lantern harbour basin depth", f"{rel['Lantern harbour']['basin_depth_m']} m"),
                    ("Merchant pier tips", ", ".join(f"{t} m" for t in rel["Merchant quays"]["pier_tip_depths_m"])),
@@ -463,7 +504,7 @@ def main():
     lx, ly, _ = lantern_info["lantern"]
     seen = [n for eye, n in lantern_info["posts"] if not blocked(eye, (lx, ly, 29.3), 4.2)]
     neighbours = all(not blocked(lantern_info["posts"][i][0], lantern_info["posts"][i + 1][0], .5) for i in range(6))
-    temples = {"headland city": city_temple, "citadel quorum hall": citadel_detail["hall"]}
+    temples = {"citadel quorum hall": citadel_detail["hall"]}
     wt_detail = bs.WATCHTOWER_DETAIL
     hs = HOUSE_STATS
     dres = {"lantern_quays": lantern_info["quays"], "lantern_seen_from_posts": seen, "captains_see_neighbours": neighbours,
@@ -563,11 +604,13 @@ def main():
         return bt.camera(name, (target[0] + frm[0], target[1] + frm[1], target[2] + height), target, look, lens=lens)
     CX, CY = B(*SITES["built"]["cothon"]["centre_m"]); th_c = math.radians(-SITES["built"]["cothon"]["channel_bearing_deg_from_x_toward_y"])
     PX, PY = site("port"); s_port = ground.seaward(PX, PY)
-    CitX, CitY = site("citadel"); cityX, cityY = site("city")
+    CitX, CitY = site("citadel"); fX, fY = site("fleet", 0); rX, rY = site("redoubt")
     cams = {"round": cam_at("Cam · the Great Round", (RX, RY, rim - 4), (-95, -95), 70),
             "cothon": cam_at("Cam · the lantern harbour", (CX, CY, 0), (math.cos(th_c) * 520, math.sin(th_c) * 520), 330),
             "port": cam_at("Cam · merchant quays and town", (PX - s_port[0] * 180, PY - s_port[1] * 180, 20), (s_port[0] * 800, s_port[1] * 800), 360),
-            "city": cam_at("Cam · the headland city", (cityX, cityY, ground.z(cityX, cityY)), (-420, -420), 330),
+            "city": cam_at("Cam · defensive fleet anchorages", (fX, fY, 2), (295, 315), 143, lens=35),
+            "fleet": cam_at("Cam · defensive fleet anchorages", (fX, fY, 2), (295, 315), 143, lens=35),
+            "redoubt": cam_at("Cam · Admirals' coastal redoubt", (rX, rY, ground.z(rX, rY)), (50, -40), 22, lens=32),
             "citadel": cam_at("Cam · citadel and walled harbour", ((CitX + HSX) / 2, (CitY + HSY) / 2, 40), (650, -250), 380),
             "parliament": cam_at("Cam · the Parliament's lobe", (RX + 300, RY + 100, 120), (-1400, -1500), 900, lens=40)}
     hAX, hAY = site("hamA"); WT2X, WT2Y = site("watchtowers", 2); stX, stY = site("strait"); HLX, HLY = site("hall"); MOX, MOY = site("monastery")
@@ -586,14 +629,14 @@ def main():
     cP = lambda u, v: (CiX + u * math.cos(cang) - v * math.sin(cang), CiY + u * math.sin(cang) + v * math.cos(cang)); gzc = ground.z(*cP(65, 0))
     aX, aY = agora; adeg = math.radians(-SITES["built"]["town"]["agora_m_deg"][2])
     tP = lambda u, v: (aX + u * math.cos(adeg) - v * math.sin(adeg), aY + u * math.sin(adeg) + v * math.cos(adeg))
-    ctf = city_temple["front"]
     cams.update({
         "detail_lighthouse": bt.camera("Cam · the lighthouse from a captain's post", (p0x, p0y, p0z + 1), (lx, ly, 20), look, lens=35),
         "detail_banquet": bt.camera("Cam · the banquet house from the Round's side", (BX + bdir[0] * 34 - bdir[1] * 14, BY + bdir[1] * 34 + bdir[0] * 14, bz + 7), (BX, BY, bz + 3), look, lens=32),
         "detail_watchtower": bt.camera("Cam · South Crag watchtower", (WTd2X + 6.6 * wtdx2, WTd2Y + 6.6 * wtdy2, wtz2 + 1.55), (WTd2X + 1.1 * wtdx2, WTd2Y + 1.1 * wtdy2, wtz2 + 1.35), look, lens=34),
         "detail_citadel": bt.camera("Cam · the citadel gate", (*cP(112, 22), gzc + 6), (*cP(65, 0), gzc + 8), look, lens=35),
         "detail_town": bt.camera("Cam · the agora and its stoa", (*tP(-55, -45), ground.z(aX, aY) + 16), (*tP(0, 12), ground.z(aX, aY) + 3), look, lens=30),
-        "detail_city": bt.camera("Cam · the headland city's temple", (ctf[0] + 45, ctf[1] - 38, ground.z(*ctf) + 26), (ctf[0] - 8, ctf[1], ground.z(*ctf) + 6), look, lens=35),
+        "detail_city": bt.camera("Cam · Flagship Sift and dispatch skiffs", (fX + 42, fY - 35, 4.5), (fX, fY, 2.5), look, lens=35),
+        "detail_fleet": bt.camera("Cam · Flagship Sift and dispatch skiffs", (fX + 42, fY - 35, 4.5), (fX, fY, 2.5), look, lens=35),
         "round_gate": bt.camera("Cam · the Round's east gate", (RX + 50, RY - 12, rim + 3.2), (RX + 24.2, RY, rim + 4.2), look, lens=32),
         "round_interior": bt.camera("Cam · across the Round from the west verandah", (RX - 22.0, RY + 1.5, round_info["z_verandah"] + 1.6), (RX + 12, RY, round_info["z_orch"] + 2.5), look, lens=20),
         "round_window": bt.camera("Cam · out of an east verandah window", br.window_eye(round_info, (BX, BY))[0], (BX, BY, ground.z(BX, BY) + 3), look, lens=35),
